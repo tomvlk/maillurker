@@ -1,0 +1,27 @@
+language: python
+
+python:
+  - 3.3
+  - 3.4
+  - 3.5
+
+services:
+  - mysql
+
+env:
+  - DJANGO=1.8.15
+
+before_install:
+  - export DJANGO_SETTINGS_MODULE=config.settings
+
+install:
+  - pip install -r requirements.txt
+
+
+
+before_script:
+  - mysql -e 'create database myapp_test;'
+
+script:
+  - cd tools && ./pre-tests.sh
+  - cd src && python manage.py test
