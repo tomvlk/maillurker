@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Copy local file for travis testing.
-cp ../src/config/settings/local.travis.py ../src/config/settings/local.py
+cp ${TRAVIS_BUILD_DIR}/src/config/settings/local.travis.py ${TRAVIS_BUILD_DIR}/src/config/settings/local.py
