@@ -6,8 +6,10 @@ urllib3==1.18
 django-crispy-forms
 django-watson==1.2.3
 django_compressor==2.1
-jsonfield==1.0.3
 django-cors-headers==1.2.0
+
+jsonfield==1.0.3
+django-picklefield==0.3.2
 
 # Debuging & Logging
 colorlog
