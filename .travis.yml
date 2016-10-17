@@ -23,5 +23,5 @@ before_script:
   - mysql -e 'create database myapp_test;'
 
 script:
-  - cd tools && ./pre-tests.sh
-  - cd src && python manage.py test
+  - ./tools/pre-tests.sh
+  - python src/manage.py test
