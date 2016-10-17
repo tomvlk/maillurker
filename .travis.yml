@@ -20,7 +20,7 @@ install:
 
 
 before_script:
-  - mysql -e 'create database myapp_test;'
+  - mysql -e 'create database lurker;'
 
 script:
   - ./tools/pre-tests.sh
