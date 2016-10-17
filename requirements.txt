@@ -1,0 +1,24 @@
+# Django & Core
+Django==1.8.15
+pymysql==0.7.9
+django-grappelli==2.6.5
+urllib3==1.18
+django-crispy-forms
+django-watson==1.2.3
+django_compressor==2.1
+jsonfield==1.0.3
+django-cors-headers==1.2.0
+
+# Debuging & Logging
+colorlog
+django-debug-toolbar
+django-extensions>=1.5.9
+Werkzeug
+
+# Documentation
+sphinx
+sphinx_rtd_theme
+
+# API
+djangorestframework==3.4.7
+pygments==2.1.3
