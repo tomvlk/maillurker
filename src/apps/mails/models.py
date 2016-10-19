@@ -19,7 +19,7 @@ class Message(BaseModel):
 
 	subject = models.TextField()
 
-	source = models.BinaryField(null=True, default=None)
+	source = models.TextField(null=True, default=None)
 
 	size = models.IntegerField(null=True, default=None)
 
@@ -39,6 +39,6 @@ class MessagePart(BaseModel):
 
 	charset = models.CharField(max_length=255, null=True)
 
-	body = models.BinaryField(null=True)
+	body = models.TextField(null=True)
 
 	size = models.IntegerField(null=True)

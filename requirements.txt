@@ -2,6 +2,7 @@
 Django==1.8.15
 pymysql==0.7.9
 django-grappelli==2.6.5
+django-material==0.9.1
 urllib3==1.18
 django-crispy-forms
 django-watson==1.2.3
