@@ -1,0 +1,84 @@
+{% load staticfiles %}
+{% load cache %}
+{% load core_tags %}
+{% load compress %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Email Lurker</title>
+
+    <meta name="description" content="Email Lurker">
+    <meta name="author" content="Tom Valk">
+
+    <link rel="shortcut icon" href="{% static 'image/logo/logo.png' %}">
+
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+        <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    {% endcompress %}
+</head>
+<body>
+<!-- Header & Navbar -->
+{% include 'core/navbar.html' %}
+
+<!-- Body -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Left sidebar -->
+            <h4>Filters</h4>
+
+            <ul class="nav nav-sidebar">
+                <li>
+                    <a href="#">
+                        All messages
+                        <span class="pull-right">
+                            <span class="badge">
+                                {{ total_mails }}
+                            </span>
+                            <i class="fa fa-inbox"></i>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-sidebar">
+                {% for filter in filters.servers %}
+                    <li>
+                        <a href="/mails/source/{{ filter.id }}">
+                            {{ filter.alias }}
+                            <span class="pull-right">
+                            <span class="badge">
+                                {{ filter.mails }}
+                            </span>
+                            <i class="fa fa-server"></i>
+                        </span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-md-9">
+            <!-- Content -->
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+{% compress js %}
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/core.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+{% endcompress %}
+{% block end_body %}{% endblock %}
+</body>
+</html>
