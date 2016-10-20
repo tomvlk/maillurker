@@ -12,8 +12,7 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		lurker = Lurker.start()
 
-		self.stdout.write(self.style.WARNING('Started lurking on {}:{}..'.format(
-			settings.SMTPD_ADDRESS, settings.SMTPD_PORT
-		)))
-
-		asyncore.loop()
+		try:
+			asyncore.loop()
+		except KeyboardInterrupt:
+			exit()

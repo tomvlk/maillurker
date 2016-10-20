@@ -1,5 +1,4 @@
 import asyncore
-import json
 import smtpd
 import email
 import logging
@@ -100,7 +99,9 @@ class Lurker(smtpd.SMTPServer):
 		"""
 		if Lurker.INSTANCE:
 			return
+
 		Lurker.INSTANCE = Lurker((settings.SMTPD_ADDRESS, settings.SMTPD_PORT), None)
+
 		if threaded:
 			Lurker.THREAD = threading.Thread(target=asyncore.loop, kwargs={'timeout': 1})
 			Lurker.THREAD.start()
