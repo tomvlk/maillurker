@@ -10,9 +10,9 @@ class FilterSetAdmin(admin.ModelAdmin):
 	name = 'filter'
 	icon = '<i class="material-icons">filter</i>'
 
-	list_display = ('name', 'created_by', 'global_filter', 'is_active', 'icon', 'created_at', 'updated_at')
+	list_display = ('name', 'created_by', 'is_global', 'is_active', 'icon', 'created_at', 'updated_at')
 	search_fields = ('name', 'created_by', 'icon')
-	list_filter = ('created_by', 'global_filter', 'is_active', 'icon')
+	list_filter = ('created_by', 'is_global', 'is_active', 'icon')
 	ordering = ('-created_at',)
 
 	form = forms.FilterSetEditForm
@@ -21,16 +21,8 @@ class FilterSetAdmin(admin.ModelAdmin):
 
 	fieldsets = (
 		(None, {
-			'fields': ('name', 'icon', 'created_by', 'global_filter', 'is_active')
+			'fields': ('name', 'icon', 'created_by', 'is_global', 'is_active')
 		}),
 	)
-
-	#add_fieldsets = (
-	#	(None, {
-	#		'classes': ('wide',),
-	#		'fields': ('username', 'password1', 'password2')}
-	#	 ),
-	#)
-
 
 admin.site.register(models.FilterSet, FilterSetAdmin)

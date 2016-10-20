@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('name', models.CharField(max_length=255)),
-                ('global_filter', models.BooleanField(default=False)),
+                ('is_global', models.BooleanField(default=False)),
                 ('is_active', models.BooleanField()),
                 ('icon', models.CharField(default='fa fa-filter', max_length=255, choices=[('fa fa-filter', 'Default Filter'), ('fa fa-server', 'Server')])),
                 ('created_by', models.ForeignKey(related_name='created_filters', to=settings.AUTH_USER_MODEL)),

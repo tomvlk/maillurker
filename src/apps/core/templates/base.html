@@ -43,11 +43,11 @@
 
             <ul class="nav nav-sidebar">
                 <li>
-                    <a href="#">
+                    <a href="{% url 'mails:list' %}">
                         All messages
                         <span class="pull-right">
                             <span class="badge">
-                                {{ total_mails }}
+                                {{ mails.total }}
                             </span>
                             <i class="fa fa-inbox"></i>
                         </span>
@@ -55,21 +55,59 @@
                 </li>
             </ul>
 
-            <ul class="nav nav-sidebar">
-                {% for filter in filters.servers %}
-                    <li>
-                        <a href="/mails/source/{{ filter.id }}">
-                            {{ filter.alias }}
-                            <span class="pull-right">
-                            <span class="badge">
-                                {{ filter.mails }}
+            {% if filters.global_filters %}
+                <ul class="nav nav-sidebar">
+                    {% for filter in filters.global_filters %}
+                        <li>
+                            <a href="/mails/{{ filter.id }}">
+                                {{ filter.alias }}
+                                <span class="pull-right">
+                                <span class="badge">
+                                    {{ filter.mails }}
+                                </span>
+                                <i class="fa fa-server"></i>
                             </span>
-                            <i class="fa fa-server"></i>
-                        </span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if filters.global_filters %}
+                <ul class="nav nav-sidebar">
+                    {% for filter in filters.user_filters %}
+                        <li>
+                            <a href="/mails/{{ filter.id }}">
+                                {{ filter.alias }}
+                                <span class="pull-right">
+                                <span class="badge">
+                                    {{ filter.mails }}
+                                </span>
+                                <i class="fa fa-server"></i>
+                            </span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <br>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>
+                            <i class="fa fa-lightbulb-o"></i>
+                            No personal filters!
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            Create your own personal filters now to get an organised workspace.
+                        </p>
+                        <a href="#" class="btn btn-primary btn-sm">
+                            Create filters
                         </a>
-                    </li>
-                {% endfor %}
-            </ul>
+                    </div>
+                </div>
+            {% endif %}
         </div>
 
         <div class="col-md-9">

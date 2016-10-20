@@ -24,7 +24,7 @@ class FilterSet(BaseModel):
 	created_by = models.ForeignKey(User, related_name='created_filters')
 	"""Couple filter to user. Use this especially when filter is not global but user defined."""
 
-	global_filter = models.BooleanField(default=False)
+	is_global = models.BooleanField(default=False)
 	"""Set true if the filter is global"""
 
 	is_active = models.BooleanField()
