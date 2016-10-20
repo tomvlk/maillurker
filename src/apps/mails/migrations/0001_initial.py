@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('type', models.TextField(null=True)),
                 ('filename', models.CharField(max_length=512, null=True)),
                 ('charset', models.CharField(max_length=255, null=True)),
-                ('body', models.TextField(null=True)),
+                ('body', models.BinaryField(null=True)),
                 ('size', models.IntegerField(null=True)),
                 ('message', models.ForeignKey(to='mails.Message', related_name='parts')),
             ],

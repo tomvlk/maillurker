@@ -39,6 +39,6 @@ class MessagePart(BaseModel):
 
 	charset = models.CharField(max_length=255, null=True)
 
-	body = models.TextField(null=True)
+	body = models.BinaryField(null=True)
 
 	size = models.IntegerField(null=True)
