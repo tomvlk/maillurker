@@ -6,6 +6,7 @@ import threading
 from time import sleep
 
 from django.conf import settings
+from django.core.cache import cache
 from django.db import transaction
 
 from apps.mails import models
@@ -64,7 +65,26 @@ class Lurker(smtpd.SMTPServer):
 					size=length
 				)
 
+		try:
+			self.clear_cache()
+		except Exception as e:
+			logger.debug('Cache clearance failed.')
+			logger.debug(e)
+
+		logger.info(
+			'Saved email from \'{}:{}\' with {} parts.'.format(message.peer, message.port, message.parts.count())
+		)
+
 		return
+
+	@staticmethod
+	def clear_cache():
+		if settings.DEBUG:
+			return
+
+		cache.delete_many([
+			'mails.context.counts',
+		])
 
 	@staticmethod
 	def parse_addresses(raw):
@@ -87,7 +107,6 @@ class Lurker(smtpd.SMTPServer):
 		"""
 		return list(email.utils.parseaddr(raw))
 
-
 	@staticmethod
 	def start(test=False, threaded=False):
 		"""
@@ -106,7 +125,7 @@ class Lurker(smtpd.SMTPServer):
 			Lurker.THREAD = threading.Thread(target=asyncore.loop, kwargs={'timeout': 1})
 			Lurker.THREAD.start()
 			# Sleep to make sure our Lurker instance is ready.
-			sleep(3)
+			sleep(2)
 
 		logger.info('Started listening on {}:{}'.format(settings.SMTPD_ADDRESS, settings.SMTPD_PORT))
 

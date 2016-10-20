@@ -99,6 +99,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 	'django.core.context_processors.request',
 	'django.contrib.messages.context_processors.messages',
 	'apps.core.context.add_global_context',
+	'apps.mails.context.add_global_context',
 )
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'

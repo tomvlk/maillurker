@@ -1,8 +1,15 @@
+import json
+import logging
+
+from django.conf import settings
+from django.core.cache import cache
 from django.db import models
 from jsonfield import JSONField
 from picklefield import PickledObjectField
 
 from apps.core.models import BaseModel
+
+logger = logging.getLogger(__name__)
 
 
 class Message(BaseModel):
@@ -26,6 +33,30 @@ class Message(BaseModel):
 	type = models.TextField(null=True, default=None)
 
 	headers = JSONField(null=True, default=None)
+
+
+	@staticmethod
+	def count_all():
+		total = None
+		try:
+			if not settings.DEBUG and cache.get('mails.context.counts'):
+				counts = json.loads(cache.get('mails.context.counts'))
+				if 'total' in counts:
+					total = counts['total']
+		except Exception as e:
+			logger.info('Can\'t retrieve or parse cache for message counts!')
+			logger.debug(e)
+
+		# Retrieve.
+		if not total:
+			total = Message.objects.count()
+
+			if not settings.DEBUG:
+				cache.set('mails.context.counts', json.dumps({
+					'total': total
+				}))
+
+		return total
 
 
 class MessagePart(BaseModel):

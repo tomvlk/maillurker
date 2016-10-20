@@ -9,9 +9,13 @@ EML_PORT = '1025'
 EML_ROOT = os.path.join(settings.TEST_DIR, 'files', 'eml')
 
 
-def send_eml(path, from_addr, to_addrs, mail_options=None, rcpt_options=None):
+def send_eml(path, from_addr, to_addrs, mail_options=None, rcpt_options=None,
+			 server=EML_SERVER, port=EML_PORT, root=EML_ROOT):
 	"""
 	Send mail from EML file.
+	:param port:
+	:param server:
+	:param root:
 	:param path:
 	:param from_addr:
 	:param to_addrs:
@@ -25,7 +29,7 @@ def send_eml(path, from_addr, to_addrs, mail_options=None, rcpt_options=None):
 		mail_options = []
 
 	if not os.path.isabs(path):
-		path = os.path.join(EML_ROOT, path)
+		path = os.path.join(root, path)
 
 	if not os.path.isfile(path):
 		raise Exception('EML file \'{}\' doesn\'t exists!'.format(path))
@@ -35,7 +39,7 @@ def send_eml(path, from_addr, to_addrs, mail_options=None, rcpt_options=None):
 
 	smtp = None
 	try:
-		smtp = smtplib.SMTP(EML_SERVER, EML_PORT)
+		smtp = smtplib.SMTP(server, port)
 		smtp.sendmail(from_addr, to_addrs, msg, mail_options, rcpt_options)
 	except Exception as e:
 		smtp.close()

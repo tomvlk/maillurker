@@ -1,0 +1,25 @@
+Return-Path: <foo@bar.com>
+To: Any User <any@user.com>
+Subject: Random-4
+From: FooBar <foo@bar.com>
+Reply-To: FooBar <foo@bar.com>
+Sender: foo@bar.com
+X-Mailer: AnySender $Revision: 1.00 $ (mail)
+Mime-Version: 1.0 (1.0)
+Content-Type: text/plain; charset=us-ascii
+Message-ID: <20050430192829.0111.foo@bar.com>
+Date: Mon, 10 Oct 2016 22:43:16 +0200
+
+
+Random Text:
+
+Aliquam cursus, mauris venenatis pulvinar ornare, augue arcu interdum
+odio, nec commodo erat ligula vitae felis. Mauris a urna facilisis,
+efficitur nibh id, molestie magna. Nam elementum mi nec eros interdum,
+eget vestibulum quam varius. Cras feugiat blandit finibus. Sed a ligula
+mi. Nullam ut sapien nibh. Proin a malesuada orci, in malesuada mi.
+Donec ullamcorper est et purus tempus sollicitudin. Curabitur sit amet
+lacus tincidunt, sodales libero sit amet, dapibus dui. Vestibulum ac
+enim in nisl suscipit vehicula.
+
+Thanks!

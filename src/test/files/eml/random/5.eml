@@ -1,0 +1,25 @@
+Return-Path: <foo@bar.com>
+To: Any User <any@user.com>
+Subject: Random-5
+From: FooBar <foo@bar.com>
+Reply-To: FooBar <foo@bar.com>
+Sender: foo@bar.com
+X-Mailer: AnySender $Revision: 1.00 $ (mail)
+Mime-Version: 1.0 (1.0)
+Content-Type: text/plain; charset=us-ascii
+Message-ID: <20050430192829.0111.foo@bar.com>
+Date: Mon, 10 Oct 2016 22:43:16 +0200
+
+
+Random Text:
+
+Ut aliquam justo sed elit finibus volutpat id id risus. Nullam a magna
+elementum, consequat felis non, varius nibh. Quisque quis condimentum
+nisl. Sed quis turpis vitae magna viverra laoreet id a eros. Sed quis
+venenatis augue. Maecenas placerat lacinia tristique. Duis mollis arcu
+nibh, id rhoncus ex faucibus non. Donec at ligula euismod, tempor sem
+ut, interdum mauris. Phasellus ac convallis nulla. Quisque vitae
+faucibus nulla. Duis consectetur tempus convallis. Suspendisse eget
+feugiat odio.
+
+Thanks!
