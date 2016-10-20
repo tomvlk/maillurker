@@ -1,13 +1,10 @@
-from django.test import TestCase
+from ..base import TestCase
 
 from apps.core.smtpd import Lurker
 from apps.mails import models
 
 
 class MessageModelsTestCase(TestCase):
-	def setUp(self):
-		pass
-
 	def test_message_creation(self):
 		message = models.Message.objects.create(
 			peer='127.0.0.1',

@@ -12,6 +12,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 TMP_DIR = os.path.join(BASE_DIR, 'tmp')
 DATA_DIR = os.path.join(os.path.dirname(BASE_DIR), 'data')
+TEST_DIR = os.path.join(os.path.dirname(BASE_DIR), 'src', 'test')
 
 try:
 	os.makedirs(TMP_DIR)

@@ -1,7 +1,10 @@
+import asyncore
 import json
 import smtpd
 import email
 import logging
+import threading
+from time import sleep
 
 from django.conf import settings
 from django.db import transaction
@@ -13,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 class Lurker(smtpd.SMTPServer):
 	INSTANCE = None
+	THREAD = None
 
 	def process_message(self, peer, mailfrom, rcpttos, data, **kwargs):
 		"""
@@ -41,7 +45,7 @@ class Lurker(smtpd.SMTPServer):
 				recipients_cc=self.parse_addresses(msg.get_all('Cc', [])),
 				recipients_bcc=self.parse_addresses(msg.get_all('Bcc', [])),
 				subject=msg.get('Subject'),
-				source=data.encode(),
+				source=data,
 				size=len(data),
 				type=msg.get_content_type(),
 			)
@@ -86,13 +90,31 @@ class Lurker(smtpd.SMTPServer):
 
 
 	@staticmethod
-	def start():
+	def start(test=False, threaded=False):
 		"""
 		Start SMTP catcher.
 
+		:param test:
+		:param threaded:
 		:return:
 		"""
 		if Lurker.INSTANCE:
 			return
 		Lurker.INSTANCE = Lurker((settings.SMTPD_ADDRESS, settings.SMTPD_PORT), None)
+		if threaded:
+			Lurker.THREAD = threading.Thread(target=asyncore.loop, kwargs={'timeout': 1})
+			Lurker.THREAD.start()
+			# Sleep to make sure our Lurker instance is ready.
+			sleep(3)
+
 		logger.info('Started listening on {}:{}'.format(settings.SMTPD_ADDRESS, settings.SMTPD_PORT))
+
+	@staticmethod
+	def stop():
+		"""
+		Stop threaded server.
+		:return:
+		"""
+		Lurker.INSTANCE.close()
+		if Lurker.THREAD:
+			Lurker.THREAD.join()
