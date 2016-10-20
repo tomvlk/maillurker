@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block css_post %}
+<style>
+    html, body, .container {
+        height: 100%;
+        width: 100%;
+    }
+    body {
+        /* background-color: #1abc9c; */
+        background-color: #2196f3;
+    }
+    .container {
+        display: table;
+        vertical-align: middle;
+    }
+    .col-center-block {
+        float: none;
+        display: block;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .vertical-center-row {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .login-form {
+        background-color: #fafafa;
+    }
+</style>
+{% endblock %}
+
+
+{% block body %}
+    <div class="container">
+        <div class="row vertical-center-row">
+            <div class="col-xs-12 col-sm-9 col-md-7 col-center-block">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="jumbotron">
+                            <div class="text-center">
+                                <h1>
+                                    <i class="fa fa-envelope"></i><br>
+                                    Email Lurker
+                                </h1>
+                                <p>
+                                    Please authenticate to access the Email Lurker interface!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="login-form jumbotron">
+                            <form class="form" action="{% url 'accounts:login' %}?next={{ next }}" method="post">
+                                {% csrf_token %}
+
+                                <!-- Alert message -->
+                                {% if messages %}
+                                    <div>
+                                        {% for message in messages %}
+                                            <div class="alert alert-dismissable
+                                                    {% if message.tags %}{{ message.tags }}{% endif %}
+                                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}alert-info{% endif %}
+                                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}alert-success{% endif %}
+                                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}alert-warning{% endif %}
+                                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}alert-danger{% endif %}
+                                                "><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                {{ message }}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control login-field"
+                                           value="{% if form.username.value %}{{form.username.value}}{% endif %}"
+                                           placeholder="Enter your username" id="username" name="username">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="password" class="form-control login-field"
+                                           value=""
+                                           placeholder="Enter your password" id="password" name="password">
+                                </div>
+
+                                <br>
+
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                    Log in
+                                </button>
+
+                                <!-- <a class="login-link" href="http://www.jquery2dotnet.com/" target="_blank">Lost your password?</a>-->
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

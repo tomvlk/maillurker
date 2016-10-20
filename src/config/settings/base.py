@@ -42,6 +42,7 @@ SMTPD_PORT = getattr(local, 'SMTPD_PORT', 1025)
 ####
 INSTALLED_APPS = (
 	'apps.core.apps.CoreConfig',
+	'apps.accounts.apps.AccountsConfig',
 
 	'material',
 	'material.admin',
@@ -65,7 +66,7 @@ INSTALLED_APPS = (
 	'corsheaders',
 
 	'apps.mails.apps.MailsConfig',
-	# 'apps.accounts.apps.AccountsConfig'
+	'apps.filters.apps.FiltersConfig',
 )
 
 ####
@@ -74,9 +75,10 @@ INSTALLED_APPS = (
 ROOT_URLCONF = 'config.urls'
 COMPRESS_ENABLED = True
 
-# LOGIN_URL = 'accounts:login'
-# LOGOUT_URL = 'accounts:logout'
-# LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'accounts:login'
+LOGOUT_URL = 'accounts:logout'
+LOGIN_REDIRECT_URL = '/'
+AUTH_USER_MODEL = 'accounts.User'
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
@@ -112,7 +114,8 @@ MIDDLEWARE_CLASSES = (
 
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
-	# 'apps.accounts.middleware.LoginRequiredMiddleware',
+
+	'apps.accounts.middleware.LoginRequiredMiddleware',
 	# 'apps.accounts.middleware.SocialAuthExceptionMiddleware',
 )
 

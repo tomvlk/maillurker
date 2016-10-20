@@ -16,15 +16,23 @@
 
     <link rel="shortcut icon" href="{% static 'image/logo/logo.png' %}">
 
+    {% block css_pre %}{% endblock %}
+
     {% compress css %}
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
         <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     {% endcompress %}
+
+    {% block css_post %}{% endblock %}
 </head>
 <body>
+{% block body %}
+
 <!-- Header & Navbar -->
+{% block body_navbar %}
 {% include 'core/navbar.html' %}
+{% endblock %}
 
 <!-- Body -->
 <div class="container">
@@ -71,6 +79,9 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block body_js_pre %}{% endblock %}
 {% compress js %}
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
@@ -79,6 +90,8 @@
     <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
 {% endcompress %}
+{% block body_js_post %}{% endblock %}
+
 {% block end_body %}{% endblock %}
 </body>
 </html>
