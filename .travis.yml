@@ -25,7 +25,6 @@ before_script:
 
 script:
   - ./tools/pre-tests.sh
-  - ./tools/start-lurking.sh
   - python src/manage.py test
 
 
