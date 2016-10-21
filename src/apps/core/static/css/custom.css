@@ -1,5 +1,5 @@
 body {
-    background:#f0f0f0;
+    /*background:#f0f0f0;*/
 }
 
 
@@ -9,33 +9,27 @@ body {
 
 
 .nav-sidebar {
-    background:#fff;
-    border:1px solid #ccc;
-    border-radius:4px;
-    margin-top:15px;
+    background: #222222;
+    border: 1px solid #282828;
+    border-radius: 4px;
+    margin-top: 15px;
 }
 .nav-sidebar>li>a>.name {
     padding: 9px 20px;
 }
 .nav-sidebar>li>a {
-    padding: 7px 6px;
-}
-.nav-sidebar>li {
-    border-bottom: 1px solid rgb(229, 229, 229);
+    padding: 10px 15px 10px 5px;
 }
 .nav-sidebar>li>a>.icon {
     font-size: 14px;
     margin: 0 5px 0 0;
     padding: 5px;
-    border-right: 1px solid #efefef;
+    border-right: 1px solid #282828;
 
 }
 .nav-sidebar>li:first-child>a {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
-}
-.nav-sidebar>li:last-child {
-    border-bottom: 0 solid rgb(229, 229, 229);
 }
 .nav-sidebar>li:last-child>a {
     border-bottom-left-radius: 4px;
