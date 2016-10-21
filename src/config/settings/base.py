@@ -92,10 +92,10 @@ WSGI_APPLICATION = 'wsgi.application'
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+
 ####
 # Templates & Middleware
 ####
-
 TEMPLATE_CONTEXT_PROCESSORS += (
 	'django.core.context_processors.request',
 	'django.contrib.messages.context_processors.messages',
@@ -120,13 +120,12 @@ MIDDLEWARE_CLASSES = (
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
 	'apps.accounts.middleware.LoginRequiredMiddleware',
-	# 'apps.accounts.middleware.SocialAuthExceptionMiddleware',
 )
+
 
 ####
 # Authentication and security
 ####
-
 CORS_ORIGIN_ALLOW_ALL = True
 
 GRAPPELLI_ADMIN_TITLE = 'Email Lurker, Email Catcher'
@@ -136,17 +135,17 @@ LOGIN_EXEMPT_URLS = [
 ]
 if not getattr(local, 'GLOBAL_AUTHENTICATION', False):
 	LOGIN_EXEMPT_URLS += [
-		'*'
+		'.*'
 	]
 
 AUTHENTICATION_BACKENDS = (
 	'django.contrib.auth.backends.ModelBackend',
 )
 
+
 ####
 # Template and cache
 ####
-
 TEMPLATE_LOADERS = (
 	'django.template.loaders.filesystem.Loader',
 	'django.template.loaders.app_directories.Loader',
@@ -165,10 +164,10 @@ CACHES = {
 	}
 }
 
+
 ####
 # Database settings.
 ####
-
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.mysql',

@@ -19,9 +19,10 @@
     </li>
 </ul>
 
-{% if filters.global_filters %}
+<h4>Global filters</h4>
+{% if apps_filters.global_filters %}
     <ul class="nav nav-sidebar">
-        {% for filter in filters.global_filters %}
+        {% for filter in apps_filters.global_filters %}
             <li>
                 <a href="/mails/{{ filter.id }}">
                     {{ filter.alias }}
@@ -37,9 +38,12 @@
     </ul>
 {% endif %}
 
-{% if filters.global_filters %}
+{% if request.user.is_authenticated %}
+<h4>Personal Filters</h4>
+{% endif %}
+{% if apps_filters.user_filters and request.user.is_authenticated %}
     <ul class="nav nav-sidebar">
-        {% for filter in filters.user_filters %}
+        {% for filter in apps_filters.user_filters %}
             <li>
                 <a href="/mails/{{ filter.id }}">
                     {{ filter.alias }}
@@ -53,7 +57,7 @@
             </li>
         {% endfor %}
     </ul>
-{% else %}
+{% elif request.user.is_authenticated %}
     <br>
     <div class="panel panel-default">
         <div class="panel-heading">

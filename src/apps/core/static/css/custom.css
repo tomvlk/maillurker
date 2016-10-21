@@ -3,16 +3,18 @@ body {
 }
 
 
+/**
+* SIDEBAR
+**/
 .nav-sidebar {
     padding: 0 !important;
 }
-
-
 .nav-sidebar {
     background: #222222;
     border: 1px solid #282828;
     border-radius: 4px;
     margin-top: 15px;
+    margin-bottom: 20px;
 }
 .nav-sidebar>li>a>.name {
     padding: 9px 20px;
