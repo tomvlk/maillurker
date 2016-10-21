@@ -15,7 +15,7 @@ class FilterSetAdmin(admin.ModelAdmin):
 	list_filter = ('created_by', 'is_global', 'is_active', 'icon')
 	ordering = ('-created_at',)
 
-	form = forms.FilterSetEditForm
+	form = forms.AdminFilterSetEditForm
 
 	readonly_fields = ['created_at', 'updated_at']
 

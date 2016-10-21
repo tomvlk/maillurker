@@ -1,21 +1,10 @@
 {% extends 'base.html' %}
-{% load django_tables2 %}
 
 {% block content %}
     <table class="table table-bordered table-hover table-condensed">
     <thead>
     <tr>
-    {% for col in table.header %}
-        <th>
-            {% if col.sort %}
-            <a href="?sort={{ col.name }}">
-            {% endif %}
-            {{ col.label }}
-            {% if col.sort %}
-            </a>
-            {% endif %}
-        </th>
-    {% endfor %}
+    <th></th>
     </tr>
     </thead>
     </table>

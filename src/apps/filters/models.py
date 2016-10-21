@@ -42,6 +42,17 @@ class FilterSet(BaseModel):
 	def get_combine_choices():
 		return dict(FilterSet.COMBINE_CHOICES)
 
+	def get_matches(self):
+		# TODO, decode criteria and match against messages.
+		# TODO, use cache
+		return Criteria.objects.all()
+
+	@property
+	def count(self):
+		if getattr(self, '_count', None) is None:
+			self._count = self.get_matches().count()
+		return self._count
+
 
 class Criteria(BaseModel):
 	OPERATOR_CHOICES = (
