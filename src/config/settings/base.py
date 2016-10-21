@@ -68,6 +68,7 @@ INSTALLED_APPS = (
 
 	'apps.mails.apps.MailsConfig',
 	'apps.filters.apps.FiltersConfig',
+	'apps.api.apps.ApiConfig',
 )
 
 ####
