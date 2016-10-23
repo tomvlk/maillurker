@@ -1,10 +1,10 @@
-from crispy_forms.bootstrap import StrictButton
+from crispy_forms.bootstrap import StrictButton, FormActions
 from django import forms
 from django.core.urlresolvers import reverse
 from django.forms.util import ErrorList
 from django.utils import timezone
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, Div, Field
+from crispy_forms.layout import Layout, Fieldset, Div, Field, Submit
 
 from apps.filters.models import FilterSet
 
@@ -14,6 +14,7 @@ class AdminFilterSetEditForm(forms.ModelForm):
 
 
 class FilterSetForm(forms.ModelForm):
+	is_global = forms.BooleanField(widget=forms.CheckboxInput)
 
 	def __init__(self, *args, **kwargs):
 		super(FilterSetForm, self).__init__(*args, **kwargs)
@@ -32,12 +33,17 @@ class FilterSetForm(forms.ModelForm):
 		self.helper.layout = Layout(
 			'name',
 			'icon',
-			StrictButton('Submit', css_class='btn-default', type='submit'),
+			Field('is_global'),
+			'is_active',
+			FormActions(
+				Submit('submit', 'Submit', css_class='btn-success'),
+				Submit('cancel', 'Cancel'),
+			)
 		)
 
 	class Meta:
 		model = FilterSet
-		fields = ('name', 'icon')
+		fields = ('name', 'icon', 'is_global', 'is_active')
 
 
 class FilterSetDeleteForm(forms.Form):

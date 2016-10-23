@@ -20,6 +20,8 @@
 
     {% compress css %}
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'css/select2.css' %}">
+        <link rel="stylesheet" href="{% static 'css/select2-bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
         <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     {% endcompress %}
@@ -55,6 +57,7 @@
 {% compress js %}
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/select2.js' %}"></script>
 
     <script type="text/javascript" src="{% static 'js/core.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/app.js' %}"></script>

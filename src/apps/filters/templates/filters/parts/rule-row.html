@@ -1,0 +1,40 @@
+<tr data-rule-state="{{ state }}" data-rule-pk="{% if rule %}{{ rule.pk }}{% endif %}">
+    <td>
+        <select class="make-select2 field-select" name="rule_field[]">
+            <option></option>
+            {% for key, value in apps_filters.options.fields %}
+                <option value="{{ key }}">
+                    {{ value }}
+                </option>
+            {% endfor %}
+        </select>
+    </td>
+    <td>
+        <select class="make-select2 field-operator" name="rule_operator[]">
+            <option></option>
+            {% for key, value in apps_filters.options.operators %}
+                <option value="{{ key }}">
+                    {{ value }}
+                </option>
+            {% endfor %}
+        </select>
+    </td>
+    <td>
+        <input type="text" class="form-control field-value" value="{% if rule %}{{ rule.value }}{% endif %}">
+    </td>
+    <td>
+        <div class="checkbox">
+            <label class="checkbox-inline">
+                <input type="checkbox" name="rule_negate[]" value="1" class="field-negate"
+                       {% if rule and rule.negate %}checked="checked"{% endif %}
+                >
+                Negate
+            </label>
+        </div>
+    </td>
+    <td>
+        <button type="button" class="btn btn-default rule-remove-button">
+            Delete
+        </button>
+    </td>
+</tr>

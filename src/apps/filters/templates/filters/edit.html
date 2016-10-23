@@ -1,6 +1,262 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% load compress %}
 
 {% block content %}
-    {% crispy form %}
+    <div class="page-header">
+        <h3 class="page-title">
+            {% if filterset.pk %}
+                Edit filter '{{ filterset.name }}'
+            {% else %}
+                Add filter
+            {% endif %}
+        </h3>
+    </div>
+
+    <form action="{% if filterset.pk %}{% url 'filters:edit' filterset_id=filterset.pk %}{% else %}{% url 'filters:new' %}{% endif %}"
+          class="form" method="post">
+        {% csrf_token %}
+
+        <fieldset>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="filter_name">Name</label>
+                        <input type="text" class="form-control" required="required" id="filter_name" name="filter_name"
+                               placeholder="Filter Name"
+                               value="{{ filterset.name }}">
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <label>Condition</label>
+                    <div class="well-sm">
+                        <div class="form-group radio-inline">
+                            <label for="filter_condition_and">
+                                <input type="radio" id="filter_condition_and" name="filter_condition" value="and"
+                                       {% if not filterset.pk or filterset.combine == 'and' %}checked="checked"{% endif %}
+                                >
+                                AND
+                            </label>
+                        </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="form-group radio-inline">
+                            <label for="filter_condition_or">
+                                <input type="radio" id="filter_condition_or" name="filter_condition" value="or"
+                                       {% if filterset.pk and filterset.combine == 'or' %}checked="checked"{% endif %}
+                                >
+                                OR
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <label>Attributes</label>
+                    <div class="well-sm">
+                        <div class="form-group checkbox-inline">
+                            <label for="filter_is_global">
+                                <input type="checkbox" id="filter_is_global" name="filter_is_global"
+                                       {% if not user.is_superuser %}readonly="readonly"{% endif %}
+                                       {% if filterset.pk and filterset.is_global %}checked="checked"{% endif %}
+                                >
+                                Global
+                            </label>
+                        </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="form-group checkbox-inline">
+                            <label for="filter_is_active">
+                                <input type="checkbox" id="filter_is_active" name="filter_is_active"
+                                       {% if not filterset.pk or filterset.is_active %}checked="checked"{% endif %}>
+                                Active
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <label>Icon</label>
+                    <div class="well-sm">
+                        <select id="filter_icon" name="filter_icon" class="make-select2 field-icon">
+                            {% for key, value in apps_filters.options.icons %}
+                                <option value="{{ key }}">{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+        <br>
+        <fieldset>
+            <legend>
+                Filter Rules
+            </legend>
+
+            <table class="table table-bordered table-condensed">
+                <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Operator</th>
+                    <th>Value</th>
+                    <th>Negate</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody class="rule-pool">
+                {% for rule in rules %}
+                    {% include 'filters/parts/rule-row.html' with rule=rule state='db' %}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-xs-6 text-left">
+                    <button type="button" id="rule-test-button" class="btn btn-info btn-sm"
+                            title="Make sure your rules are valid! Can't test with current rules!">
+                        <i class="fa fa-bolt"></i>&nbsp;
+                        Test rules
+                    </button>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <button type="button" id="rule-add-button" class="btn btn-primary btn-sm"
+                            title="Make sure your rules are valid before adding a new rule!">
+                        <i class="fa fa-plus"></i>&nbsp;
+                        Add rule
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+
+
+        <br><hr>
+        <fieldset class="button-set">
+            <button type="submit" class="btn btn-success">
+                Save Filter
+            </button>
+            <a href="{% url 'filters:list' %}" class="btn btn-warning pull-right">
+                Cancel
+            </a>
+        </fieldset>
+    </form>
+
+    <script type="text/html" id="rule-template">
+        {% include 'filters/parts/rule-row.html' with rule=None state='new' %}
+    </script>
+{% endblock %}
+
+{% block body_js_post %}
+    {{ block.super }}
+
+    {% compress js %}
+    <script type="application/javascript" charset="utf-8">
+        $(function() {
+            $.fn.select2.defaults.set( "theme", "bootstrap" );
+            var addButton  = $('#rule-add-button')
+              , testButton = $('#rule-test-button')
+              , rulePool = $('.rule-pool');
+
+            /**
+             * Make select2 fields ready and prepare some information.
+             * @param el
+             */
+            function init_row(el) {
+                var select2 = el.find('.make-select2');
+                if (! select2) return;
+                select2.select2({
+                    placeholder: 'Select Option',
+                    width: null
+                });
+            }
+            // Execute on the already existing rules.
+            $('.rule-pool tr').each(function () {
+                init_row($(this));
+            });
+            // Init icon field
+            function render_icon(entry) {
+                return '<i class="' + entry.id + '"></i>';
+            }
+            $('.field-icon').select2({
+                placeholder: '-',
+                width: null,
+                escapeMarkup: function (markup) { return markup; },
+                templateResult: render_icon,
+                templateSelection: render_icon
+            });
+
+            /**
+             * Is rule row empty?
+             * @param el Element of the TR row.
+             * @returns {boolean}
+             */
+            function is_row_empty(el) {
+                return ! el.length || ! (
+                        el.find('.field-select option:checked').val() &&
+                        el.find('.field-operator option:checked').val());
+            }
+
+            /**
+             * Add new row
+             * @returns {boolean} true if row has been added or false on validation error.
+             */
+            function add_row() {
+                var pool = rulePool;
+                var last = pool.find('tr:last-child');
+
+                if (last.length && last.data('ruleState', null) !== 'db') {
+                    if (is_row_empty(last)) {
+                        return false;
+                    }
+                }
+
+                // Insert new row.
+                var template = $('#rule-template').html();
+                pool.append(template);
+                init_row(pool.find('tr:last-child'));
+                return true;
+            }
+
+
+            /**
+             * ACTIONS
+             */
+            // Add Row Button.
+            addButton.tooltip({
+                placement: 'left',
+                trigger: 'manual'
+            });
+            addButton.click(function() {
+                if (! add_row()) {
+                    addButton.tooltip('show');
+                    setTimeout(function() {
+                        addButton.tooltip('hide');
+                    }, 3500);
+                }
+            });
+
+            // Delete Row Button.
+            rulePool.on('click', '.rule-remove-button', function(event) {
+                var row = $(this).parents('tr');
+                if (! row.length) return;
+                row.remove();
+            });
+
+            // Test Button.
+            testButton.tooltip({
+                placement: 'left',
+                trigger: 'manual'
+            });
+            testButton.click(function() {
+                var filledRules = rulePool.find('tr').filter(function() {
+                    return ! is_row_empty($(this));
+                }).length;
+
+                if (! filledRules) {
+                    testButton.tooltip('show');
+                    setTimeout(function() {
+                        testButton.tooltip('hide');
+                    }, 3500);
+                }
+            });
+        });
+    </script>
+    {% endcompress %}
 {% endblock %}

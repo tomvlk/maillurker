@@ -1,14 +1,14 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
-from django.views.generic import TemplateView
-from django.views.generic import View
+from django.views import generic
 
+from apps.core.mixins import LoginRequiredMixin
 from apps.filters.models import FilterSet
 
 from . import forms
 
 
-class ListView(TemplateView):
+class ListView(generic.TemplateView):
 	template_name = 'filters/list.html'
 
 	def get_context_data(self, **kwargs):
@@ -17,15 +17,29 @@ class ListView(TemplateView):
 		}
 
 
-class EditView(TemplateView):
+class EditView(LoginRequiredMixin, generic.TemplateView):
 	template_name = 'filters/edit.html'
 
 	def get(self, request, *args, **kwargs):
-		form = forms.FilterSetForm()
-		return self.render_to_response({'form': form})
+		filterset = FilterSet()
+
+		if 'filterset_id' in kwargs:
+			try:
+				filterset = FilterSet.objects.get(pk=kwargs['filterset_id'])
+			except Exception:
+				return redirect(reverse('filters:list'))
+
+		rules = filterset.rules.all()
+
+		form = forms.FilterSetForm(instance=filterset)
+		return self.render_to_response({
+			'form': form,
+			'filterset': filterset,
+			'rules': rules
+		})
 
 
-class DeleteView(TemplateView):
+class DeleteView(LoginRequiredMixin, generic.TemplateView):
 	template_name = 'filters/delete.html'
 
 	def get(self, request, *args, **kwargs):

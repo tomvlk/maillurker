@@ -38,6 +38,19 @@ body {
     border-bottom-right-radius: 4px;
 }
 
+/** FORMS GENERIC **/
+.button-set {
+    color: #888888;
+    background-color: #222222;
+    border: 1px solid #282828;
+
+    margin: 10px 0;
+    padding: 14px 10px;
+
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
 
 /** FILTERS **/
 .form-control.field-value {

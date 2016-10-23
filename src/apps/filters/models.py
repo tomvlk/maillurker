@@ -97,5 +97,3 @@ class Rule(BaseModel):
 	"""Negate condition"""
 
 	value = JSONField()
-
-	pass
