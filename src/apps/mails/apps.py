@@ -13,5 +13,5 @@ class MailsConfig(AppConfig):
 			name='mails',
 			label='Mails',
 			route_name='mails:list',
-			active_regex='^(/mails/)$',
+			active_regex='^(/mails/)',
 		))
