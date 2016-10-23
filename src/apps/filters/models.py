@@ -5,6 +5,7 @@ from jsonfield import JSONField
 
 from apps.accounts.models import User
 from apps.core.models import BaseModel
+from apps.mails.models import Message
 
 
 class FilterSet(BaseModel):
@@ -48,7 +49,7 @@ class FilterSet(BaseModel):
 	def get_matches(self):
 		# TODO, decode criteria and match against messages.
 		# TODO, use cache
-		return Rule.objects.all()
+		return Message.objects.filter(Rule.deserialize_set(self))
 
 	@property
 	def count(self):
@@ -97,3 +98,26 @@ class Rule(BaseModel):
 	"""Negate condition"""
 
 	value = models.TextField()
+
+	@staticmethod
+	def deserialize_set(filterset: FilterSet):
+		combine = Q.AND if filterset.combine == 'and' else Q.OR
+		rules = filterset.rules.all()
+
+		query = Q()
+
+		for rule in rules:
+			# Check if the operator expects a boolean in the value
+			value = rule.value
+			if rule.operator in ['isnull', 'istrue', 'isfalse']:
+				value = True
+
+			clause = {'{}__{}'.format(rule.field, rule.operator): value}
+			node = Q(**clause)
+
+			if rule.negate:
+				node.negate()
+
+			query.add(node, combine)
+
+		return query
