@@ -13,7 +13,7 @@
     </div>
 
     <form action="{% if filterset.pk %}{% url 'filters:edit' filterset_id=filterset.pk %}{% else %}{% url 'filters:new' %}{% endif %}"
-          class="form" method="post">
+          class="form" method="post" id="filters-form">
         {% csrf_token %}
 
         <fieldset>
@@ -90,6 +90,7 @@
             <legend>
                 Filter Rules
             </legend>
+            <input type="hidden" id="rules_json" name="rules" value="">
 
             <table class="table table-bordered table-condensed">
                 <thead>
@@ -129,7 +130,8 @@
 
         <br><hr>
         <fieldset class="button-set">
-            <button type="submit" class="btn btn-success">
+            <button type="submit" class="btn btn-success" id="submit-button"
+                    title="Errors in the form values, please check the elements above!">
                 Save Filter
             </button>
             <a href="{% url 'filters:list' %}" class="btn btn-warning pull-right">
@@ -152,7 +154,8 @@
             $.fn.select2.defaults.set( "theme", "bootstrap" );
             var addButton  = $('#rule-add-button')
               , testButton = $('#rule-test-button')
-              , rulePool = $('.rule-pool');
+              , rulePool = $('.rule-pool')
+              , submitButton = $('#submit-button');
 
             /**
              * Make select2 fields ready and prepare some information.
@@ -189,8 +192,8 @@
              */
             function is_row_empty(el) {
                 return ! el.length || ! (
-                        el.find('.field-select option:checked').val() &&
-                        el.find('.field-operator option:checked').val());
+                        el.find('.field-field option:selected').val() &&
+                        el.find('.field-operator option:selected').val());
             }
 
             /**
@@ -255,6 +258,45 @@
                         testButton.tooltip('hide');
                     }, 3500);
                 }
+            });
+
+            // Submit button, validation and parsing rules.
+            submitButton.tooltip({
+                placement: 'top',
+                trigger: 'manual'
+            });
+            submitButton.click(function(event) {
+                // Cancel action.
+                event.preventDefault();
+
+                // Validate rules.
+                var validRules = rulePool.find('tr').filter(function() {
+                    return ! is_row_empty($(this));
+                });
+                if (! validRules.length) {
+                    submitButton.tooltip('show');
+                    setTimeout(function() {
+                        submitButton.tooltip('hide');
+                    }, 3500);
+                    return false;
+                }
+
+                // Encode rules into JSON format.
+                var rules = [];
+                validRules.each(function() {
+                    rules.push({
+                        _state: $(this).data('ruleState'),
+                        _pk: $(this).data('rulePk'),
+                        field: $(this).find('.field-field option:selected').val(),
+                        operator: $(this).find('.field-operator option:selected').val(),
+                        negate: $(this).find('.field-negate').is(':checked'),
+                        value: $(this).find('.field-value').val()
+                    });
+                });
+                $('#rules_json').val(JSON.stringify(rules));
+
+                // Submit form
+                $('#filters-form').submit();
             });
         });
     </script>

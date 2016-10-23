@@ -1,9 +1,9 @@
 <tr data-rule-state="{{ state }}" data-rule-pk="{% if rule %}{{ rule.pk }}{% endif %}">
     <td>
-        <select class="make-select2 field-select" name="rule_field[]">
+        <select class="make-select2 field-field" name="rule_field[]">
             <option></option>
             {% for key, value in apps_filters.options.fields %}
-                <option value="{{ key }}">
+                <option value="{{ key }}" {% if rule and rule.field == key %}selected="selected"{% endif %}>
                     {{ value }}
                 </option>
             {% endfor %}
@@ -13,7 +13,7 @@
         <select class="make-select2 field-operator" name="rule_operator[]">
             <option></option>
             {% for key, value in apps_filters.options.operators %}
-                <option value="{{ key }}">
+                <option value="{{ key }}" {% if rule and rule.operator == key %}selected="selected"{% endif %}>
                     {{ value }}
                 </option>
             {% endfor %}

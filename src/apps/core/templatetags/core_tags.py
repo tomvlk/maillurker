@@ -27,3 +27,8 @@ def collapse(request, pattern):
 	if re.compile(pattern).match(request.path):
 		return 'in'
 	return ''
+
+
+@register.assignment_tag
+def get_bootstrap_alert_msg_css_name(tags):
+	return 'danger' if tags == 'error' else tags

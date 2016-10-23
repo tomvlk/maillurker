@@ -1,52 +1,47 @@
-from crispy_forms.bootstrap import StrictButton, FormActions
 from django import forms
-from django.core.urlresolvers import reverse
-from django.forms.util import ErrorList
-from django.utils import timezone
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, Div, Field, Submit
 
-from apps.filters.models import FilterSet
+from apps.filters.fields import JSONFormField
+from apps.filters.models import FilterSet, Rule
 
 
 class AdminFilterSetEditForm(forms.ModelForm):
 	pass
 
 
-class FilterSetForm(forms.ModelForm):
-	is_global = forms.BooleanField(widget=forms.CheckboxInput)
+class AdvancedFilterSetForm(forms.Form):
+	filter_name = forms.CharField(max_length=255, min_length=1, required=True)
+	filter_condition = forms.ChoiceField(choices=FilterSet.COMBINE_CHOICES, widget=forms.RadioSelect,
+										 required=True, initial='and')
+	filter_is_global = forms.BooleanField(widget=forms.CheckboxInput, initial=False, required=False)
+	filter_is_active = forms.BooleanField(widget=forms.CheckboxInput, initial=False, required=False)
+	filter_icon = forms.ChoiceField(choices=FilterSet.ICON_CHOICES, initial='fa fa-filter', required=True)
 
-	def __init__(self, *args, **kwargs):
-		super(FilterSetForm, self).__init__(*args, **kwargs)
+	rules = JSONFormField(valid_json=True, required=True)
 
-		self.helper = FormHelper()
-		self.helper.form_id = 'filterset-form'
-		self.helper.form_method = 'post'
-		if 'data' in kwargs and kwargs['data']:
-			self.helper.form_action = reverse('filters:edit')
-		else:
-			self.helper.form_action = reverse('filters:new')
+	def get_rules(self):
+		if 'rules' not in self.cleaned_data:
+			return None
+		if type(self.cleaned_data['rules']) is not list:
+			return None
 
-		self.helper.form_class = 'form-horizontal'
-		self.helper.label_class = 'col-lg-2'
-		self.helper.field_class = 'col-lg-8'
-		self.helper.layout = Layout(
-			'name',
-			'icon',
-			Field('is_global'),
-			'is_active',
-			FormActions(
-				Submit('submit', 'Submit', css_class='btn-success'),
-				Submit('cancel', 'Cancel'),
-			)
-		)
+		for raw in self.cleaned_data['rules']:
+			if '_pk' in raw \
+					and '_state' in raw \
+					and 'negate' in raw and type(raw['negate']) is bool \
+					and 'field' in raw and any(raw['field'] in key for key in Rule.FIELD_CHOICES) \
+					and 'operator' in raw and any(raw['operator'] in key for key in Rule.OPERATOR_CHOICES) \
+					and 'value' in raw:
+				yield raw
 
-	class Meta:
-		model = FilterSet
-		fields = ('name', 'icon', 'is_global', 'is_active')
+	def update(self, instance: FilterSet):
+		instance.name = self.cleaned_data['filter_name']
+		instance.combine = self.cleaned_data['filter_condition']
+		instance.is_global = self.cleaned_data['filter_is_global']
+		instance.is_active = self.cleaned_data['filter_is_active']
+		instance.icon = self.cleaned_data['filter_icon']
+		return instance
 
 
 class FilterSetDeleteForm(forms.Form):
-
 	def __init__(self, *args, **kwargs):
 		super(FilterSetDeleteForm, self).__init__(*args, **kwargs)

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load core_tags %}
 
 {% block content %}
     <div class="page-header">
@@ -14,6 +15,15 @@
             Filters
         </h3>
     </div>
+
+    {% if messages %}
+        <ul class="list-unstyled messages">
+            {% for message in messages %}
+                {% get_bootstrap_alert_msg_css_name message.tags as alert_tag %}
+                <li class="alert alert-{{ alert_tag }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
     <table class="table table-bordered table-hover table-striped">
     <thead>
