@@ -1,5 +1,6 @@
+{% load core_tags %}
 <li>
-    <a href="{% url 'mails:list-filtered' filter_id=filter.pk %}">
+    <a href="{% url 'mails:list-filtered' filter_id=filter.pk %}" class="{% active_filter request filter.pk %}">
         <span class="icon">
             <i class="{{ filter.icon }}"></i>
         </span>

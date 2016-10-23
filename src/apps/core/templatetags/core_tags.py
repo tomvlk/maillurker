@@ -22,6 +22,14 @@ def active(request, pattern):
 
 
 @register.simple_tag
+def active_filter(request, filter_id):
+	import re
+	if re.compile(r'^/mails/{}/$'.format(filter_id)).match(request.path):
+		return 'active'
+	return ''
+
+
+@register.simple_tag
 def collapse(request, pattern):
 	import re
 	if re.compile(pattern).match(request.path):
