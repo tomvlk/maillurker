@@ -26,9 +26,10 @@ before_script:
 
 script:
   - ./tools/pre-tests.sh
-  - cd src && python manage.py migrate
-  - cd src && python manage.py createcachetable
-  - cd src && python manage.py test
+  - cd ${TRAVIS_BUILD_DIR}/src
+  - python manage.py migrate
+  - python manage.py createcachetable
+  - python manage.py test
 
 
 after_success:
