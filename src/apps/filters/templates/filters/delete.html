@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="page-header">
+        <h3 class="page-title">
+            Delete filter?
+        </h3>
+    </div>
+
+    <p class="lead">
+        Are you sure you want to delete the filter '{{ filter.name }}'?
+    </p>
+
+    <form action="{% url 'filters:delete' filterset_id=filter.pk %}" method="post">
+    {% csrf_token %}
+
+    <button type="submit" class="btn btn-danger">
+        Yes
+    </button>
+    <a href="{% url 'filters:list' %}" class="btn btn-success">
+        No
+    </a>
+    </form>
+
+{% endblock %}

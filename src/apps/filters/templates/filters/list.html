@@ -2,6 +2,14 @@
 
 {% block content %}
     <div class="page-header">
+        <div class="pull-right">
+            {% if user.is_authenticated %}
+                <a href="{% url 'filters:new' %}" class="btn btn-primary">
+                    <i class="fa fa-plus"></i>&nbsp;
+                    Create filter
+                </a>
+            {% endif %}
+        </div>
         <h3 class="page-title">
             Filters
         </h3>
@@ -11,11 +19,51 @@
     <thead>
     <tr>
         <th>ID</th>
+        <th>Name</th>
         <th>Author</th>
+        <th>Global</th>
+        <th>Active</th>
+        <th>Icon</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
-
+    {% for filter in filters %}
+        <tr>
+        <td>{{ filter.pk }}</td>
+        <td>{{ filter.name }}</td>
+        <td>
+            {% if filter.created_by.get_full_name %}
+                {{ filter.created_by.get_full_name }}
+            {% else %}
+                {{ filter.created_by }}
+            {% endif %}
+        </td>
+        <td>
+            <span class="label label-default">
+                {% if filter.is_global %}Yes{% else %}No{% endif %}
+            </span>
+        </td>
+        <td>
+            <span class="label label-default">
+                {% if filter.is_active %}Yes{% else %}No{% endif %}
+            </span>
+        </td>
+        <td>
+            <i class="{{ filter.icon }}"></i>&nbsp;<code>{{ filter.icon }}</code>
+        </td>
+        <td>
+            {% if user.is_superuser or user == filter.created_by %}
+            <a href="{% url 'filters:edit' filterset_id=filter.pk %}" class="btn btn-sm btn-default">
+                Edit
+            </a>
+            <a href="{% url 'filters:delete' filterset_id=filter.pk %}" class="btn btn-sm btn-danger">
+                Delete
+            </a>
+            {% endif %}
+        </td>
+        </tr>
+    {% endfor %}
     </tbody>
     </table>
 {% endblock %}

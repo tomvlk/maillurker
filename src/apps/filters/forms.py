@@ -38,3 +38,9 @@ class FilterSetForm(forms.ModelForm):
 	class Meta:
 		model = FilterSet
 		fields = ('name', 'icon')
+
+
+class FilterSetDeleteForm(forms.Form):
+
+	def __init__(self, *args, **kwargs):
+		super(FilterSetDeleteForm, self).__init__(*args, **kwargs)
