@@ -1,11 +1,48 @@
 {% extends 'base.html' %}
+{% load compress %}
 
 {% block content %}
     <table class="table table-bordered table-hover table-condensed">
-    <thead>
-    <tr>
-    <th></th>
-    </tr>
-    </thead>
+        <thead>
+        <tr>
+            <th>From</th>
+            <th>To</th>
+            <th>Subject</th>
+            <th>Received</th>
+            <th>Parts</th>
+        </tr>
+        </thead>
+        <tbody class="list-pool">
+            {% for mail in list %}
+                <tr>
+                    <td>
+                        {{ mail.sender_name }} ({{ mail.sender_address }})
+                    </td>
+                    <td>
+                        {{ mail.recipients_to }}
+                    </td>
+                    <td>
+                        {{ mail.subject }}
+                    </td>
+                    <td>
+                        {{ mail.created_at }}
+                    </td>
+                    <td>
+                        {{ mail.num_parts }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
+{% endblock %}
+
+
+{% block body_js_post %}
+    {{ block.super }}
+
+    {% compress js %}
+        <script type="application/javascript" charset="utf-8">
+            {% include 'mails/parts/list.js' %}
+        </script>
+    {% endcompress %}
 {% endblock %}

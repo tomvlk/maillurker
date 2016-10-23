@@ -58,6 +58,10 @@ class Message(BaseModel):
 
 		return total
 
+	@property
+	def num_parts(self):
+		return self.parts.count()
+
 
 class MessagePart(BaseModel):
 	message = models.ForeignKey(Message, on_delete=models.CASCADE, related_name='parts')
