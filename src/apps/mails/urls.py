@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
 	url(r'^$', views.MailList.as_view(), name='list'),
-	url(r'^/(?P<filter_id>[0-9]+)/$', views.MailList.as_view(), name='list-filtered'),
+	url(r'^(?P<filter_id>[0-9]+)/$', views.MailList.as_view(), name='list-filtered'),
 ]
