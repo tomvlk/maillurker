@@ -36,7 +36,32 @@
             </li>
         {% endfor %}
     </ul>
+{% elif user.is_superuser %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>
+                <i class="fa fa-lightbulb-o"></i>
+                No global filters!
+            </h4>
+        </div>
+        <div class="panel-body">
+            <p>
+                Create global filters for your team!
+            </p>
+            <a href="{% url 'filters:new' %}" class="btn btn-primary btn-sm">
+                Create filters
+            </a>
+        </div>
+    </div>
+{% else %}
+    <br>
+    <p>
+        There are no global filters.
+    </p>
 {% endif %}
+
+
+
 
 {% if request.user.is_authenticated %}
 <h4>Personal Filters</h4>
@@ -58,7 +83,6 @@
         {% endfor %}
     </ul>
 {% elif request.user.is_authenticated %}
-    <br>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>
@@ -70,7 +94,7 @@
             <p>
                 Create your own personal filters now to get an organised workspace.
             </p>
-            <a href="#" class="btn btn-primary btn-sm">
+            <a href="{% url 'filters:new' %}" class="btn btn-primary btn-sm">
                 Create filters
             </a>
         </div>
