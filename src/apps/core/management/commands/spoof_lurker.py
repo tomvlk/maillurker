@@ -1,12 +1,6 @@
-import asyncore
 from random import Random
-
 from faker import Factory
-
-from django.conf import settings
 from django.core.management import BaseCommand
-
-from apps.core.smtpd import Lurker
 from test.eml import send_eml
 
 fake = Factory.create('en_GB')

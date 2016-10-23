@@ -1,4 +1,3 @@
-from apps.core.menu import Menu
 from apps.mails.models import Message
 
 

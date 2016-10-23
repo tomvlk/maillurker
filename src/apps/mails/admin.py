@@ -1,6 +1,4 @@
 from django.contrib import admin
-from django.forms import TextInput
-from django.db import models
 
 from . import models
 from . import forms
@@ -36,13 +34,6 @@ class MessageAdmin(admin.ModelAdmin):
 			'fields': ('subject', 'size', 'source', 'type', 'headers')
 		}),
 	)
-
-	#add_fieldsets = (
-	#	(None, {
-	#		'classes': ('wide',),
-	#		'fields': ('username', 'password1', 'password2')}
-	#	 ),
-	#)
 
 
 admin.site.register(models.Message, MessageAdmin)

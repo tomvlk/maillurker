@@ -1,5 +1,4 @@
 from django.views.generic import TemplateView
-from django.shortcuts import render
 
 from apps.filters.models import FilterSet
 from apps.mails.models import Message

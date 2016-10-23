@@ -1,6 +1,4 @@
 from django.contrib import admin
-from django.forms import TextInput
-from django.db import models
 
 from . import models
 from . import forms
