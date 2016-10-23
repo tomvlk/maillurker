@@ -1,0 +1,1136 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Modules (API) &mdash; EmailLurker 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="EmailLurker 1.0.0 documentation" href="../index.html"/>
+        <link rel="prev" title="Installation" href="../installation.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> EmailLurker
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Email Lurker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Modules (API)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#core">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#smtp-server">SMTP Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#models">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#views">Views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#menu">Menu</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#accounts">Accounts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#forms">Forms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#middleware">Middleware</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#api">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#serializers">Serializers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mails">Mails</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Views</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#filters">Filters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Forms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Views</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">EmailLurker</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Modules (API)</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/apps/index.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="modules-api">
+<h1>Modules (API)<a class="headerlink" href="#modules-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="core">
+<h2>Core<a class="headerlink" href="#core" title="Permalink to this headline">¶</a></h2>
+<p>The core module is the most important module there is, it stores the base template and the static files such as
+jQuery and bootstrap.</p>
+<div class="section" id="smtp-server">
+<h3>SMTP Server<a class="headerlink" href="#smtp-server" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.core.smtpd.</code><code class="descname">Lurker</code><span class="sig-paren">(</span><em>localaddr</em>, <em>remoteaddr</em>, <em>data_size_limit=33554432</em>, <em>map=None</em>, <em>enable_SMTPUTF8=False</em>, <em>decode_data=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/smtpd.html#Lurker"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">INSTANCE</code><em class="property"> = None</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">THREAD</code><em class="property"> = None</em></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">clear_cache</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/smtpd.html#Lurker.clear_cache"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">parse_address</code><span class="sig-paren">(</span><em>raw</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/smtpd.html#Lurker.parse_address"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Parse Address
+:param raw:
+:return:</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">parse_addresses</code><span class="sig-paren">(</span><em>raw</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/smtpd.html#Lurker.parse_addresses"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Parse Addresses
+:param raw:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">process_message</code><span class="sig-paren">(</span><em>peer</em>, <em>mailfrom</em>, <em>rcpttos</em>, <em>data</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/smtpd.html#Lurker.process_message"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Process and save message</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>peer</strong> &#8211; </li>
+<li><strong>mailfrom</strong> &#8211; </li>
+<li><strong>rcpttos</strong> &#8211; </li>
+<li><strong>data</strong> &#8211; </li>
+<li><strong>kwargs</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">start</code><span class="sig-paren">(</span><em>test=False</em>, <em>threaded=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/smtpd.html#Lurker.start"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Start SMTP catcher.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>test</strong> &#8211; </li>
+<li><strong>threaded</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/smtpd.html#Lurker.stop"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Stop threaded server.
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="models">
+<h3>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.core.models.</code><code class="descname">BaseModel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/models.html#BaseModel"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="class">
+<dt>
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/apps/core/models.html#BaseModel.Meta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">abstract</code><em class="property"> = False</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">BaseModel.</code><code class="descname">get_next_by_created_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">BaseModel.</code><code class="descname">get_next_by_updated_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">BaseModel.</code><code class="descname">get_previous_by_created_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">BaseModel.</code><code class="descname">get_previous_by_updated_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="views">
+<h3>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.core.views.</code><code class="descname">SearchView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/views.html#SearchView"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/views.html#SearchView.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="menu">
+<h3>Menu<a class="headerlink" href="#menu" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.core.menu.</code><code class="descname">Item</code><span class="sig-paren">(</span><em>name</em>, <em>label=''</em>, <em>icon=''</em>, <em>route_name=''</em>, <em>active_regex='^$'</em>, <em>order=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/menu.html#Item"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">add</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/menu.html#Item.add"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Add entry as child to the menuitem</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">child_by_name</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/menu.html#Item.child_by_name"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Find child by name</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">url</code></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.core.menu.</code><code class="descname">Menu</code><a class="reference internal" href="../_modules/apps/core/menu.html#Menu"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">add_item</code><span class="sig-paren">(</span><em>item</em>, <em>path=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/menu.html#Menu.add_item"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">root</code><em class="property"> = &lt;apps.core.menu.Item object&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">to_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/menu.html#Menu.to_string"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="accounts">
+<h2>Accounts<a class="headerlink" href="#accounts" title="Permalink to this headline">¶</a></h2>
+<p>The accounts module manages the users and the authentication.</p>
+<div class="section" id="id1">
+<h3>Models<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.accounts.models.</code><code class="descname">User</code><span class="sig-paren">(</span><em>id</em>, <em>password</em>, <em>last_login</em>, <em>is_superuser</em>, <em>username</em>, <em>first_name</em>, <em>last_name</em>, <em>email</em>, <em>is_staff</em>, <em>is_active</em>, <em>date_joined</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/accounts/models.html#User"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="exception">
+<dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt>
+<em class="property">exception </em><code class="descclassname">User.</code><code class="descname">MultipleObjectsReturned</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">User.</code><code class="descname">auth_token</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">User.</code><code class="descname">created_filters</code></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">User.</code><code class="descname">get_next_by_date_joined</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">User.</code><code class="descname">get_previous_by_date_joined</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">User.</code><code class="descname">groups</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">User.</code><code class="descname">logentry_set</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">User.</code><code class="descname">objects</code><em class="property"> = &lt;django.contrib.auth.models.UserManager object&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">User.</code><code class="descname">user_permissions</code></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="id2">
+<h3>Views<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.accounts.views.</code><code class="descname">Login</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/accounts/views.html#Login"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/accounts/views.html#Login.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">post</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/accounts/views.html#Login.post"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">template_name</code><em class="property"> = 'accounts/login.html'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.accounts.views.</code><code class="descname">Logout</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/accounts/views.html#Logout"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/accounts/views.html#Logout.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="forms">
+<h3>Forms<a class="headerlink" href="#forms" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.accounts.forms.</code><code class="descname">LoginForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/accounts/forms.html#LoginForm"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">django.forms.forms.Form</span></code></p>
+<p>Login Form</p>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/apps/accounts/forms.html#LoginForm.Meta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt>
+<code class="descname">fields</code><em class="property"> = ['username', 'password']</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">LoginForm.</code><code class="descname">base_fields</code><em class="property"> = OrderedDict([('username', &lt;django.forms.fields.CharField object&gt;), ('password', &lt;django.forms.fields.CharField object&gt;)])</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">LoginForm.</code><code class="descname">declared_fields</code><em class="property"> = OrderedDict([('username', &lt;django.forms.fields.CharField object&gt;), ('password', &lt;django.forms.fields.CharField object&gt;)])</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">LoginForm.</code><code class="descname">media</code></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="middleware">
+<h3>Middleware<a class="headerlink" href="#middleware" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.accounts.middleware.</code><code class="descname">LoginRequiredMiddleware</code><a class="reference internal" href="../_modules/apps/accounts/middleware.html#LoginRequiredMiddleware"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Middleware that requires a user to be authenticated to view any page other
+than LOGIN_URL. Exemptions to this requirement can optionally be specified
+in settings via a list of regular expressions in LOGIN_EXEMPT_URLS (which
+you can copy from your urls.py).</p>
+<p>Requires authentication middleware and template context processors to be
+loaded. You&#8217;ll get an error if they aren&#8217;t.</p>
+<dl class="method">
+<dt>
+<code class="descname">process_request</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/accounts/middleware.html#LoginRequiredMiddleware.process_request"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<p>The API module is responsible for an rest_framework API to provide real-time informations to the client-side.
+There are plans to expand this module for external API usages.</p>
+<div class="section" id="id3">
+<h3>Models<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id4">
+<h3>Views<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">RealTimeInfos</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#RealTimeInfos"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#RealTimeInfos.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="serializers">
+<h3>Serializers<a class="headerlink" href="#serializers" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.serializers.</code><code class="descname">FilterSetSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/serializers.html#FilterSetSerializer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="class">
+<dt>
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/apps/api/serializers.html#FilterSetSerializer.Meta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">fields</code><em class="property"> = ('name', 'created_by', 'is_global', 'is_active', 'icon', 'count')</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">model</code></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">FilterSet</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="mails">
+<h2>Mails<a class="headerlink" href="#mails" title="Permalink to this headline">¶</a></h2>
+<p>The mails module is the core of the mails storage and the mail list.</p>
+<div class="section" id="id5">
+<h3>Models<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.mails.models.</code><code class="descname">Message</code><span class="sig-paren">(</span><em>id</em>, <em>created_at</em>, <em>updated_at</em>, <em>peer</em>, <em>port</em>, <em>sender_name</em>, <em>sender_address</em>, <em>recipients_to</em>, <em>recipients_cc</em>, <em>recipients_bcc</em>, <em>subject</em>, <em>source</em>, <em>size</em>, <em>type</em>, <em>headers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/models.html#Message"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="exception">
+<dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt>
+<em class="property">exception </em><code class="descclassname">Message.</code><code class="descname">MultipleObjectsReturned</code></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descclassname">Message.</code><code class="descname">count_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/models.html#Message.count_all"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">get_next_by_created_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">get_next_by_updated_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">get_previous_by_created_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">get_previous_by_updated_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">headers</code></dt>
+<dd><p>A placeholder class that provides a way to set the attribute on the model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">num_parts</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">parts</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">recipients_bcc</code></dt>
+<dd><p>A placeholder class that provides a way to set the attribute on the model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">recipients_cc</code></dt>
+<dd><p>A placeholder class that provides a way to set the attribute on the model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">recipients_to</code></dt>
+<dd><p>A placeholder class that provides a way to set the attribute on the model.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.mails.models.</code><code class="descname">MessagePart</code><span class="sig-paren">(</span><em>id</em>, <em>created_at</em>, <em>updated_at</em>, <em>message</em>, <em>is_attachment</em>, <em>type</em>, <em>filename</em>, <em>charset</em>, <em>body</em>, <em>size</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/models.html#MessagePart"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="exception">
+<dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt>
+<em class="property">exception </em><code class="descclassname">MessagePart.</code><code class="descname">MultipleObjectsReturned</code></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">MessagePart.</code><code class="descname">get_next_by_created_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">MessagePart.</code><code class="descname">get_next_by_updated_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">MessagePart.</code><code class="descname">get_previous_by_created_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">MessagePart.</code><code class="descname">get_previous_by_updated_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">MessagePart.</code><code class="descname">message</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">MessagePart.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="id6">
+<h3>Views<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.mails.views.</code><code class="descname">MailList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailList"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailList.get_context_data"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">template_name</code><em class="property"> = 'mails/list.html'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="filters">
+<h2>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h2>
+<p>The filters module is the core of the filters and rules. It stores and deserialize intro Django ORM Q-objects.</p>
+<div class="section" id="id7">
+<h3>Models<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.filters.models.</code><code class="descname">FilterSet</code><span class="sig-paren">(</span><em>id</em>, <em>created_at</em>, <em>updated_at</em>, <em>name</em>, <em>created_by</em>, <em>is_global</em>, <em>is_active</em>, <em>icon</em>, <em>combine</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/models.html#FilterSet"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">COMBINE_CHOICES</code><em class="property"> = (('and', 'Match all criteria (AND)'), ('or', 'Match one of the criteria (OR)'))</em></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">ICON_CHOICES</code><em class="property"> = (('fa fa-filter', 'Default Filter'), ('fa fa-server', 'Server'))</em></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt>
+<em class="property">exception </em><code class="descclassname">FilterSet.</code><code class="descname">MultipleObjectsReturned</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">combine</code><em class="property"> = None</em></dt>
+<dd><p>Combine of the rules</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">count</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">created_by</code></dt>
+<dd><p>Couple filter to user. Use this especially when filter is not global but user defined.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descclassname">FilterSet.</code><code class="descname">get_combine_choices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/models.html#FilterSet.get_combine_choices"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">get_combine_display</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descclassname">FilterSet.</code><code class="descname">get_icon_choices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/models.html#FilterSet.get_icon_choices"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">get_icon_display</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">get_matches</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/models.html#FilterSet.get_matches"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">get_next_by_created_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">get_next_by_updated_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">get_previous_by_created_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">get_previous_by_updated_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">icon</code><em class="property"> = None</em></dt>
+<dd><p>Icon to show in the list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">is_active</code><em class="property"> = None</em></dt>
+<dd><p>Filter active. True to show in the filter list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">is_global</code><em class="property"> = None</em></dt>
+<dd><p>Set true if the filter is global</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">name</code><em class="property"> = None</em></dt>
+<dd><p>Name of the filter</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">FilterSet.</code><code class="descname">rules</code></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.filters.models.</code><code class="descname">Rule</code><span class="sig-paren">(</span><em>id</em>, <em>created_at</em>, <em>updated_at</em>, <em>filter_set</em>, <em>field</em>, <em>operator</em>, <em>negate</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/models.html#Rule"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="exception">
+<dt>
+<em class="property">exception </em><code class="descname">DoesNotExist</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">FIELD_CHOICES</code><em class="property"> = (('peer', 'Peer Address'), ('port', 'Peer Port'), ('sender_name', 'Sender Name'), ('sender_address', 'Sender Address'), ('recipients_to', 'To Recipients'), ('recipients_cc', 'CC Recipients'), ('recipients_bcc', 'BCC Recipients'), ('subject', 'Subject'), ('size', 'Message Size'), ('type', 'Message Content Type'), ('headers', 'Message Headers'))</em></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt>
+<em class="property">exception </em><code class="descclassname">Rule.</code><code class="descname">MultipleObjectsReturned</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">OPERATOR_CHOICES</code><em class="property"> = (('iexact', 'Equal Than (==)'), ('icontains', 'Contains'), ('iregex', 'Matches Regular Expression'), ('isnull', 'Is NULL'), ('istrue', 'Is TRUE'), ('isfalse', 'Is FALSE'), ('lt', 'Less Than (&lt;)'), ('gt', 'Greater Than (&gt;)'), ('lte', 'Less or Equal Than (&lt;=)'), ('gte', 'Greater or Equal Than (&gt;=)'))</em></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descclassname">Rule.</code><code class="descname">deserialize_set</code><span class="sig-paren">(</span><em>filterset: apps.filters.models.FilterSet</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/models.html#Rule.deserialize_set"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">field</code><em class="property"> = None</em></dt>
+<dd><p>Field to run condition against.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">filter_set</code></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">get_field_display</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">get_next_by_created_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">get_next_by_updated_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">get_operator_display</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">get_previous_by_created_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">get_previous_by_updated_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">negate</code><em class="property"> = None</em></dt>
+<dd><p>Negate condition</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">operator</code><em class="property"> = None</em></dt>
+<dd><p>Operator</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="id8">
+<h3>Forms<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.filters.forms.</code><code class="descname">AdminFilterSetEditForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em>, <em>instance=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/forms.html#AdminFilterSetEditForm"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">base_fields</code><em class="property"> = OrderedDict()</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">declared_fields</code><em class="property"> = OrderedDict()</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">media</code></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.filters.forms.</code><code class="descname">AdvancedFilterSetForm</code><span class="sig-paren">(</span><em>data=None</em>, <em>files=None</em>, <em>auto_id='id_%s'</em>, <em>prefix=None</em>, <em>initial=None</em>, <em>error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em>label_suffix=None</em>, <em>empty_permitted=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/forms.html#AdvancedFilterSetForm"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">base_fields</code><em class="property"> = OrderedDict([('filter_name', &lt;django.forms.fields.CharField object&gt;), ('filter_condition', &lt;django.forms.fields.ChoiceField object&gt;), ('filter_is_global', &lt;django.forms.fields.BooleanField object&gt;), ('filter_is_active', &lt;django.forms.fields.BooleanField object&gt;), ('filter_icon', &lt;django.forms.fields.ChoiceField object&gt;), ('rules', &lt;apps.filters.fields.JSONFormField object&gt;)])</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">declared_fields</code><em class="property"> = OrderedDict([('filter_name', &lt;django.forms.fields.CharField object&gt;), ('filter_condition', &lt;django.forms.fields.ChoiceField object&gt;), ('filter_is_global', &lt;django.forms.fields.BooleanField object&gt;), ('filter_is_active', &lt;django.forms.fields.BooleanField object&gt;), ('filter_icon', &lt;django.forms.fields.ChoiceField object&gt;), ('rules', &lt;apps.filters.fields.JSONFormField object&gt;)])</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">get_rules</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/forms.html#AdvancedFilterSetForm.get_rules"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">media</code></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">update</code><span class="sig-paren">(</span><em>instance: apps.filters.models.FilterSet</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/forms.html#AdvancedFilterSetForm.update"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.filters.forms.</code><code class="descname">FilterSetDeleteForm</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/forms.html#FilterSetDeleteForm"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">base_fields</code><em class="property"> = OrderedDict()</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">declared_fields</code><em class="property"> = OrderedDict()</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">media</code></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.filters.fields.</code><code class="descname">JSONFormField</code><span class="sig-paren">(</span><em>valid_json=True</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/fields.html#JSONFormField"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">to_python</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/fields.html#JSONFormField.to_python"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">validate</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/fields.html#JSONFormField.validate"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="id9">
+<h3>Views<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.filters.views.</code><code class="descname">DeleteView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/views.html#DeleteView"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/views.html#DeleteView.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">post</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/views.html#DeleteView.post"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">template_name</code><em class="property"> = 'filters/delete.html'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.filters.views.</code><code class="descname">EditView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/views.html#EditView"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/views.html#EditView.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">post</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/views.html#EditView.post"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">template_name</code><em class="property"> = 'filters/edit.html'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.filters.views.</code><code class="descname">ListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/views.html#ListView"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/views.html#ListView.get_context_data"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">template_name</code><em class="property"> = 'filters/list.html'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Tom Valk.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

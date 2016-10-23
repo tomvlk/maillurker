@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; EmailLurker 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="EmailLurker 1.0.0 documentation" href="index.html"/>
+        <link rel="next" title="Usage" href="usage.html"/>
+        <link rel="prev" title="Email Lurker" href="intro.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> EmailLurker
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Email Lurker</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install-environment">Install environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#live-py">live.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dev-py">dev.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#base-py">base.py</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#local-py-database">local.py &amp; Database</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#database-migrations">Database Migrations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#static-files">Static files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/index.html">Modules (API)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">EmailLurker</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Installation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/installation.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>The following sections will instruct you how to install the Email Lurker. If you only want to upgrade the installation,
+just pull, run migrations, collect static files and compress static files.</p>
+<div class="section" id="install-environment">
+<h2>Install environment<a class="headerlink" href="#install-environment" title="Permalink to this headline">¶</a></h2>
+<p>Clone the repository into your destination:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ git clone https://github.com/tomvlk/emaillurker.git emaillurker
+</pre></div>
+</div>
+<p>Change directory into cloned repository.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> emaillurker
+</pre></div>
+</div>
+<p>Create a <code class="docutils literal"><span class="pre">virtualenv</span></code> in the project directory. Depending on your installation this command can be different.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ virtualenv -p python3 env
+</pre></div>
+</div>
+<p>Activate the virtualenv with:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">source</span> env/bin/activate
+</pre></div>
+</div>
+<p>Install dependencies with pip and the requirements.txt file:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install -r requirements.txt
+</pre></div>
+</div>
+<p>Now your environment is ready. You can now go to the next step.</p>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>In order to start we need to know some information about the database, the port and address for the SMTP server and the
+general configuration. To keep an structured and deployment-easy configuration structure we created a directory django
+settings module.</p>
+<p>The first setting file to be loaded is <code class="docutils literal"><span class="pre">src/config/settings/__init__.py</span></code>. In that file we will decide if we use the
+<code class="docutils literal"><span class="pre">live.py</span></code> or the <code class="docutils literal"><span class="pre">dev.py</span></code> settings directives. One of the choices will be loaded and after it the <code class="docutils literal"><span class="pre">base.py</span></code> will be
+loaded.</p>
+<p>After loading the <code class="docutils literal"><span class="pre">base.py</span></code> we will load in any local changed settings (not tracked in git). Those settings must be in
+<code class="docutils literal"><span class="pre">local.py</span></code>, the file doesn&#8217;t exist right now so it won&#8217;t be tracked by git.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Please read the topic bellow and the instructions in local.py to continue.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Don&#8217;t change the <code class="docutils literal"><span class="pre">live.py</span></code>, <code class="docutils literal"><span class="pre">dev.py</span></code> or <code class="docutils literal"><span class="pre">base.py</span></code> file itself, it will cause merge conflicts when
+updating your installation.</p>
+</div>
+<div class="section" id="live-py">
+<h3>live.py<a class="headerlink" href="#live-py" title="Permalink to this headline">¶</a></h3>
+<p>In order to activate the <code class="docutils literal"><span class="pre">live.py</span></code> file you must set the environment variable <code class="docutils literal"><span class="pre">DJANGO_IS_DEBUG</span></code> to False. You can
+do this when starting with prepending the following to your commands:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">DJANGO_IS_DEBUG</span><span class="o">=</span><span class="m">0</span> python manage.py runserver
+</pre></div>
+</div>
+</div>
+<div class="section" id="dev-py">
+<h3>dev.py<a class="headerlink" href="#dev-py" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">dev.py</span></code> is activated without the environment variable or when the environment variable is set to 1.</p>
+</div>
+<div class="section" id="base-py">
+<h3>base.py<a class="headerlink" href="#base-py" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">base.py</span></code> is the file that combines all configurations and defines default values. It also imports and replaces data
+from the <code class="docutils literal"><span class="pre">local.py</span></code> file.</p>
+</div>
+<div class="section" id="local-py-database">
+<h3>local.py &amp; Database<a class="headerlink" href="#local-py-database" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">local.py</span></code> is not yet created when you clone the repository, please copy the <code class="docutils literal"><span class="pre">local.default.py</span></code> to <code class="docutils literal"><span class="pre">local.py</span></code> and
+edit the contents.</p>
+</div>
+</div>
+<div class="section" id="database-migrations">
+<h2>Database Migrations<a class="headerlink" href="#database-migrations" title="Permalink to this headline">¶</a></h2>
+<p>Please make sure you created the schema you defined in the <code class="docutils literal"><span class="pre">local.py</span></code> settings file.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Make sure you create the database schema with collate utf-8!</p>
+</div>
+<p>To complete the installation or upgrade you must do a few tasks, first task is to run migration scripts we provided.
+When installing for the first time, you must create a cache table in order to operate.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python manage.py migrate
+$ python manage.py createcachetable
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You must be in an active <cite>virtualenv</cite> to execute the following statements!</p>
+</div>
+</div>
+<div class="section" id="static-files">
+<h2>Static files<a class="headerlink" href="#static-files" title="Permalink to this headline">¶</a></h2>
+<p>The static files need to be collected from all modules in order to operate on a live setup.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This step can be ignored if you run the server under the dev configuration!</p>
+</div>
+<p>To collect static files, execute:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python manage.py collectstatic --noinput
+</pre></div>
+</div>
+<p>To compress static files, execute:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python manage.py compress --force
+</pre></div>
+</div>
+<p>Your all set to use. See the usage part on how to start and use the Email Lurker application.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="intro.html" class="btn btn-neutral" title="Email Lurker" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Tom Valk.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

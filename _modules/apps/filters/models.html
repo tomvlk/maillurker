@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>apps.filters.models &mdash; EmailLurker 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="EmailLurker 1.0.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> EmailLurker
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Email Lurker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../apps/index.html">Modules (API)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">EmailLurker</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>apps.filters.models</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for apps.filters.models</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Q</span>
+
+<span class="kn">from</span> <span class="nn">apps.accounts.models</span> <span class="k">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">apps.core.models</span> <span class="k">import</span> <span class="n">BaseModel</span>
+<span class="kn">from</span> <span class="nn">apps.mails.models</span> <span class="k">import</span> <span class="n">Message</span>
+
+
+<div class="viewcode-block" id="FilterSet"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.FilterSet">[docs]</a><span class="k">class</span> <span class="nc">FilterSet</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+	<span class="n">ICON_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+		<span class="p">(</span><span class="s1">&#39;fa fa-filter&#39;</span><span class="p">,</span> <span class="s1">&#39;Default Filter&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;fa fa-server&#39;</span><span class="p">,</span> <span class="s1">&#39;Server&#39;</span><span class="p">),</span>
+	<span class="p">)</span>
+
+	<span class="n">COMBINE_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+		<span class="p">(</span><span class="s1">&#39;and&#39;</span><span class="p">,</span> <span class="s1">&#39;Match all criteria (AND)&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;or&#39;</span><span class="p">,</span> <span class="s1">&#39;Match one of the criteria (OR)&#39;</span><span class="p">)</span>
+	<span class="p">)</span>
+
+	<span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">)</span>
+	<span class="sd">&quot;&quot;&quot;Name of the filter&quot;&quot;&quot;</span>
+
+	<span class="n">created_by</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;created_filters&#39;</span><span class="p">)</span>
+	<span class="sd">&quot;&quot;&quot;Couple filter to user. Use this especially when filter is not global but user defined.&quot;&quot;&quot;</span>
+
+	<span class="n">is_global</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+	<span class="sd">&quot;&quot;&quot;Set true if the filter is global&quot;&quot;&quot;</span>
+
+	<span class="n">is_active</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">()</span>
+	<span class="sd">&quot;&quot;&quot;Filter active. True to show in the filter list.&quot;&quot;&quot;</span>
+
+	<span class="n">icon</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">ICON_CHOICES</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;fa fa-filter&#39;</span><span class="p">)</span>
+	<span class="sd">&quot;&quot;&quot;Icon to show in the list.&quot;&quot;&quot;</span>
+
+	<span class="n">combine</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">COMBINE_CHOICES</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;and&#39;</span><span class="p">)</span>
+	<span class="sd">&quot;&quot;&quot;Combine of the rules&quot;&quot;&quot;</span>
+
+
+	<span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="FilterSet.get_icon_choices"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.FilterSet.get_icon_choices">[docs]</a>	<span class="k">def</span> <span class="nf">get_icon_choices</span><span class="p">():</span>
+		<span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">FilterSet</span><span class="o">.</span><span class="n">ICON_CHOICES</span><span class="p">)</span></div>
+
+	<span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="FilterSet.get_combine_choices"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.FilterSet.get_combine_choices">[docs]</a>	<span class="k">def</span> <span class="nf">get_combine_choices</span><span class="p">():</span>
+		<span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">FilterSet</span><span class="o">.</span><span class="n">COMBINE_CHOICES</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FilterSet.get_matches"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.FilterSet.get_matches">[docs]</a>	<span class="k">def</span> <span class="nf">get_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="c1"># TODO, decode criteria and match against messages.</span>
+		<span class="c1"># TODO, use cache</span>
+		<span class="k">return</span> <span class="n">Message</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Rule</span><span class="o">.</span><span class="n">deserialize_set</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_count&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_matches</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count</span></div>
+
+
+<div class="viewcode-block" id="Rule"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.Rule">[docs]</a><span class="k">class</span> <span class="nc">Rule</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+	<span class="n">OPERATOR_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+		<span class="p">(</span><span class="s1">&#39;iexact&#39;</span><span class="p">,</span> <span class="s1">&#39;Equal Than (==)&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;icontains&#39;</span><span class="p">,</span> <span class="s1">&#39;Contains&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;iregex&#39;</span><span class="p">,</span> <span class="s1">&#39;Matches Regular Expression&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;isnull&#39;</span><span class="p">,</span> <span class="s1">&#39;Is NULL&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;istrue&#39;</span><span class="p">,</span> <span class="s1">&#39;Is TRUE&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;isfalse&#39;</span><span class="p">,</span> <span class="s1">&#39;Is FALSE&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;lt&#39;</span><span class="p">,</span> <span class="s1">&#39;Less Than (&lt;)&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;gt&#39;</span><span class="p">,</span> <span class="s1">&#39;Greater Than (&gt;)&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;lte&#39;</span><span class="p">,</span> <span class="s1">&#39;Less or Equal Than (&lt;=)&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;gte&#39;</span><span class="p">,</span> <span class="s1">&#39;Greater or Equal Than (&gt;=)&#39;</span><span class="p">),</span>
+	<span class="p">)</span>
+
+	<span class="n">FIELD_CHOICES</span> <span class="o">=</span> <span class="p">(</span>
+		<span class="p">(</span><span class="s1">&#39;peer&#39;</span><span class="p">,</span> <span class="s1">&#39;Peer Address&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;port&#39;</span><span class="p">,</span> <span class="s1">&#39;Peer Port&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;sender_name&#39;</span><span class="p">,</span> <span class="s1">&#39;Sender Name&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;sender_address&#39;</span><span class="p">,</span> <span class="s1">&#39;Sender Address&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;recipients_to&#39;</span><span class="p">,</span> <span class="s1">&#39;To Recipients&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;recipients_cc&#39;</span><span class="p">,</span> <span class="s1">&#39;CC Recipients&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;recipients_bcc&#39;</span><span class="p">,</span> <span class="s1">&#39;BCC Recipients&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="s1">&#39;Subject&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="s1">&#39;Message Size&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;Message Content Type&#39;</span><span class="p">),</span>
+		<span class="p">(</span><span class="s1">&#39;headers&#39;</span><span class="p">,</span> <span class="s1">&#39;Message Headers&#39;</span><span class="p">),</span>
+	<span class="p">)</span>
+
+	<span class="n">filter_set</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">FilterSet</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;rules&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+
+	<span class="n">field</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">FIELD_CHOICES</span><span class="p">)</span>
+	<span class="sd">&quot;&quot;&quot;Field to run condition against.&quot;&quot;&quot;</span>
+
+	<span class="n">operator</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">OPERATOR_CHOICES</span><span class="p">)</span>
+	<span class="sd">&quot;&quot;&quot;Operator&quot;&quot;&quot;</span>
+
+	<span class="n">negate</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+	<span class="sd">&quot;&quot;&quot;Negate condition&quot;&quot;&quot;</span>
+
+	<span class="n">value</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+
+	<span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Rule.deserialize_set"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.Rule.deserialize_set">[docs]</a>	<span class="k">def</span> <span class="nf">deserialize_set</span><span class="p">(</span><span class="n">filterset</span><span class="p">:</span> <span class="n">FilterSet</span><span class="p">):</span>
+		<span class="n">combine</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">AND</span> <span class="k">if</span> <span class="n">filterset</span><span class="o">.</span><span class="n">combine</span> <span class="o">==</span> <span class="s1">&#39;and&#39;</span> <span class="k">else</span> <span class="n">Q</span><span class="o">.</span><span class="n">OR</span>
+		<span class="n">rules</span> <span class="o">=</span> <span class="n">filterset</span><span class="o">.</span><span class="n">rules</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+		<span class="n">query</span> <span class="o">=</span> <span class="n">Q</span><span class="p">()</span>
+
+		<span class="k">for</span> <span class="n">rule</span> <span class="ow">in</span> <span class="n">rules</span><span class="p">:</span>
+			<span class="c1"># Check if the operator expects a boolean in the value</span>
+			<span class="n">value</span> <span class="o">=</span> <span class="n">rule</span><span class="o">.</span><span class="n">value</span>
+			<span class="k">if</span> <span class="n">rule</span><span class="o">.</span><span class="n">operator</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;isnull&#39;</span><span class="p">,</span> <span class="s1">&#39;istrue&#39;</span><span class="p">,</span> <span class="s1">&#39;isfalse&#39;</span><span class="p">]:</span>
+				<span class="n">value</span> <span class="o">=</span> <span class="kc">True</span>
+
+			<span class="n">clause</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">__</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rule</span><span class="o">.</span><span class="n">field</span><span class="p">,</span> <span class="n">rule</span><span class="o">.</span><span class="n">operator</span><span class="p">):</span> <span class="n">value</span><span class="p">}</span>
+			<span class="n">node</span> <span class="o">=</span> <span class="n">Q</span><span class="p">(</span><span class="o">**</span><span class="n">clause</span><span class="p">)</span>
+
+			<span class="k">if</span> <span class="n">rule</span><span class="o">.</span><span class="n">negate</span><span class="p">:</span>
+				<span class="n">node</span><span class="o">.</span><span class="n">negate</span><span class="p">()</span>
+
+			<span class="n">query</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">combine</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="n">query</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Tom Valk.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
