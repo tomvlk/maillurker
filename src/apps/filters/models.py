@@ -45,7 +45,7 @@ class FilterSet(BaseModel):
 	def get_matches(self):
 		# TODO, decode criteria and match against messages.
 		# TODO, use cache
-		return Criteria.objects.all()
+		return Rule.objects.all()
 
 	@property
 	def count(self):
@@ -54,7 +54,7 @@ class FilterSet(BaseModel):
 		return self._count
 
 
-class Criteria(BaseModel):
+class Rule(BaseModel):
 	OPERATOR_CHOICES = (
 		('iexact', 'Equal Than (==)'),
 		('icontains', 'Contains'),
@@ -82,7 +82,7 @@ class Criteria(BaseModel):
 		('headers', 'Message Headers'),
 	)
 
-	filter_set = models.ForeignKey(FilterSet, related_name='criteria')
+	filter_set = models.ForeignKey(FilterSet, related_name='rules')
 
 	field = models.CharField(max_length=255, choices=FIELD_CHOICES)
 
