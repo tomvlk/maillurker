@@ -88,8 +88,13 @@ class Rule(BaseModel):
 	filter_set = models.ForeignKey(FilterSet, related_name='rules')
 
 	field = models.CharField(max_length=255, choices=FIELD_CHOICES)
+	"""Field to run condition against."""
 
 	operator = models.CharField(max_length=255, choices=OPERATOR_CHOICES)
+	"""Operator"""
+
+	negate = models.BooleanField(default=False)
+	"""Negate condition"""
 
 	value = JSONField()
 
