@@ -33,6 +33,9 @@ class FilterSet(BaseModel):
 	icon = models.CharField(max_length=255, choices=ICON_CHOICES, default='fa fa-filter')
 	"""Icon to show in the list."""
 
+	combine = models.CharField(max_length=3, choices=COMBINE_CHOICES, default='and')
+	"""Combine of the rules"""
+
 
 	@staticmethod
 	def get_icon_choices():
