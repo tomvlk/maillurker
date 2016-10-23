@@ -6,6 +6,10 @@ SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = build
+GHDIR         = build/html
+
+GH_REPO_URL   = git@github.com:tomvlk/emaillurker.git
+GH_BRANCH     = gh-pages
 
 # Internal variables.
 PAPEROPT_a4     = -D latex_paper_size=a4
@@ -43,6 +47,8 @@ help:
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 	@echo "  coverage   to run coverage check of the documentation (if enabled)"
 	@echo "  dummy      to check syntax errors of document sources"
+	@echo "  gh-init    to initiate the Github Pages repo in build folders"
+	@echo "  gh-deploy  to build standalone HTML files and publish on github pages branch"
 
 .PHONY: clean
 clean:
@@ -223,3 +229,32 @@ dummy:
 	$(SPHINXBUILD) -b dummy $(ALLSPHINXOPTS) $(BUILDDIR)/dummy
 	@echo
 	@echo "Build finished. Dummy builder generates no files."
+
+.PHONY: gh-init
+gh-init:
+	@echo
+	@echo "Init github pages deployment..."
+	@mkdir -p $(GHDIR)
+	@cd $(GHDIR); git init; \
+		git checkout -b $(GH_BRANCH);\
+		git remote add origin $(GH_REPO_URL);
+	@cd $(GHDIR);\
+		if ! git ls-remote origin $(GH_BRANCH) | grep $(GH_BRANCH) ; then \
+			echo "Preparing Github deployment branch: $(GH_BRANCH) for the first time only...";\
+    		git push -u origin $(GH_BRANCH);\
+    	fi
+	@cd $(GHDIR);\
+		git fetch origin;\
+		git reset --hard origin/$(GH_BRANCH);\
+		git clean -f;
+
+.PHONY: gh-deploy
+gh-deploy:
+	@echo
+	@echo "Build docs..."
+	make html
+	@echo "Commit..."
+	@cd $(GHDIR);\
+		git add --all;\
+		git commit -m "Update documentation...";\
+		git push -u origin $(GH_BRANCH);

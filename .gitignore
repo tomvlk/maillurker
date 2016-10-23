@@ -143,3 +143,4 @@ src/config/settings/local.py
 src/static
 
 docs/build
+tools/gh-pages
