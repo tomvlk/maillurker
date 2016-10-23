@@ -6,6 +6,8 @@ python:
   - '3.5'
   - '3.6-dev'
 
+cache: pip
+
 services:
   - mysql
 
