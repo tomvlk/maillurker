@@ -23,17 +23,7 @@
 {% if apps_filters.global_filters %}
     <ul class="nav nav-sidebar">
         {% for filter in apps_filters.global_filters %}
-            <li>
-                <a href="/mails/{{ filter.id }}">
-                    {{ filter.alias }}
-                    <span class="pull-right">
-                                <span class="badge">
-                                    {{ filter.mails }}
-                                </span>
-                                <i class="fa fa-server"></i>
-                            </span>
-                </a>
-            </li>
+            {% include 'core/parts/filter-row.html' with filter=filter %}
         {% endfor %}
     </ul>
 {% elif user.is_superuser %}
@@ -69,17 +59,7 @@
 {% if apps_filters.user_filters and request.user.is_authenticated %}
     <ul class="nav nav-sidebar">
         {% for filter in apps_filters.user_filters %}
-            <li>
-                <a href="/mails/{{ filter.id }}">
-                    {{ filter.alias }}
-                    <span class="pull-right">
-                                <span class="badge">
-                                    {{ filter.mails }}
-                                </span>
-                                <i class="fa fa-server"></i>
-                            </span>
-                </a>
-            </li>
+            {% include 'core/parts/filter-row.html' with filter=filter %}
         {% endfor %}
     </ul>
 {% elif request.user.is_authenticated %}

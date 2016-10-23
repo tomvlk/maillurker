@@ -1,0 +1,15 @@
+<li>
+    <a href="{% url 'mails:list-filtered' filter_id=filter.pk %}">
+        <span class="icon">
+            <i class="{{ filter.icon }}"></i>
+        </span>
+        <span class="name">
+            {{ filter.name }}
+        </span>
+        <span class="pull-right">
+            <span class="badge">
+                0
+            </span>
+        </span>
+    </a>
+</li>
