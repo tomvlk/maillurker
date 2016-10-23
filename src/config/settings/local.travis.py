@@ -1,3 +1,4 @@
+TEST = True
 
 # Database credentials and details
 MYSQL_DB = 'lurker'
