@@ -86,7 +86,7 @@ class Rule(BaseModel):
 		('headers', 'Message Headers'),
 	)
 
-	filter_set = models.ForeignKey(FilterSet, related_name='rules')
+	filter_set = models.ForeignKey(FilterSet, related_name='rules', on_delete=models.CASCADE)
 
 	field = models.CharField(max_length=255, choices=FIELD_CHOICES)
 	"""Field to run condition against."""
