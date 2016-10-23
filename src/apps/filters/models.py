@@ -96,4 +96,4 @@ class Rule(BaseModel):
 	negate = models.BooleanField(default=False)
 	"""Negate condition"""
 
-	value = JSONField()
+	value = models.TextField()
