@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 {% load compress %}
+{% load core_tags %}
 
 {% block content %}
     <table class="table table-bordered table-hover table-condensed">
         <thead>
         <tr>
+            <th>
+                <input type="checkbox" class="table-check-all table-checkbox">
+            </th>
             <th class="sortable">
                 <a href="?sort=from&order={% if sort == 'from' and order == 'asc' %}desc{% else %}asc{% endif %}">
                     From
@@ -63,11 +67,14 @@
         <tbody class="list-pool">
             {% for mail in list %}
                 <tr>
+                    <td style="width: 20px">
+                        <input type="checkbox" class="table-checkbox table-body-checkbox" value="{{ mail.pk }}">
+                    </td>
                     <td>
                         {{ mail.sender_name }} ({{ mail.sender_address }})
                     </td>
-                    <td>
-                        {{ mail.recipients_to }}
+                    <td title="{{ mail.recipients_to|format_addresses }}">
+                        {{ mail.recipients_to|format_addresses|cut_small }}
                     </td>
                     <td>
                         {{ mail.subject }}
@@ -79,12 +86,44 @@
                         {{ mail.num_parts }}
                     </td>
                     <td>
-                        {{ mail.size }}
+                        {{ mail.size|filesizeformat }}
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <div class="row">
+        <div class="col-md-6">
+            <nav aria-label="pagination">
+                <ul class="pagination">
+                    <li class="{% if not pagination.prev %}disabled{% endif %}">
+                        <a href="?page={{ pagination.prev_page }}&sort={{ sort }}&order={{ order }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    {% for page in pagination.display %}
+                        <li class="{% if pagination.page == page %}active{% endif %}">
+                            <a href="?page={{ page }}&sort={{ sort }}&order={{ order }}">
+                                {{ page }}{% if pagination.page == page %} <span class="sr-only">(current)</span>{% endif %}
+                            </a>
+                        </li>
+                    {% endfor %}
+
+                    <li class="{% if not pagination.next %}disabled{% endif %}">
+                        <a href="?page={{ pagination.next_page }}&sort={{ sort }}&order={{ order }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="col-md-6 text-right">
+            Total rows: {{ pagination.rows }}
+        </div>
+    </div>
 {% endblock %}
 
 
@@ -94,6 +133,17 @@
     {% compress js %}
         <script type="application/javascript" charset="utf-8">
             {% include 'mails/parts/list.js' %}
+        </script>
+        <script type="application/javascript" charset="utf-8">
+            $(function() {
+                $('.table-check-all').click(function () {
+                    var state = $(this).is(':checked');
+
+                    $('.table-body-checkbox').each(function() {
+                        $(this).prop('checked', state);
+                    });
+                });
+            });
         </script>
     {% endcompress %}
 {% endblock %}

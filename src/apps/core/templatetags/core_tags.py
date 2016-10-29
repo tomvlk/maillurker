@@ -40,3 +40,28 @@ def collapse(request, pattern):
 @register.assignment_tag
 def get_bootstrap_alert_msg_css_name(tags):
 	return 'danger' if tags == 'error' else tags
+
+
+@register.filter
+def format_addresses(value):
+	if type(value) is not list:
+		return ''
+
+	addresses = []
+	for entry in value:
+		address = ''
+		if not type(entry) is list:
+			continue
+		if entry[0]:
+			address = '{} '.format(entry[0])
+		address += ' ({})'.format(entry[1])
+		addresses.append(address)
+
+	return ', '.join(addresses)
+
+
+@register.filter
+def cut_small(value):
+	if len(str(value)) > 40:
+		return str(value)[0:37] + '...'
+	return str(value)

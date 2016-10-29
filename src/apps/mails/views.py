@@ -1,3 +1,4 @@
+import math
 from django.views.generic import TemplateView
 
 from apps.filters.models import FilterSet
@@ -27,7 +28,6 @@ class MailList(TemplateView):
 			order = 'asc'
 
 		sort_field = self.sortable_columns.get(sort)
-		print(sort_field)
 
 		filterset = None
 		if 'filter_id' in kwargs:
@@ -38,7 +38,7 @@ class MailList(TemplateView):
 
 			# Check if user has rights to access the filter set.
 			if filterset and not filterset.is_global:
-				if not self.request.user.is_authenticated() or not getattr(self.request.user, 'is_superuser', False)\
+				if not self.request.user.is_authenticated() or not getattr(self.request.user, 'is_superuser', False) \
 					or not filterset.created_by_id != self.request.user.pk:
 					filterset = None
 
@@ -50,8 +50,45 @@ class MailList(TemplateView):
 		# Apply order.
 		mails = mails.order_by('{}{}'.format('-' if order == 'desc' else '', sort_field))
 
+		# Pagination.
+		total = mails.count()
+		per_page = int(self.request.GET.get('max', 40))
+		page = int(self.request.GET.get('page', 1))
+
+		if type(per_page) is not int or per_page < 1 or per_page > 1000:
+			per_page = 40
+
+		pages = int(math.ceil(total / per_page))
+
+		prev = True if page > 1 else False
+		next = False if page >= pages else True
+		display = list()
+		if page < 10 and pages >= 10:
+			display = list(range(1, 10))
+		elif page < 10 and pages < 10:
+			display = list(range(1, (pages + 1)))
+		elif page > 10 and page < (pages - 10):
+			display = [(page - 2), (page - 1)] + list(range(page, (pages + 1)))
+		else:
+			display = list(range((page - 5), page)) + list(range((page + 1), (page + 5)))
+
+		offset = (page - 1) * per_page
+		limit = offset + per_page
+
+		mails = mails[offset:limit]
+
 		return {
 			'list': mails,
 			'sort': sort,
 			'order': order,
+			'pagination': {
+				'prev': prev,
+				'next': next,
+				'page': page,
+				'prev_page': page - 1,
+				'next_page': page + 1,
+				'rows': total,
+				'pages': pages,
+				'display': display
+			}
 		}

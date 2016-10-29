@@ -78,3 +78,7 @@ table.table thead {
     background-color: #222222;
 }
 
+table input.table-checkbox {
+    width: 15px;
+    height: 15px;
+}
