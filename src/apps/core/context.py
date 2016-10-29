@@ -8,4 +8,7 @@ def add_global_context(request):
 			'is_authenticated': request.user.is_authenticated(),
 			'is_superuser': getattr(request.user, 'is_superuser', False),
 		},
+		'preferences': {
+			'fluid': request.session.get('preference.fluid', True)
+		}
 	}

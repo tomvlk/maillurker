@@ -1,6 +1,6 @@
 {% load core_tags %}
 <nav class="navbar navbar-inverse">
-    <div class="container">
+    <div class="container{% if preferences.fluid %}-fluid{% endif %}">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-e" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
@@ -61,6 +61,13 @@
                     <input type="text" class="form-control" placeholder="Search" id="search" name="search">
                 </div>
             </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{% url 'core:preference' %}?attribute=fluid&action=toggle&next={{ request.path|iriencode }}">
+                        <i class="fa {% if preferences.fluid %}fa-compress{% else %}fa-expand{% endif %}"></i>
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

@@ -37,14 +37,14 @@
 {% endblock %}
 
 <!-- Body -->
-<div class="container">
+<div class="container{% if preferences.fluid %}-fluid{% endif %}">
     <div class="row">
-        <div class="col-md-3">
+        <div class="{% if preferences.fluid %}col-lg-2 {% endif %}col-md-3">
             <!-- Left sidebar -->
             {% include 'core/sidebar.html' %}
         </div>
 
-        <div class="col-md-9">
+        <div class="{% if preferences.fluid %}col-lg-10 {% endif %}col-md-9">
             <!-- Content -->
             {% block content %}{% endblock %}
         </div>
