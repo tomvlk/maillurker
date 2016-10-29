@@ -72,3 +72,9 @@ body {
 .form-control.field-value {
     height: 34px;
 }
+
+/** TABLES **/
+table.table thead {
+    background-color: #222222;
+}
+

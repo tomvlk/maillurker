@@ -5,11 +5,59 @@
     <table class="table table-bordered table-hover table-condensed">
         <thead>
         <tr>
-            <th>From</th>
-            <th>To</th>
-            <th>Subject</th>
-            <th>Received</th>
-            <th>Parts</th>
+            <th class="sortable">
+                <a href="?sort=from&order={% if sort == 'from' and order == 'asc' %}desc{% else %}asc{% endif %}">
+                    From
+                    {% if sort == 'from' and order == 'asc' %}
+                        <i class="fa fa-sort-asc"></i>
+                    {% elif sort == 'from' %}
+                        <i class="fa fa-sort-desc"></i>
+                    {% endif %}
+                </a>
+            </th>
+            <th class="sortable">
+                <a href="?sort=to&order={% if sort == 'to' and order == 'asc' %}desc{% else %}asc{% endif %}">
+                    To
+                    {% if sort == 'to' and order == 'asc' %}
+                        <i class="fa fa-sort-asc"></i>
+                    {% elif sort == 'to' %}
+                        <i class="fa fa-sort-desc"></i>
+                    {% endif %}
+                </a>
+            </th>
+            <th class="sortable">
+                <a href="?sort=subject&order={% if sort == 'subject' and order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Subject
+                    {% if sort == 'subject' and order == 'asc' %}
+                        <i class="fa fa-sort-asc"></i>
+                    {% elif sort == 'subject' %}
+                        <i class="fa fa-sort-desc"></i>
+                    {% endif %}
+                </a>
+            </th>
+            <th class="sortable">
+                <a href="?sort=received&order={% if sort == 'received' and order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Received
+                    {% if sort == 'received' and order == 'asc' %}
+                        <i class="fa fa-sort-asc"></i>
+                    {% elif sort == 'received' %}
+                        <i class="fa fa-sort-desc"></i>
+                    {% endif %}
+                </a>
+            </th>
+            <th class="">
+                Parts
+            </th>
+            <th class="sortable">
+                <a href="?sort=size&order={% if sort == 'size' and order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Size
+                    {% if sort == 'size' and order == 'asc' %}
+                        <i class="fa fa-sort-asc"></i>
+                    {% elif sort == 'size' %}
+                        <i class="fa fa-sort-desc"></i>
+                    {% endif %}
+                </a>
+            </th>
         </tr>
         </thead>
         <tbody class="list-pool">
@@ -29,6 +77,9 @@
                     </td>
                     <td>
                         {{ mail.num_parts }}
+                    </td>
+                    <td>
+                        {{ mail.size }}
                     </td>
                 </tr>
             {% endfor %}

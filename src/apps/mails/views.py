@@ -6,8 +6,29 @@ from apps.mails.models import Message
 
 class MailList(TemplateView):
 	template_name = 'mails/list.html'
+	sortable_columns = {
+		'from': 'sender_address',
+		'to': 'recipients_to',
+		'subject': 'subject',
+		'size': 'size',
+		'received': 'created_at',
+	}
 
 	def get_context_data(self, **kwargs):
+		# Sort & Order
+		sort = self.request.GET.get('sort', 'received')
+		order = self.request.GET.get('order', 'desc')
+
+		if not self.sortable_columns.get(sort, None):
+			sort = 'received'
+			order = 'desc'
+
+		if not order == 'asc' and not order == 'desc':
+			order = 'asc'
+
+		sort_field = self.sortable_columns.get(sort)
+		print(sort_field)
+
 		filterset = None
 		if 'filter_id' in kwargs:
 			try:
@@ -26,4 +47,11 @@ class MailList(TemplateView):
 		else:
 			mails = filterset.get_matches()
 
-		return {'list': mails}
+		# Apply order.
+		mails = mails.order_by('{}{}'.format('-' if order == 'desc' else '', sort_field))
+
+		return {
+			'list': mails,
+			'sort': sort,
+			'order': order,
+		}
