@@ -1,7 +1,13 @@
 import math
+import os
+import zipfile
+
+from io import BytesIO
 
 from django.db.models import Q
 from django.views.generic import TemplateView
+from django.views.generic import View
+from django.http import HttpResponse
 
 from apps.filters.models import FilterSet
 from apps.mails.models import Message
@@ -114,3 +120,22 @@ class MailList(TemplateView):
 			'search_text': '' if not search else search,
 			'actionbar': True
 		}
+
+
+class MailDownload(View):
+
+	def get(self, request, mail_ids):
+		mail_ids = mail_ids.split(',')
+		stream = BytesIO()
+		zf = zipfile.ZipFile(stream, 'w')
+
+		for idx in mail_ids:
+			mail = Message.objects.get(pk=int(idx))
+			print(type(mail.eml))
+			zf.writestr(zinfo_or_arcname='mail-{}.eml'.format(int(idx)), data=mail.eml)
+
+		zf.close()
+		resp = HttpResponse(stream.getvalue(), content_type='application/x-zip-compressed')
+		resp['Content-Disposition'] = 'attachment; filename={}'.format('emails.zip')
+
+		return resp

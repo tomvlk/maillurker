@@ -61,6 +61,10 @@ class Message(BaseModel):
 	def num_parts(self):
 		return self.parts.count()
 
+	@property
+	def eml(self):
+		return self.source
+
 
 class MessagePart(BaseModel):
 	message = models.ForeignKey(Message, on_delete=models.CASCADE, related_name='parts')

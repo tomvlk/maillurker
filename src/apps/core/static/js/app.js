@@ -29,13 +29,18 @@ $(function () {
     if (! number || ! items) return;
 
     function execute (callback) {
+      if (action == 'download') {
+        return window.location = '/mails/download/' + (items.join(','));
+      }
+
       $.ajax({
         url: '/api/mails/' + action + '/',
         data: JSON.stringify({items: items}),
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         method: 'POST',
-      }).done(function () {
+      }).done(function (data) {
+        console.log(data);
         return callback(null);
       }).fail(function (jqXHR, textStatus, errorThrown) {
         return callback(errorThrown);
@@ -58,7 +63,7 @@ $(function () {
         callback: function (result) {
           if (result) {
             execute(function(err) {
-              if (! err) return window.location.reload();
+              if (! err && action !== 'download') return window.location.reload();
               console.error(err);
             });
           }

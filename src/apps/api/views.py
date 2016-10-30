@@ -50,3 +50,7 @@ class MailsAction(views.APIView):
 			return Response(status=status.HTTP_204_NO_CONTENT)
 
 		return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class MailsDownload(views.APIView):
+	pass
