@@ -89,14 +89,17 @@ class MailList(TemplateView):
 		prev = True if page > 1 else False
 		next = False if page >= pages else True
 		display = list()
-		if page < 10 and pages >= 10:
-			display = list(range(1, 10))
-		elif page < 10 and pages < 10:
-			display = list(range(1, (pages + 1)))
-		elif page > 10 and page < (pages - 10):
-			display = [(page - 2), (page - 1)] + list(range(page, (pages + 1)))
+		if page <= 5 and pages >= 10:
+			display = list(range(1, 11))
+		elif page <= 5 and pages < 10:
+			display = list(range(1, pages))
+
+		elif page > 5 and pages >= (page + 4):
+			display = list(range((page - 5), (page + 5)))
+		elif page > 5 and pages >= page:
+			display = list(range((page - 5), (pages + 1)))
 		else:
-			display = list(range((page - 5), page)) + list(range((page + 1), (page + 5)))
+			display = list(page)
 
 		offset = (page - 1) * per_page
 		limit = offset + per_page
