@@ -29,8 +29,9 @@ $(function () {
     if (! number || ! items) return;
 
     function execute (callback) {
-      if (action == 'download') {
-        return window.location = '/mails/download/' + (items.join(','));
+      if (action === 'download') {
+        window.location = '/mails/download/' + (items.join(','));
+        return;
       }
 
       $.ajax({
@@ -39,8 +40,7 @@ $(function () {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         method: 'POST',
-      }).done(function (data) {
-        console.log(data);
+      }).done(function () {
         return callback(null);
       }).fail(function (jqXHR, textStatus, errorThrown) {
         return callback(errorThrown);
@@ -48,7 +48,7 @@ $(function () {
     }
 
     // Ask for confirm
-    if (action == 'remove' || action == 'download' || action == 'forward') {
+    if (action === 'remove' || action === 'download' || action === 'forward') {
       bootbox.confirm({
         title: 'Are your sure?',
         message: 'Are you sure you want to ' + action + ' ' + number + ' of items?',
@@ -63,8 +63,12 @@ $(function () {
         callback: function (result) {
           if (result) {
             execute(function(err) {
-              if (! err && action !== 'download') return window.location.reload();
-              console.error(err);
+              if (err) {
+                console.error(err);
+              }
+              if (! err && action !== 'download') {
+                window.location.reload();
+              }
             });
           }
         }
