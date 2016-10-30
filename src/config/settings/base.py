@@ -42,12 +42,6 @@ SMTPD_PORT = getattr(local, 'SMTPD_PORT', 1025)
 # Apps
 ####
 INSTALLED_APPS = (
-	'apps.core.apps.CoreConfig',
-	'apps.accounts.apps.AccountsConfig',
-
-	'material',
-	'material.admin',
-
 	'django.contrib.admin',
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
@@ -55,16 +49,16 @@ INSTALLED_APPS = (
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'django.contrib.humanize',
-
 	'crispy_forms',
-	'watson',
-
+	'material',
+	'material.admin',
 	'rest_framework',
 	'rest_framework.authtoken',
-
 	'compressor',
-
 	'corsheaders',
+
+	'apps.core.apps.CoreConfig',
+	'apps.accounts.apps.AccountsConfig',
 
 	'apps.mails.apps.MailsConfig',
 	'apps.filters.apps.FiltersConfig',

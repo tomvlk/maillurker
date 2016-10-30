@@ -1,14 +1,5 @@
 from django.shortcuts import redirect
-from django.views.generic import View
-from rest_framework import status
-from rest_framework.response import Response
 from rest_framework.views import APIView
-
-
-class SearchView(View):
-	def get(self, request, *args, **kwargs):
-		# TODO: Implement search
-		return redirect('/')
 
 
 class PreferenceView(APIView):

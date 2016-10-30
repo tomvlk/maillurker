@@ -56,9 +56,10 @@
                     </li>
                 {% endif %}
             </ul>
-            <form class="navbar-form navbar-right" action="{% url 'core:search' %}" role="search" method="get">
+            <form class="navbar-form navbar-right" action="{% url 'mails:list-search' %}" role="search" method="get">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search" id="search" name="search">
+                    <input type="text" class="form-control" placeholder="Search" id="search" name="q"
+                           value="{{ search_text }}">
                 </div>
             </form>
             <ul class="nav navbar-nav navbar-right">

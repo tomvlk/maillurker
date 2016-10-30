@@ -1,4 +1,6 @@
 import math
+
+from django.db.models import Q
 from django.views.generic import TemplateView
 
 from apps.filters.models import FilterSet
@@ -16,6 +18,12 @@ class MailList(TemplateView):
 	}
 
 	def get_context_data(self, **kwargs):
+		# Search
+		search = self.request.GET.get('q', False)
+
+		if not search:
+			search = None
+
 		# Sort & Order
 		sort = self.request.GET.get('sort', 'received')
 		order = self.request.GET.get('order', 'desc')
@@ -49,6 +57,18 @@ class MailList(TemplateView):
 
 		# Apply order.
 		mails = mails.order_by('{}{}'.format('-' if order == 'desc' else '', sort_field))
+
+		# Searching
+		if search:
+			mails = mails.filter(
+				Q(subject__icontains=search) |
+				Q(sender_name__icontains=search) |
+				Q(sender_address__icontains=search) |
+				Q(recipients_to__icontains=search) |
+				Q(peer__icontains=search) |
+				Q(size__icontains=search) |
+				Q(source__icontains=search)
+			)
 
 		# Pagination.
 		total = mails.count()
@@ -90,5 +110,6 @@ class MailList(TemplateView):
 				'rows': total,
 				'pages': pages,
 				'display': display
-			}
+			},
+			'search_text': '' if not search else search
 		}
