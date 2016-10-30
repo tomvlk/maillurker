@@ -131,7 +131,6 @@ class MailDownload(View):
 
 		for idx in mail_ids:
 			mail = Message.objects.get(pk=int(idx))
-			print(type(mail.eml))
 			zf.writestr(zinfo_or_arcname='mail-{}.eml'.format(int(idx)), data=mail.eml)
 
 		zf.close()
