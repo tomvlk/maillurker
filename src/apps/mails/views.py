@@ -111,5 +111,6 @@ class MailList(TemplateView):
 				'pages': pages,
 				'display': display
 			},
-			'search_text': '' if not search else search
+			'search_text': '' if not search else search,
+			'actionbar': True
 		}

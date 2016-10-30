@@ -1,6 +1,9 @@
 body {
     /*background:#f0f0f0;*/
 }
+.text-bold {
+    font-weight: bold;
+}
 
 
 /**
@@ -52,6 +55,11 @@ body {
 .nav-sidebar>li>a:hover, .nav-sidebar>li>a:focus {
     text-decoration: none;
     background-color: #484848;
+}
+
+div#action-buttons > div {
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /** FORMS GENERIC **/

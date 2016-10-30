@@ -82,3 +82,41 @@
         </div>
     </div>
 {% endif %}
+
+{% block sidebar_bottom %}{% endblock %}
+
+{% if actionbar %}
+    <h4>Actions</h4>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p class="text-bold">
+                <span id="action-selection-count">0</span> items selected
+            </p>
+
+            <hr>
+
+            <div id="action-buttons" class="row">
+                <div class="col-xs-4">
+                    <button type="button" class="btn btn-sm btn-block btn-danger">
+                        <i class="fa fa-times"></i>
+                        Remove
+                    </button>
+                </div>
+                <div class="col-xs-4">
+                    <button type="button" class="btn btn-sm btn-block btn-warning">
+                        <i class="fa fa-mail-forward"></i>
+                        Forward
+                    </button>
+                </div>
+                <div class="col-xs-4">
+                    <button type="button" class="btn btn-sm btn-block btn-info">
+                        <i class="fa fa-download"></i>
+                        Download
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endif %}
