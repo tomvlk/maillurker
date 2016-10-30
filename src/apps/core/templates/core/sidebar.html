@@ -86,34 +86,42 @@
 {% block sidebar_bottom %}{% endblock %}
 
 {% if actionbar %}
-    <h4>Actions</h4>
+    <div class="visible-xl-block">
+        <h4>Actions</h4>
 
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <p class="text-bold">
-                <span id="action-selection-count">0</span> items selected
-            </p>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <p class="text-bold">
+                    <span class="action-selection-count">0</span> items selected
+                </p>
 
-            <hr>
+                <hr>
 
-            <div id="action-buttons" class="row">
-                <div class="col-xs-4">
-                    <button type="button" disabled="disabled" class="btn btn-sm btn-block btn-danger">
-                        <i class="fa fa-times"></i>
-                        Remove
-                    </button>
-                </div>
-                <div class="col-xs-4">
-                    <button type="button" disabled="disabled" class="btn btn-sm btn-block btn-warning">
-                        <i class="fa fa-mail-forward"></i>
-                        Forward
-                    </button>
-                </div>
-                <div class="col-xs-4">
-                    <button type="button" disabled="disabled" class="btn btn-sm btn-block btn-info">
-                        <i class="fa fa-download"></i>
-                        Download
-                    </button>
+                <div class="row action-buttons">
+                    <div class="col-xs-4">
+                        <button type="button" disabled="disabled" class="btn btn-sm btn-block btn-danger"
+                                data-action="remove" data-enabled="{% if user.is_authenticated %}1{% else %}0{% endif %}"
+                                title="{% if not user.is_authenticated %}You are not allowed to remove entries{% endif %}">
+                            <i class="fa fa-times"></i>
+                            Remove
+                        </button>
+                    </div>
+                    <div class="col-xs-4">
+                        <button type="button" disabled="disabled" class="btn btn-sm btn-block btn-warning"
+                                data-action="forward" data-enabled="{% if user.is_authenticated and user.email %}1{% else %}0{% endif %}"
+                                title="{% if not user.is_authenticated %}Not logged in!{% elif not user.email %}No known e-mail address for you{% else %}{% endif %}">
+                            <i class="fa fa-mail-forward"></i>
+                            Forward
+                        </button>
+                    </div>
+                    <div class="col-xs-4">
+                        <button type="button" disabled="disabled" class="btn btn-sm btn-block btn-info"
+                                data-action="download" data-enabled="1"
+                                title="">
+                            <i class="fa fa-download"></i>
+                            Download
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

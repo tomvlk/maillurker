@@ -1,5 +1,5 @@
 {% load core_tags %}
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container{% if preferences.fluid %}-fluid{% endif %}">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-e" aria-expanded="false">
@@ -69,6 +69,32 @@
                     </a>
                 </li>
             </ul>
+            <div class="row pull-right action-buttons">
+                <div class="col-xs-4">
+                    <button type="button" disabled="disabled" class="btn btn-sm btn-block btn-danger"
+                            data-action="remove" data-enabled="{% if user.is_authenticated %}1{% else %}0{% endif %}"
+                            title="{% if not user.is_authenticated %}You are not allowed to remove entries{% endif %}">
+                        <i class="fa fa-times"></i>
+                        Remove
+                    </button>
+                </div>
+                <div class="col-xs-4">
+                    <button type="button" disabled="disabled" class="btn btn-sm btn-block btn-warning"
+                            data-action="forward" data-enabled="{% if user.is_authenticated and user.email %}1{% else %}0{% endif %}"
+                            title="{% if not user.is_authenticated %}Not logged in!{% elif not user.email %}No known e-mail address for you{% else %}{% endif %}">
+                        <i class="fa fa-mail-forward"></i>
+                        Forward
+                    </button>
+                </div>
+                <div class="col-xs-4">
+                    <button type="button" disabled="disabled" class="btn btn-sm btn-block btn-info"
+                            data-action="download" data-enabled="1"
+                            title="">
+                        <i class="fa fa-download"></i>
+                        Download
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

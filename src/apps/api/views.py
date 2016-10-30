@@ -1,4 +1,6 @@
+from rest_framework import status
 from rest_framework import views
+from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 
 from apps.filters.models import FilterSet
@@ -7,9 +9,7 @@ from . import serializers
 
 
 class RealTimeInfos(views.APIView):
-
 	def get(self, request):
-
 		global_filters = FilterSet.objects.filter(is_global=True, is_active=True)
 
 		personal_filters = list()
@@ -27,3 +27,26 @@ class RealTimeInfos(views.APIView):
 		}
 
 		return Response(data)
+
+
+class MailsAction(views.APIView):
+	def post(self, request, action, *args, **kwargs):
+		if not 'items' in request.data:
+			return Response(status=status.HTTP_400_BAD_REQUEST)
+
+		body_items = request.data['items']
+		items = list()
+		try:
+			for row in body_items:
+				items.append(Message.objects.get(pk=int(row)))
+		except Exception as e:
+			print(e)
+			return Response(status=status.HTTP_404_NOT_FOUND)
+
+		if action == 'remove' and request.user.is_authenticated():
+			for item in items:
+				item.parts.all().delete()
+				item.delete()
+			return Response(status=status.HTTP_204_NO_CONTENT)
+
+		return Response(status=status.HTTP_400_BAD_REQUEST)
