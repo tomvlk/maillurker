@@ -8,6 +8,7 @@ from django.db.models import Q
 from django.views.generic import TemplateView
 from django.views.generic import View
 from django.http import HttpResponse
+from rest_framework.response import Response
 
 from apps.filters.models import FilterSet
 from apps.mails.models import Message
@@ -141,3 +142,10 @@ class MailDownload(View):
 		resp['Content-Disposition'] = 'attachment; filename={}'.format('emails.zip')
 
 		return resp
+
+
+class MailDetail(View):
+
+	def get(self, request, mail_id):
+
+		return Response()

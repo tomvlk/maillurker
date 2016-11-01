@@ -1,10 +1,12 @@
+from rest_framework import permissions
 from rest_framework import status
 from rest_framework import views
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 
+from apps.api.serializers import MessageSerializer, MessagePartSerializer
 from apps.filters.models import FilterSet
-from apps.mails.models import Message
+from apps.mails.models import Message, MessagePart
 from . import serializers
 
 
@@ -30,6 +32,7 @@ class RealTimeInfos(views.APIView):
 
 
 class MailsAction(views.APIView):
+
 	def post(self, request, action, *args, **kwargs):
 		if not 'items' in request.data:
 			return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -52,5 +55,25 @@ class MailsAction(views.APIView):
 		return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class MailsDownload(views.APIView):
-	pass
+class MailsDetail(views.APIView):
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+	def get(self, request, mail_id, *args, **kwargs):
+		try:
+			mail = Message.objects.get(pk=int(mail_id))
+		except:
+			return Response(data=None, status=status.HTTP_404_NOT_FOUND)
+
+		return Response(data=MessageSerializer(mail, context={'request': request}).data, status=status.HTTP_200_OK)
+
+
+class PartsDetail(views.APIView):
+	permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+	def get(self, request, part_id, *args, **kwargs):
+		try:
+			part = MessagePart.objects.get(pk=int(part_id))
+		except:
+			return Response(data=None, status=status.HTTP_404_NOT_FOUND)
+
+		return Response(data=MessagePartSerializer(part, context={'request': request}).data, status=status.HTTP_200_OK)
