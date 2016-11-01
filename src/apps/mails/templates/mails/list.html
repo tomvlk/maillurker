@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load compress %}
+{% load staticfiles %}
 {% load core_tags %}
 
 {% block content %}
@@ -131,19 +132,6 @@
     {{ block.super }}
 
     {% compress js %}
-        <script type="application/javascript" charset="utf-8">
-            {% include 'mails/parts/list.js' %}
-        </script>
-        <script type="application/javascript" charset="utf-8">
-            $(function() {
-                $('.table-check-all').click(function () {
-                    var state = $(this).is(':checked');
-
-                    $('.table-body-checkbox').each(function() {
-                        $(this).prop('checked', state);
-                    });
-                });
-            });
-        </script>
+        <script type="text/javascript" src="{% static 'js/mails.js' %}"></script>
     {% endcompress %}
 {% endblock %}
