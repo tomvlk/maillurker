@@ -24,14 +24,20 @@ class MessagePartSerializer(serializers.ModelSerializer):
 		fields = ('id', 'is_attachment', 'type', 'filename', 'charset', 'body', 'size')
 
 
+class MessagePartSummarySerializer(serializers.ModelSerializer):
+	class Meta:
+		model = MessagePart
+		fields = ('id', 'is_attachment', 'type', 'filename', 'charset', 'size')
+
+
 class MessageSerializer(serializers.ModelSerializer):
 	recipients_to = serializers.JSONField()
 	recipients_cc = serializers.JSONField()
 	recipients_bcc = serializers.JSONField()
 	headers = serializers.JSONField()
-	parts = serializers.HyperlinkedRelatedField(
-		many=True, view_name='api:parts_detail',
-		lookup_url_kwarg='part_id', read_only=True
+	parts = MessagePartSummarySerializer(
+		many=True,
+		read_only=True
 	)
 
 	class Meta:
