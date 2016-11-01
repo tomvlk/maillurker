@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from apps.api.fields import Base64Field
 from apps.filters.models import FilterSet
 from apps.mails.models import Message, MessagePart
 
@@ -35,6 +36,7 @@ class MessageSerializer(serializers.ModelSerializer):
 	recipients_cc = serializers.JSONField()
 	recipients_bcc = serializers.JSONField()
 	headers = serializers.JSONField()
+	source = Base64Field()
 	parts = MessagePartSummarySerializer(
 		many=True,
 		read_only=True
@@ -46,5 +48,5 @@ class MessageSerializer(serializers.ModelSerializer):
 			'id', 'peer', 'port', 'sender_name', 'sender_address',
 			'recipients_to', 'recipients_cc', 'recipients_bcc',
 			'subject', 'size', 'type', 'headers',
-			'parts'
+			'source', 'parts'
 		)
