@@ -21,7 +21,7 @@ class FilterSetSerializer(serializers.ModelSerializer):
 class MessagePartSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = MessagePart
-		fields = ('id',)
+		fields = ('id', 'is_attachment', 'type', 'filename', 'charset', 'body', 'size')
 
 
 class MessageSerializer(serializers.ModelSerializer):
@@ -29,8 +29,10 @@ class MessageSerializer(serializers.ModelSerializer):
 	recipients_cc = serializers.JSONField()
 	recipients_bcc = serializers.JSONField()
 	headers = serializers.JSONField()
-	parts = serializers.HyperlinkedRelatedField(many=True, view_name='api:parts_detail', lookup_url_kwarg='part_id',
-												read_only=True)
+	parts = serializers.HyperlinkedRelatedField(
+		many=True, view_name='api:parts_detail',
+		lookup_url_kwarg='part_id', read_only=True
+	)
 
 	class Meta:
 		model = Message
