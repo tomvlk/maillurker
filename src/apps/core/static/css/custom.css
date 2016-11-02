@@ -108,3 +108,8 @@ table .table-body-detail-action {
     height: 200px;
     overflow-y: scroll;
 }
+
+/** MODALS **/
+.modal .list-group-item {
+    background-color: #333333;
+}

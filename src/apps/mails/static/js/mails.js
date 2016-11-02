@@ -37,7 +37,13 @@ $(function () {
       function done () {
         body.html(template);
         $(dialog).find('.modal-title').text('Message from \'' + message.sender_name + '\'');
+        $(dialog).find('.modal-title').append('&nbsp;&nbsp;&nbsp;' +
+          '<a href="/mails/download/'+message.id+'" class="btn btn-default btn-sm" target="_blank">' +
+          '<i class="fa fa-download"></i> Download .eml' +
+          '</a>'
+        );
 
+        // Format generic fields.
         Object.keys(message).forEach(function (key) {
           var elements = body.find('.field.'+key);
           if (elements.length > 0) {
