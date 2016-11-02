@@ -76,7 +76,7 @@ $(function () {
 
           if (part.is_attachment) {
             listLink.find('.icon').addClass('fa fa-paperclip');
-            listLink.find('.name').text('Attachment #'+idx+', '+part.type+' (download)');
+            listLink.find('.name').text('Attachment #'+idx+', '+part.type+' ('+part.filename+')');
             listLink.attr('href', '/mails/' + message.id + '/parts/' + part.id + '/download');
             attachmentsList.append(listLink);
           } else {

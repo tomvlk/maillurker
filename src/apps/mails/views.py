@@ -163,6 +163,10 @@ class MailPart(TemplateView):
 
 
 class MailPartBody(View):
+	cant_display = [
+		'multipart/alternative', 'multipart/mixed'
+	]
+
 	def get(self, request, mail_id, part_id, *args, **kwargs):
 		response_type = kwargs.get('response_type')
 		try:
@@ -175,6 +179,9 @@ class MailPartBody(View):
 			return HttpResponse(content='', content_type='text/plain', status=status.HTTP_204_NO_CONTENT)
 
 		if response_type == 'body':
+			if part.type in self.cant_display:
+				return HttpResponse(content='- this part can\'t be displayed! -', content_type='text/plain')
+
 			return HttpResponse(content=part.body, content_type=part.type, charset=part.charset)
 		elif response_type == 'source':
 			return HttpResponse(content=part.body.decode(), content_type='text/plain')
