@@ -160,16 +160,7 @@ CACHES = {
 ####
 # Database settings.
 ####
-DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.mysql',
-		'NAME': local.MYSQL_DB,
-		'USER': local.MYSQL_USERNAME,
-		'PASSWORD': local.MYSQL_PASSWORD,
-		'HOST': local.MYSQL_HOST,
-		'PORT': local.MYSQL_PORT,
-	}
-}
+DATABASES = local.DATABASES
 
 ####
 # API

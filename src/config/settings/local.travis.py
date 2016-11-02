@@ -20,3 +20,16 @@ GLOBAL_AUTHENTICATION = False
 # Enable if you are using a reverse proxy with HTTPS served to the client.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # SECURE_FORCE = True
+
+# Database
+DATABASES = {
+	'default': {
+		'ENGINE': 'django.db.backends.mysql',
+		'NAME': 'lurker',
+		'USER': 'root',
+		'PASSWORD': '',
+		'HOST': 'localhost',
+		'PORT': '3306',
+	}
+}
+
