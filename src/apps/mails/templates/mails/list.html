@@ -85,6 +85,9 @@
                     </td>
                     <td class="table-body-detail-action">
                         {{ mail.num_parts }}
+                        {% if mail.has_attachments %}
+                            &nbsp;<i class="fa fa-paperclip"></i>
+                        {% endif %}
                     </td>
                     <td class="table-body-detail-action">
                         {{ mail.size|filesizeformat }}

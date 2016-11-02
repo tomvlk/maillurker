@@ -58,6 +58,10 @@ class Message(BaseModel):
 		return total
 
 	@property
+	def has_attachments(self):
+		return len(self.parts.filter(is_attachment=True)) > 0
+
+	@property
 	def num_parts(self):
 		return self.parts.count()
 
