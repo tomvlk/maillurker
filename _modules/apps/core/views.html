@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>apps.core.views &mdash; EmailLurker 1.0.0 documentation</title>
+  <title>apps.core.views &mdash; Mail Lurker 1.0.0 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="EmailLurker 1.0.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="Mail Lurker 1.0.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -52,7 +52,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> EmailLurker
+            <a href="../../../index.html" class="icon icon-home"> Mail Lurker
           
 
           
@@ -84,7 +84,7 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Email Lurker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Mail Lurker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../apps/index.html">Modules (API)</a></li>
@@ -101,7 +101,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../index.html">EmailLurker</a>
+        <a href="../../../index.html">Mail Lurker</a>
       </nav>
 
 
@@ -134,14 +134,37 @@
             
   <h1>Source code for apps.core.views</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">redirect</span>
-<span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="k">import</span> <span class="n">View</span>
+<span class="kn">from</span> <span class="nn">rest_framework.views</span> <span class="k">import</span> <span class="n">APIView</span>
 
 
-<div class="viewcode-block" id="SearchView"><a class="viewcode-back" href="../../../apps/index.html#apps.core.views.SearchView">[docs]</a><span class="k">class</span> <span class="nc">SearchView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+<div class="viewcode-block" id="PreferenceView"><a class="viewcode-back" href="../../../apps/index.html#apps.core.views.PreferenceView">[docs]</a><span class="k">class</span> <span class="nc">PreferenceView</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+	<span class="n">valid_attributes</span> <span class="o">=</span> <span class="p">{</span>
+		<span class="s1">&#39;fluid&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+	<span class="p">}</span>
 
-<div class="viewcode-block" id="SearchView.get"><a class="viewcode-back" href="../../../apps/index.html#apps.core.views.SearchView.get">[docs]</a>	<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-		<span class="c1"># TODO: Implement search</span>
-		<span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span></div></div>
+<div class="viewcode-block" id="PreferenceView.get"><a class="viewcode-back" href="../../../apps/index.html#apps.core.views.PreferenceView.get">[docs]</a>	<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+		<span class="n">pref_attribute</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;attribute&#39;</span><span class="p">)</span>
+		<span class="n">pref_action</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">)</span>
+		<span class="n">next_url</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;next&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">next_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>
+			<span class="n">next_url</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span>
+
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">pref_action</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">pref_attribute</span><span class="p">:</span>
+			<span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">next_url</span><span class="p">)</span>
+
+		<span class="n">attribute</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_attributes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pref_attribute</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">attribute</span><span class="p">:</span>
+			<span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">next_url</span><span class="p">)</span>
+
+		<span class="n">value</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;preference.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pref_attribute</span><span class="p">),</span> <span class="n">attribute</span><span class="p">[</span><span class="s1">&#39;default&#39;</span><span class="p">])</span>
+
+		<span class="k">if</span> <span class="n">pref_action</span> <span class="o">==</span> <span class="s1">&#39;toggle&#39;</span> <span class="ow">and</span> <span class="n">attribute</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="nb">bool</span><span class="p">:</span>
+			<span class="n">value</span> <span class="o">=</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">value</span> <span class="k">else</span> <span class="kc">True</span>
+
+		<span class="c1"># Save attribute (TODO: Implement user saved attributes).</span>
+		<span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;preference.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pref_attribute</span><span class="p">)]</span> <span class="o">=</span> <span class="n">value</span>
+
+		<span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">next_url</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

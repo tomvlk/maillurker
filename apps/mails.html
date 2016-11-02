@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Mails &mdash; EmailLurker 1.0.0 documentation</title>
+  <title>Mails &mdash; Mail Lurker 1.0.0 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="EmailLurker 1.0.0 documentation" href="../index.html"/> 
+    <link rel="top" title="Mail Lurker 1.0.0 documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -51,7 +51,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> EmailLurker
+            <a href="../index.html" class="icon icon-home"> Mail Lurker
           
 
           
@@ -83,8 +83,9 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../intro.html">Email Lurker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Mail Lurker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Modules (API)</a></li>
 </ul>
 
@@ -99,7 +100,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">EmailLurker</a>
+        <a href="../index.html">Mail Lurker</a>
       </nav>
 
 
@@ -153,6 +154,11 @@
 <em class="property">static </em><code class="descclassname">Message.</code><code class="descname">count_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/models.html#Message.count_all"><span class="viewcode-link">[source]</span></a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">eml</code></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt>
 <code class="descclassname">Message.</code><code class="descname">get_next_by_created_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
@@ -175,6 +181,11 @@
 
 <dl class="attribute">
 <dt>
+<code class="descclassname">Message.</code><code class="descname">has_attachments</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
 <code class="descclassname">Message.</code><code class="descname">headers</code></dt>
 <dd><p>A placeholder class that provides a way to set the attribute on the model.</p>
 </dd></dl>
@@ -182,6 +193,11 @@
 <dl class="attribute">
 <dt>
 <code class="descclassname">Message.</code><code class="descname">num_parts</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">num_real_parts</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -264,6 +280,16 @@
 <h2>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt>
+<em class="property">class </em><code class="descclassname">apps.mails.views.</code><code class="descname">MailDownload</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailDownload"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>mail_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailDownload.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
 <em class="property">class </em><code class="descclassname">apps.mails.views.</code><code class="descname">MailList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailList"><span class="viewcode-link">[source]</span></a></dt>
 <dd><dl class="method">
 <dt>
@@ -272,7 +298,42 @@
 
 <dl class="attribute">
 <dt>
+<code class="descname">sortable_columns</code><em class="property"> = {'subject': 'subject', 'from': 'sender_address', 'received': 'created_at', 'to': 'recipients_to', 'size': 'size'}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
 <code class="descname">template_name</code><em class="property"> = 'mails/list.html'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.mails.views.</code><code class="descname">MailPart</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailPart"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>mail_id</em>, <em>part_id</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailPart.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">template_name</code><em class="property"> = 'mails/part.html'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.mails.views.</code><code class="descname">MailPartBody</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailPartBody"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">cant_display</code><em class="property"> = ['multipart/alternative', 'multipart/mixed']</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>mail_id</em>, <em>part_id</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailPartBody.get"><span class="viewcode-link">[source]</span></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

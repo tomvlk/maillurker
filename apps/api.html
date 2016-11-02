@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API &mdash; EmailLurker 1.0.0 documentation</title>
+  <title>API &mdash; Mail Lurker 1.0.0 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="EmailLurker 1.0.0 documentation" href="../index.html"/> 
+    <link rel="top" title="Mail Lurker 1.0.0 documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -51,7 +51,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> EmailLurker
+            <a href="../index.html" class="icon icon-home"> Mail Lurker
           
 
           
@@ -83,8 +83,9 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../intro.html">Email Lurker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Mail Lurker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Modules (API)</a></li>
 </ul>
 
@@ -99,7 +100,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">EmailLurker</a>
+        <a href="../index.html">Mail Lurker</a>
       </nav>
 
 
@@ -141,6 +142,46 @@ There are plans to expand this module for external API usages.</p>
 <h2>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt>
+<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">MailsAction</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsAction"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">post</code><span class="sig-paren">(</span><em>request</em>, <em>action</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsAction.post"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">MailsDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsDetail"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>mail_id</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsDetail.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">permission_classes</code><em class="property"> = [&lt;class 'rest_framework.permissions.IsAuthenticatedOrReadOnly'&gt;]</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">PartsDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#PartsDetail"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>part_id</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#PartsDetail.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">permission_classes</code><em class="property"> = [&lt;class 'rest_framework.permissions.IsAuthenticatedOrReadOnly'&gt;]</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
 <em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">RealTimeInfos</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#RealTimeInfos"><span class="viewcode-link">[source]</span></a></dt>
 <dd><dl class="method">
 <dt>
@@ -167,6 +208,69 @@ There are plans to expand this module for external API usages.</p>
 <dt>
 <code class="descname">model</code></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">FilterSet</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.serializers.</code><code class="descname">MessagePartSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/serializers.html#MessagePartSerializer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="class">
+<dt>
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/apps/api/serializers.html#MessagePartSerializer.Meta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">fields</code><em class="property"> = ('id', 'is_attachment', 'type', 'filename', 'charset', 'body', 'size')</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">model</code></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">MessagePart</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.serializers.</code><code class="descname">MessagePartSummarySerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/serializers.html#MessagePartSummarySerializer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="class">
+<dt>
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/apps/api/serializers.html#MessagePartSummarySerializer.Meta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">fields</code><em class="property"> = ('id', 'is_attachment', 'type', 'filename', 'charset', 'size')</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">model</code></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">MessagePart</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.serializers.</code><code class="descname">MessageSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/serializers.html#MessageSerializer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="class">
+<dt>
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/apps/api/serializers.html#MessageSerializer.Meta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">fields</code><em class="property"> = ('id', 'peer', 'port', 'sender_name', 'sender_address', 'recipients_to', 'recipients_cc', 'recipients_bcc', 'subject', 'size', 'type', 'headers', 'source', 'parts')</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">model</code></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Message</span></code></p>
 </dd></dl>
 
 </dd></dl>

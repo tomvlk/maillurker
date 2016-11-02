@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>apps.api.serializers &mdash; EmailLurker 1.0.0 documentation</title>
+  <title>apps.api.serializers &mdash; Mail Lurker 1.0.0 documentation</title>
   
 
   
@@ -33,7 +33,7 @@
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="EmailLurker 1.0.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="Mail Lurker 1.0.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -52,7 +52,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> EmailLurker
+            <a href="../../../index.html" class="icon icon-home"> Mail Lurker
           
 
           
@@ -84,7 +84,7 @@
             
             
                 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Email Lurker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Mail Lurker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../apps/index.html">Modules (API)</a></li>
@@ -101,7 +101,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../../../index.html">EmailLurker</a>
+        <a href="../../../index.html">Mail Lurker</a>
       </nav>
 
 
@@ -135,7 +135,9 @@
   <h1>Source code for apps.api.serializers</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="k">import</span> <span class="n">serializers</span>
 
+<span class="kn">from</span> <span class="nn">apps.api.fields</span> <span class="k">import</span> <span class="n">Base64Field</span>
 <span class="kn">from</span> <span class="nn">apps.filters.models</span> <span class="k">import</span> <span class="n">FilterSet</span>
+<span class="kn">from</span> <span class="nn">apps.mails.models</span> <span class="k">import</span> <span class="n">Message</span><span class="p">,</span> <span class="n">MessagePart</span>
 
 
 <div class="viewcode-block" id="FilterSetSerializer"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.FilterSetSerializer">[docs]</a><span class="k">class</span> <span class="nc">FilterSetSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
@@ -150,6 +152,39 @@
 <div class="viewcode-block" id="FilterSetSerializer.Meta"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.FilterSetSerializer.Meta">[docs]</a>	<span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
 		<span class="n">model</span> <span class="o">=</span> <span class="n">FilterSet</span>
 		<span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;created_by&#39;</span><span class="p">,</span> <span class="s1">&#39;is_global&#39;</span><span class="p">,</span> <span class="s1">&#39;is_active&#39;</span><span class="p">,</span> <span class="s1">&#39;icon&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="MessagePartSerializer"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.MessagePartSerializer">[docs]</a><span class="k">class</span> <span class="nc">MessagePartSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+<div class="viewcode-block" id="MessagePartSerializer.Meta"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.MessagePartSerializer.Meta">[docs]</a>	<span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+		<span class="n">model</span> <span class="o">=</span> <span class="n">MessagePart</span>
+		<span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;is_attachment&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="s1">&#39;charset&#39;</span><span class="p">,</span> <span class="s1">&#39;body&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="MessagePartSummarySerializer"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.MessagePartSummarySerializer">[docs]</a><span class="k">class</span> <span class="nc">MessagePartSummarySerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+<div class="viewcode-block" id="MessagePartSummarySerializer.Meta"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.MessagePartSummarySerializer.Meta">[docs]</a>	<span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+		<span class="n">model</span> <span class="o">=</span> <span class="n">MessagePart</span>
+		<span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;is_attachment&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="s1">&#39;charset&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="MessageSerializer"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.MessageSerializer">[docs]</a><span class="k">class</span> <span class="nc">MessageSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
+	<span class="n">recipients_to</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">JSONField</span><span class="p">()</span>
+	<span class="n">recipients_cc</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">JSONField</span><span class="p">()</span>
+	<span class="n">recipients_bcc</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">JSONField</span><span class="p">()</span>
+	<span class="n">headers</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">JSONField</span><span class="p">()</span>
+	<span class="n">source</span> <span class="o">=</span> <span class="n">Base64Field</span><span class="p">()</span>
+	<span class="n">parts</span> <span class="o">=</span> <span class="n">MessagePartSummarySerializer</span><span class="p">(</span>
+		<span class="n">many</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+		<span class="n">read_only</span><span class="o">=</span><span class="kc">True</span>
+	<span class="p">)</span>
+
+<div class="viewcode-block" id="MessageSerializer.Meta"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.MessageSerializer.Meta">[docs]</a>	<span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+		<span class="n">model</span> <span class="o">=</span> <span class="n">Message</span>
+		<span class="n">fields</span> <span class="o">=</span> <span class="p">(</span>
+			<span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;peer&#39;</span><span class="p">,</span> <span class="s1">&#39;port&#39;</span><span class="p">,</span> <span class="s1">&#39;sender_name&#39;</span><span class="p">,</span> <span class="s1">&#39;sender_address&#39;</span><span class="p">,</span>
+			<span class="s1">&#39;recipients_to&#39;</span><span class="p">,</span> <span class="s1">&#39;recipients_cc&#39;</span><span class="p">,</span> <span class="s1">&#39;recipients_bcc&#39;</span><span class="p">,</span>
+			<span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;headers&#39;</span><span class="p">,</span>
+			<span class="s1">&#39;source&#39;</span><span class="p">,</span> <span class="s1">&#39;parts&#39;</span>
+		<span class="p">)</span></div></div>
 </pre></div>
 
            </div>

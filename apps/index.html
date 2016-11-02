@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Modules (API) &mdash; EmailLurker 1.0.0 documentation</title>
+  <title>Modules (API) &mdash; Mail Lurker 1.0.0 documentation</title>
   
 
   
@@ -33,8 +33,8 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="EmailLurker 1.0.0 documentation" href="../index.html"/>
-        <link rel="prev" title="Installation" href="../installation.html"/> 
+    <link rel="top" title="Mail Lurker 1.0.0 documentation" href="../index.html"/>
+        <link rel="prev" title="Usage" href="../usage.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -52,7 +52,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> EmailLurker
+            <a href="../index.html" class="icon icon-home"> Mail Lurker
           
 
           
@@ -84,8 +84,9 @@
             
             
                 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../intro.html">Email Lurker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Mail Lurker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usage.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Modules (API)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#core">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#smtp-server">SMTP Server</a></li>
@@ -133,7 +134,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">EmailLurker</a>
+        <a href="../index.html">Mail Lurker</a>
       </nav>
 
 
@@ -303,10 +304,15 @@ jQuery and bootstrap.</p>
 <h3>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt>
-<em class="property">class </em><code class="descclassname">apps.core.views.</code><code class="descname">SearchView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/views.html#SearchView"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property">class </em><code class="descclassname">apps.core.views.</code><code class="descname">PreferenceView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/views.html#PreferenceView"><span class="viewcode-link">[source]</span></a></dt>
 <dd><dl class="method">
 <dt>
-<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/views.html#SearchView.get"><span class="viewcode-link">[source]</span></a></dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/views.html#PreferenceView.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">valid_attributes</code><em class="property"> = {'fluid': {'type': &lt;class 'bool'&gt;, 'default': True}}</em></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -520,6 +526,46 @@ There are plans to expand this module for external API usages.</p>
 <h3>Views<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt>
+<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">MailsAction</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsAction"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">post</code><span class="sig-paren">(</span><em>request</em>, <em>action</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsAction.post"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">MailsDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsDetail"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>mail_id</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsDetail.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">permission_classes</code><em class="property"> = [&lt;class 'rest_framework.permissions.IsAuthenticatedOrReadOnly'&gt;]</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">PartsDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#PartsDetail"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>part_id</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#PartsDetail.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">permission_classes</code><em class="property"> = [&lt;class 'rest_framework.permissions.IsAuthenticatedOrReadOnly'&gt;]</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
 <em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">RealTimeInfos</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#RealTimeInfos"><span class="viewcode-link">[source]</span></a></dt>
 <dd><dl class="method">
 <dt>
@@ -552,6 +598,69 @@ There are plans to expand this module for external API usages.</p>
 
 </dd></dl>
 
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.serializers.</code><code class="descname">MessagePartSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/serializers.html#MessagePartSerializer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="class">
+<dt>
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/apps/api/serializers.html#MessagePartSerializer.Meta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">fields</code><em class="property"> = ('id', 'is_attachment', 'type', 'filename', 'charset', 'body', 'size')</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">model</code></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">MessagePart</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.serializers.</code><code class="descname">MessagePartSummarySerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/serializers.html#MessagePartSummarySerializer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="class">
+<dt>
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/apps/api/serializers.html#MessagePartSummarySerializer.Meta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">fields</code><em class="property"> = ('id', 'is_attachment', 'type', 'filename', 'charset', 'size')</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">model</code></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">MessagePart</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.serializers.</code><code class="descname">MessageSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/serializers.html#MessageSerializer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="class">
+<dt>
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/apps/api/serializers.html#MessageSerializer.Meta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">fields</code><em class="property"> = ('id', 'peer', 'port', 'sender_name', 'sender_address', 'recipients_to', 'recipients_cc', 'recipients_bcc', 'subject', 'size', 'type', 'headers', 'source', 'parts')</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">model</code></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Message</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="mails">
@@ -577,6 +686,11 @@ There are plans to expand this module for external API usages.</p>
 <em class="property">static </em><code class="descclassname">Message.</code><code class="descname">count_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/models.html#Message.count_all"><span class="viewcode-link">[source]</span></a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">eml</code></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt>
 <code class="descclassname">Message.</code><code class="descname">get_next_by_created_at</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
@@ -599,6 +713,11 @@ There are plans to expand this module for external API usages.</p>
 
 <dl class="attribute">
 <dt>
+<code class="descclassname">Message.</code><code class="descname">has_attachments</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
 <code class="descclassname">Message.</code><code class="descname">headers</code></dt>
 <dd><p>A placeholder class that provides a way to set the attribute on the model.</p>
 </dd></dl>
@@ -606,6 +725,11 @@ There are plans to expand this module for external API usages.</p>
 <dl class="attribute">
 <dt>
 <code class="descclassname">Message.</code><code class="descname">num_parts</code></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Message.</code><code class="descname">num_real_parts</code></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -688,6 +812,16 @@ There are plans to expand this module for external API usages.</p>
 <h3>Views<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt>
+<em class="property">class </em><code class="descclassname">apps.mails.views.</code><code class="descname">MailDownload</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailDownload"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>mail_ids</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailDownload.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
 <em class="property">class </em><code class="descclassname">apps.mails.views.</code><code class="descname">MailList</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailList"><span class="viewcode-link">[source]</span></a></dt>
 <dd><dl class="method">
 <dt>
@@ -696,7 +830,42 @@ There are plans to expand this module for external API usages.</p>
 
 <dl class="attribute">
 <dt>
+<code class="descname">sortable_columns</code><em class="property"> = {'subject': 'subject', 'from': 'sender_address', 'received': 'created_at', 'to': 'recipients_to', 'size': 'size'}</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
 <code class="descname">template_name</code><em class="property"> = 'mails/list.html'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.mails.views.</code><code class="descname">MailPart</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailPart"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>mail_id</em>, <em>part_id</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailPart.get"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">template_name</code><em class="property"> = 'mails/part.html'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.mails.views.</code><code class="descname">MailPartBody</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailPartBody"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">cant_display</code><em class="property"> = ['multipart/alternative', 'multipart/mixed']</em></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>mail_id</em>, <em>part_id</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/mails/views.html#MailPartBody.get"><span class="viewcode-link">[source]</span></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1075,7 +1244,7 @@ There are plans to expand this module for external API usages.</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="../installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../usage.html" class="btn btn-neutral" title="Usage" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
