@@ -136,12 +136,17 @@ ENV/
 .ropeproject
 
 # App Specific
-src/data
-src/tmp
+/src/data
+/src/tmp
 
-src/config/settings/local.py
-src/config/settings/overrides.py
-src/static
+/src/config/settings/local.py
+/src/config/settings/overrides.py
+/src/static
+
+/*.pid
+/log/*
+!/log/.gitkeep
+
 
 docs/build
 tools/gh-pages
