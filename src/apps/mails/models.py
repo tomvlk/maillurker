@@ -66,6 +66,10 @@ class Message(BaseModel):
 		return self.parts.count()
 
 	@property
+	def num_real_parts(self):
+		return self.parts.exclude(type__contains='multipart').count()
+
+	@property
 	def eml(self):
 		return self.source
 

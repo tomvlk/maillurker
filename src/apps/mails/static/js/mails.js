@@ -74,15 +74,21 @@ $(function () {
           var part = message.parts[idx];
           var listLink = $($.parseHTML('' + listLinkTemplate));
 
+          var isMultipart = part.type.indexOf('multipart') !== -1;
+          if (isMultipart)
+            listLink.addClass('disabled');
+
           if (part.is_attachment) {
             listLink.find('.icon').addClass('fa fa-paperclip');
             listLink.find('.name').text('Attachment #'+idx+', '+part.type+' ('+part.filename+')');
-            listLink.attr('href', '/mails/' + message.id + '/parts/' + part.id + '/download');
+            if (! isMultipart)
+              listLink.attr('href', '/mails/' + message.id + '/parts/' + part.id + '/download');
             attachmentsList.append(listLink);
           } else {
             listLink.find('.icon').addClass('fa fa-envelope-o');
             listLink.find('.name').text('Part #'+idx+', '+part.type+'');
-            listLink.attr('href', '/mails/' + message.id + '/parts/' + part.id);
+            if (! isMultipart)
+              listLink.attr('href', '/mails/' + message.id + '/parts/' + part.id);
             partsList.append(listLink);
           }
         }
