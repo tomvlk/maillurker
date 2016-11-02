@@ -106,7 +106,12 @@ table .table-body-detail-action {
 
 .headers-box {
     height: 200px;
-    overflow-y: scroll;
+    overflow: hidden;
+}
+.headers_custom {
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
 }
 
 /** MODALS **/
