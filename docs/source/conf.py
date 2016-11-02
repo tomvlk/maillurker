@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# EmailLurker documentation build configuration file, created by
+# MailLurker documentation build configuration file, created by
 # sphinx-quickstart on Sun Oct 23 18:21:30 2016.
 #
 # This file is execfile()d with the current directory set to its
@@ -65,7 +65,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'EmailLurker'
+project = 'Mail Lurker'
 copyright = '2016, Tom Valk'
 author = 'Tom Valk'
 
@@ -150,7 +150,7 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 # The name for this set of Sphinx documents.
 # "<project> v<release> documentation" by default.
 #
-# html_title = 'EmailLurker v1.0.0'
+# html_title = 'MailLurker v1.0.0'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
 #
@@ -250,7 +250,7 @@ html_static_path = ['_static']
 # html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'EmailLurkerdoc'
+htmlhelp_basename = 'MailLurkerdoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -276,7 +276,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'EmailLurker.tex', 'EmailLurker Documentation',
+    (master_doc, 'MailLurker.tex', 'MailLurker Documentation',
      'Tom Valk', 'manual'),
 ]
 
@@ -318,7 +318,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'emaillurker', 'EmailLurker Documentation',
+    (master_doc, 'maillurker', 'Mail Lurker Documentation',
      [author], 1)
 ]
 
@@ -333,8 +333,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'EmailLurker', 'EmailLurker Documentation',
-     author, 'EmailLurker', 'One line description of project.',
+    (master_doc, 'MailLurker', 'Mail Lurker Documentation',
+     author, 'MailLurker', 'Mail catcher for large environments and teams.',
      'Miscellaneous'),
 ]
 

@@ -1,7 +1,7 @@
 Installation
 ============
 
-The following sections will instruct you how to install the Email Lurker. If you only want to upgrade the installation,
+The following sections will instruct you how to install the Mail Lurker. If you only want to upgrade the installation,
 just pull, run migrations, collect static files and compress static files.
 
 
@@ -12,14 +12,14 @@ Clone the repository into your destination:
 
 .. code-block:: bash
 
-    $ git clone https://github.com/tomvlk/emaillurker.git emaillurker
+    $ git clone https://github.com/tomvlk/maillurker.git maillurker
 
 
 Change directory into cloned repository.
 
 .. code-block:: bash
 
-    $ cd emaillurker
+    $ cd maillurker
 
 
 Create a ``virtualenv`` in the project directory. Depending on your installation this command can be different.
@@ -144,4 +144,4 @@ To compress static files, execute:
 
 
 
-Your all set to use. See the usage part on how to start and use the Email Lurker application.
+Your all set to use. See the usage part on how to start and use the Mail Lurker application.

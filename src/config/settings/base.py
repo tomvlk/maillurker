@@ -23,9 +23,7 @@ except Exception:
 TIME_ZONE = 'UTC'
 
 USE_TZ = True
-
 USE_I18N = True
-
 USE_L10N = True
 
 LANGUAGE_CODE = 'en-en'
@@ -122,7 +120,7 @@ MIDDLEWARE_CLASSES = (
 ####
 CORS_ORIGIN_ALLOW_ALL = True
 
-GRAPPELLI_ADMIN_TITLE = 'Email Lurker, Email Catcher'
+GRAPPELLI_ADMIN_TITLE = 'Mail Lurker, Mail catcher for large environments.'
 
 LOGIN_EXEMPT_URLS = [
 	'api/.*',
@@ -207,3 +205,11 @@ if getattr(local, 'TEST', False):
 		'--cover-package={}'.format(','.join(TEST_APPS)),
 		'--cover-branches',
 	]
+
+####
+# OVERRIDES
+####
+try:
+	from .overrides import *
+except ImportError as e:
+	pass

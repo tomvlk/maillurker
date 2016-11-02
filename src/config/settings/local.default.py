@@ -1,6 +1,6 @@
 
 # Database credentials and details
-MYSQL_DB = 'mailvalk'
+MYSQL_DB = 'maillurker'
 MYSQL_USERNAME = 'root'
 MYSQL_PASSWORD = ''
 MYSQL_HOST = 'localhost'

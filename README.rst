@@ -1,5 +1,5 @@
-Email Lurker
-============
+Mail Lurker
+===========
 
 .. image:: https://travis-ci.org/tomvlk/emaillurker.svg?branch=master
         :target: https://travis-ci.org/tomvlk/emaillurker
@@ -12,8 +12,8 @@ A ordered and structured mail catcher made for large environments with high e-ma
 With the global level filtering and user defined filtering it's easy to maintain structure in debugging with multiple
 developers and servers.
 
-* Documentation: https://tomvlk.github.io/emaillurker/
-* GitHib: https://github.com/tomvlk/emaillurker/
+* Documentation: https://tomvlk.github.io/maillurker/
+* GitHib: https://github.com/tomvlk/maillurker/
 * License: Open Source, LGPL 3.0
 
 
@@ -47,7 +47,7 @@ Similar projects
 Requirements
 ------------
 
-The Email Lurker requires the following software components:
+The Mail Lurker requires the following software components:
 
 -  Linux or MacOS
 -  Python 3.4+

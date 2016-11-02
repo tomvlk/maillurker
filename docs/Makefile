@@ -8,7 +8,7 @@ PAPER         =
 BUILDDIR      = build
 GHDIR         = build/html
 
-GH_REPO_URL   = git@github.com:tomvlk/emaillurker.git
+GH_REPO_URL   = git@github.com:tomvlk/maillurker.git
 GH_BRANCH     = gh-pages
 
 # Internal variables.

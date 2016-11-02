@@ -1,5 +1,6 @@
 [run]
-include = src/*
+source = src
+branch = True
 
 [report]
 exclude_lines =
@@ -23,6 +24,5 @@ omit =
     src/apps/*/migrations/*
     src/test/*
     env/*
-
 
 show_missing = True
