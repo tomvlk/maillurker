@@ -101,3 +101,11 @@ table input.table-checkbox {
     width: 15px;
     height: 15px;
 }
+table .table-body-detail-action {
+    cursor: pointer;
+}
+
+.headers-box {
+    height: 200px;
+    overflow-y: scroll;
+}

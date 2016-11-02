@@ -67,26 +67,26 @@
         </thead>
         <tbody class="list-pool">
             {% for mail in list %}
-                <tr>
+                <tr data-message-id="{{ mail.pk }}">
                     <td style="width: 20px">
                         <input type="checkbox" class="table-checkbox table-body-checkbox" value="{{ mail.pk }}">
                     </td>
-                    <td>
+                    <td class="table-body-detail-action">
                         {{ mail.sender_name }} ({{ mail.sender_address }})
                     </td>
-                    <td title="{{ mail.recipients_to|format_addresses }}">
+                    <td title="{{ mail.recipients_to|format_addresses }}" class="table-body-detail-action">
                         {{ mail.recipients_to|format_addresses|cut_small }}
                     </td>
-                    <td>
+                    <td class="table-body-detail-action">
                         {{ mail.subject }}
                     </td>
-                    <td>
+                    <td class="table-body-detail-action">
                         {{ mail.created_at }}
                     </td>
-                    <td>
+                    <td class="table-body-detail-action">
                         {{ mail.num_parts }}
                     </td>
-                    <td>
+                    <td class="table-body-detail-action">
                         {{ mail.size|filesizeformat }}
                     </td>
                 </tr>
@@ -131,6 +131,12 @@
 {% block body_js_post %}
     {{ block.super }}
 
+    <script type="text/html" charset="utf-8" id="message-modal-template">
+        {% include 'mails/parts/modal-template.html' %}
+    </script>
+    <script type="text/html" charset="utf-8" id="message-modal-list-link-template">
+        {% include 'mails/parts/modal-list-link-template.html' %}
+    </script>
     {% compress js %}
         <script type="text/javascript" src="{% static 'js/mails.js' %}"></script>
     {% endcompress %}
