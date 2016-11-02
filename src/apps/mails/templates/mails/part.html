@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load compress %}
+{% load staticfiles %}
+{% load core_tags %}
+
+{% block css_post %}
+    <style>
+        body, html {
+            height: 100%;
+        }
+        .part-container {
+            height: 100%;
+        }
+        #part-header {
+            height: 50px;
+        }
+        #part-content {
+            display: block;
+            float: left;
+            width: 100%;
+            height: calc(100% - 90px);
+        }
+        #part-body {
+            height: 100%;
+            width: 100%;
+            background: white;
+        }
+    </style>
+{% endblock %}
+
+{% block body_tag %}
+    <body>
+{% endblock %}
+{% block body %}
+    <div class="container-fluid part-container">
+        <div id="part-header">
+            <div class="pull-right">
+                <button type="button" class="btn btn-primary" id="toggle-source" data-current="body">
+                    Show source
+                </button>
+            </div>
+            <h3>
+                Email Part
+                <small>
+                    Size: {{ part.size|filesizeformat }}, Type: {{ part.type }}, Charset: {{ part.charset }}
+                </small>
+            </h3>
+        </div>
+
+        <div id="part-content">
+            <iframe id="part-body" src="{% url 'mails:part-body' part_id=part.pk mail_id=message.pk %}"></iframe>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block body_js_post %}
+    {{ block.super }}
+
+    <script type="application/javascript" charset="utf-8">
+        $(function() {
+            $('#toggle-source').click(function() {
+                if ($(this).data('current') === 'body') {
+                    $('#part-body').attr('src', $('#part-body').attr('src').replace('body', 'source'));
+                    $(this).text('Show body');
+                } else {
+                    $('#part-body').attr('src', $('#part-body').attr('src').replace('source', 'body'));
+                    $(this).text('Show source');
+                }
+
+            });
+        });
+    </script>
+{% endblock %}

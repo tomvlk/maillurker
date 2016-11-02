@@ -4,14 +4,17 @@ import zipfile
 
 from io import BytesIO
 
+from django.core.urlresolvers import reverse
 from django.db.models import Q
+from django.shortcuts import redirect
 from django.views.generic import TemplateView
 from django.views.generic import View
 from django.http import HttpResponse
+from rest_framework import status
 from rest_framework.response import Response
 
 from apps.filters.models import FilterSet
-from apps.mails.models import Message
+from apps.mails.models import Message, MessagePart
 
 
 class MailList(TemplateView):
@@ -127,7 +130,6 @@ class MailList(TemplateView):
 
 
 class MailDownload(View):
-
 	def get(self, request, mail_ids):
 		mail_ids = mail_ids.split(',')
 		stream = BytesIO()
@@ -144,8 +146,39 @@ class MailDownload(View):
 		return resp
 
 
-class MailDetail(View):
+class MailPart(TemplateView):
+	template_name = 'mails/part.html'
 
-	def get(self, request, mail_id):
+	def get(self, request, mail_id, part_id, *args, **kwargs):
+		try:
+			message = Message.objects.get(pk=int(mail_id))
+			part = MessagePart.objects.get(pk=int(part_id), message_id=int(mail_id))
+		except:
+			return redirect(reverse('mails:list'))
 
-		return Response()
+		return self.render_to_response(context={
+			'part': part,
+			'message': message
+		})
+
+
+class MailPartBody(View):
+	def get(self, request, mail_id, part_id, *args, **kwargs):
+		response_type = kwargs.get('response_type')
+		try:
+			message = Message.objects.get(pk=int(mail_id))
+			part = MessagePart.objects.get(pk=int(part_id), message_id=int(mail_id))
+		except:
+			return redirect(reverse('mails:list'))
+
+		if part.is_attachment and response_type != 'download':
+			return HttpResponse(content='', content_type='text/plain', status=status.HTTP_204_NO_CONTENT)
+
+		if response_type == 'body':
+			return HttpResponse(content=part.body, content_type=part.type, charset=part.charset)
+		elif response_type == 'source':
+			return HttpResponse(content=part.body.decode(), content_type='text/plain')
+		elif response_type == 'download':
+			response = HttpResponse(part.body, content_type='application/octet-stream')
+			response['Content-Disposition'] = 'attachment; filename={}'.format(part.filename if part.filename else 'file.txt')
+			return response

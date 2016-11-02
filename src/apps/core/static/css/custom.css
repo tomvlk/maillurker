@@ -1,5 +1,4 @@
-body {
-    /*background:#f0f0f0;*/
+body.with-navbar {
     padding-top: 70px;
 }
 .text-bold {

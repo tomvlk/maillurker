@@ -28,7 +28,9 @@
 
     {% block css_post %}{% endblock %}
 </head>
-<body>
+{% block body_tag %}
+<body class="with-navbar">
+{% endblock %}
 {% block body %}
 
 <!-- Header & Navbar -->
