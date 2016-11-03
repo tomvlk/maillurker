@@ -1,5 +1,8 @@
 from re import compile
 
+from django.contrib import messages
+from django.shortcuts import render
+from social.exceptions import AuthCanceled, AuthForbidden
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.conf import settings
@@ -37,3 +40,13 @@ class LoginRequiredMiddleware:
 		if compile('^{}.*'.format(admin_root_url)).match(path):
 			return admin_login_url
 		return reverse(settings.LOGIN_URL)
+
+
+class SocialAuthExceptionMiddleware:
+	def process_exception(self, request, exception):
+		if type(exception) == AuthCanceled:
+			messages.warning(request, 'Login session is canceled!')
+			return render(request, "accounts/login.html", {})
+		elif type(exception) == AuthForbidden:
+			messages.error(request, 'You dont have access with this email!')
+			return render(request, "accounts/login.html", {})

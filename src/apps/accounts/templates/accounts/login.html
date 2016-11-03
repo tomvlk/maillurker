@@ -85,6 +85,15 @@
                                     Log in
                                 </button>
 
+                                {% if social.enabled and social.buttons %}
+                                    {% for button in social.buttons %}
+                                        <a class="btn btn-sm btn-block btn-warning"
+                                           href="{% url 'social:begin' button.name %}">
+                                            {{ button.name }}
+                                        </a>
+                                    {% endfor %}
+                                {% endif %}
+
                                 <!-- <a class="login-link" href="#" target="_blank">Lost your password?</a>-->
 
                             </form>

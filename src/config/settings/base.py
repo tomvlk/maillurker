@@ -19,6 +19,9 @@ try:
 except Exception:
 	pass
 
+if not hasattr(local, 'AUTHENTICATION'):
+	raise Exception('Local configuration should contain AUTHENTICATION entry!')
+
 # Generic
 TIME_ZONE = 'UTC'
 
@@ -39,7 +42,7 @@ SMTPD_PORT = getattr(local, 'SMTPD_PORT', 1025)
 ####
 # Apps
 ####
-INSTALLED_APPS = (
+INSTALLED_APPS = [
 	'django.contrib.admin',
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
@@ -54,14 +57,23 @@ INSTALLED_APPS = (
 	'rest_framework.authtoken',
 	'compressor',
 	'corsheaders',
+]
 
+# Add app for social login.
+if 'social' in local.AUTHENTICATION and type(local.AUTHENTICATION['social']) is dict:
+	INSTALLED_APPS.append('social.apps.django_app.default')
+
+
+# Add source apps
+INSTALLED_APPS += [
 	'apps.core.apps.CoreConfig',
 	'apps.accounts.apps.AccountsConfig',
 
 	'apps.mails.apps.MailsConfig',
 	'apps.filters.apps.FiltersConfig',
 	'apps.api.apps.ApiConfig',
-)
+]
+
 
 ####
 # Base Settings and content.
@@ -96,6 +108,17 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 	'apps.mails.context.add_global_context',
 )
 
+# Add social processors
+SOCIAL_ENABLED = False
+if 'social' in local.AUTHENTICATION and 'enabled' in local.AUTHENTICATION['social'] and local.AUTHENTICATION['social']['enabled']:
+	SOCIAL_ENABLED = True
+
+	TEMPLATE_CONTEXT_PROCESSORS += (
+		'social.apps.django_app.context_processors.login_redirect',
+		'social.apps.django_app.context_processors.backends',
+	)
+
+
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 MIDDLEWARE_CLASSES = (
@@ -112,6 +135,7 @@ MIDDLEWARE_CLASSES = (
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
 	'apps.accounts.middleware.LoginRequiredMiddleware',
+	'apps.accounts.middleware.SocialAuthExceptionMiddleware',
 )
 
 
@@ -123,9 +147,14 @@ CORS_ORIGIN_ALLOW_ALL = True
 GRAPPELLI_ADMIN_TITLE = 'Mail Lurker, Mail catcher for large environments.'
 
 LOGIN_EXEMPT_URLS = [
+	'login/.*',
+	'complete/.*',
+
 	'api/.*',
 ]
-if not getattr(local, 'GLOBAL_AUTHENTICATION', False):
+
+# If read-only is enabled, exempt the root.
+if 'allow_readonly' in local.AUTHENTICATION and local.AUTHENTICATION['allow_readonly']:
 	LOGIN_EXEMPT_URLS += [
 		'.*'
 	]
@@ -133,6 +162,39 @@ if not getattr(local, 'GLOBAL_AUTHENTICATION', False):
 AUTHENTICATION_BACKENDS = (
 	'django.contrib.auth.backends.ModelBackend',
 )
+
+# Add social backends.
+SOCIAL_BACKENDS = list()
+if SOCIAL_ENABLED and 'backends' in local.AUTHENTICATION['social']:
+	AUTHENTICATION_BACKENDS += local.AUTHENTICATION['social']['backends']
+	SOCIAL_BACKENDS = local.AUTHENTICATION['social']['backends']
+
+# Add default social options
+if SOCIAL_ENABLED:
+	SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
+	SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
+
+	SOCIAL_AUTH_PIPELINE = (
+		'social.pipeline.social_auth.social_details',
+		'social.pipeline.social_auth.social_uid',
+		'social.pipeline.social_auth.auth_allowed',
+		'social.pipeline.social_auth.social_user',
+		'social.pipeline.mail.mail_validation',
+		'social.pipeline.social_auth.associate_by_email',
+		'social.pipeline.user.get_username',
+		'social.pipeline.user.create_user',
+		'social.pipeline.social_auth.associate_user',
+		'social.pipeline.social_auth.load_extra_data',
+		'social.pipeline.user.user_details',
+	)
+
+# Add social pipelines
+if SOCIAL_ENABLED and 'pipelines' in local.AUTHENTICATION['social']:
+	SOCIAL_AUTH_PIPELINE = local.AUTHENTICATION['social']['pipelines']
+
+# Add custom social options
+if SOCIAL_ENABLED and 'options' in local.AUTHENTICATION['social']:
+	locals().update(local.AUTHENTICATION['social']['options'])
 
 
 ####
