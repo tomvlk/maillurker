@@ -1,8 +1,11 @@
 from django.shortcuts import redirect
+from rest_framework import permissions
 from rest_framework.views import APIView
 
 
 class PreferenceView(APIView):
+	permission_classes = [permissions.AllowAny]
+
 	valid_attributes = {
 		'fluid': {'type': bool, 'default': True}
 	}
