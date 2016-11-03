@@ -1,8 +1,8 @@
 import math
-import os
 import zipfile
 
 from io import BytesIO
+from urllib.parse import quote_plus
 
 from django.core.urlresolvers import reverse
 from django.db.models import Q
@@ -186,5 +186,6 @@ class MailPartBody(View):
 			return HttpResponse(content=part.body.decode(), content_type='text/plain')
 		elif response_type == 'download':
 			response = HttpResponse(part.body, content_type='application/octet-stream')
-			response['Content-Disposition'] = 'attachment; filename={}'.format(part.filename if part.filename else 'file.txt')
+			filename = quote_plus(part.filename if part.filename else 'file.txt')
+			response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
 			return response
