@@ -114,6 +114,10 @@ table .table-body-detail-action {
     overflow: scroll;
 }
 
+.pagination-options {
+    margin-top: 10px;
+}
+
 /** MODALS **/
 .modal .list-group-item {
     background-color: #333333;
