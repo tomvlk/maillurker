@@ -250,7 +250,7 @@
 		<span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="s1">&#39;is_superuser&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span> <span class="o">==</span> <span class="n">filterset</span><span class="o">.</span><span class="n">created_by</span><span class="p">:</span>
 			<span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;filters:list&#39;</span><span class="p">))</span>
 
-		<span class="n">filterset</span><span class="o">.</span><span class="n">criteria</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+		<span class="n">filterset</span><span class="o">.</span><span class="n">rules</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
 		<span class="n">filterset</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
 
 		<span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;filters:list&#39;</span><span class="p">))</span></div></div>

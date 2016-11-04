@@ -135,6 +135,9 @@
   <h1>Source code for apps.accounts.middleware</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">re</span> <span class="k">import</span> <span class="nb">compile</span>
 
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="k">import</span> <span class="n">messages</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">social.exceptions</span> <span class="k">import</span> <span class="n">AuthCanceled</span><span class="p">,</span> <span class="n">AuthForbidden</span>
 <span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="k">import</span> <span class="n">reverse</span>
 <span class="kn">from</span> <span class="nn">django.http</span> <span class="k">import</span> <span class="n">HttpResponseRedirect</span>
 <span class="kn">from</span> <span class="nn">django.conf</span> <span class="k">import</span> <span class="n">settings</span>
@@ -172,6 +175,16 @@
 		<span class="k">if</span> <span class="nb">compile</span><span class="p">(</span><span class="s1">&#39;^</span><span class="si">{}</span><span class="s1">.*&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">admin_root_url</span><span class="p">))</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 			<span class="k">return</span> <span class="n">admin_login_url</span>
 		<span class="k">return</span> <span class="n">reverse</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">LOGIN_URL</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SocialAuthExceptionMiddleware"><a class="viewcode-back" href="../../../apps/index.html#apps.accounts.middleware.SocialAuthExceptionMiddleware">[docs]</a><span class="k">class</span> <span class="nc">SocialAuthExceptionMiddleware</span><span class="p">:</span>
+<div class="viewcode-block" id="SocialAuthExceptionMiddleware.process_exception"><a class="viewcode-back" href="../../../apps/index.html#apps.accounts.middleware.SocialAuthExceptionMiddleware.process_exception">[docs]</a>	<span class="k">def</span> <span class="nf">process_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">exception</span><span class="p">):</span>
+		<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span> <span class="o">==</span> <span class="n">AuthCanceled</span><span class="p">:</span>
+			<span class="n">messages</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;Login session is canceled!&#39;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;accounts/login.html&quot;</span><span class="p">,</span> <span class="p">{})</span>
+		<span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">exception</span><span class="p">)</span> <span class="o">==</span> <span class="n">AuthForbidden</span><span class="p">:</span>
+			<span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;You dont have access with this email!&#39;</span><span class="p">)</span>
+			<span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;accounts/login.html&quot;</span><span class="p">,</span> <span class="p">{})</span></div></div>
 </pre></div>
 
            </div>

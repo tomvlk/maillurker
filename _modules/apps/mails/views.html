@@ -134,10 +134,10 @@
             
   <h1>Source code for apps.mails.views</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">zipfile</span>
 
 <span class="kn">from</span> <span class="nn">io</span> <span class="k">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="k">import</span> <span class="n">quote_plus</span>
 
 <span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="k">import</span> <span class="n">reverse</span>
 <span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Q</span>
@@ -146,7 +146,6 @@
 <span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="k">import</span> <span class="n">View</span>
 <span class="kn">from</span> <span class="nn">django.http</span> <span class="k">import</span> <span class="n">HttpResponse</span>
 <span class="kn">from</span> <span class="nn">rest_framework</span> <span class="k">import</span> <span class="n">status</span>
-<span class="kn">from</span> <span class="nn">rest_framework.response</span> <span class="k">import</span> <span class="n">Response</span>
 
 <span class="kn">from</span> <span class="nn">apps.filters.models</span> <span class="k">import</span> <span class="n">FilterSet</span>
 <span class="kn">from</span> <span class="nn">apps.mails.models</span> <span class="k">import</span> <span class="n">Message</span><span class="p">,</span> <span class="n">MessagePart</span>
@@ -322,7 +321,8 @@
 			<span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">part</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">decode</span><span class="p">(),</span> <span class="n">content_type</span><span class="o">=</span><span class="s1">&#39;text/plain&#39;</span><span class="p">)</span>
 		<span class="k">elif</span> <span class="n">response_type</span> <span class="o">==</span> <span class="s1">&#39;download&#39;</span><span class="p">:</span>
 			<span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="s1">&#39;application/octet-stream&#39;</span><span class="p">)</span>
-			<span class="n">response</span><span class="p">[</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;attachment; filename=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">filename</span> <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">filename</span> <span class="k">else</span> <span class="s1">&#39;file.txt&#39;</span><span class="p">)</span>
+			<span class="n">filename</span> <span class="o">=</span> <span class="n">quote_plus</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">filename</span> <span class="k">if</span> <span class="n">part</span><span class="o">.</span><span class="n">filename</span> <span class="k">else</span> <span class="s1">&#39;file.txt&#39;</span><span class="p">)</span>
+			<span class="n">response</span><span class="p">[</span><span class="s1">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;attachment; filename=&quot;</span><span class="si">{}</span><span class="s1">&quot;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 			<span class="k">return</span> <span class="n">response</span></div></div>
 </pre></div>
 

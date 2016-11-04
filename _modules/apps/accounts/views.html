@@ -133,7 +133,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for apps.accounts.views</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="k">import</span> <span class="n">authenticate</span><span class="p">,</span> <span class="n">login</span> <span class="k">as</span> <span class="n">django_login</span><span class="p">,</span> <span class="n">logout</span> <span class="k">as</span> <span class="n">django_logout</span>
+<span></span><span class="kn">import</span> <span class="nn">importlib</span>
+
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="k">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="k">import</span> <span class="n">authenticate</span><span class="p">,</span> <span class="n">login</span> <span class="k">as</span> <span class="n">django_login</span><span class="p">,</span> <span class="n">logout</span> <span class="k">as</span> <span class="n">django_logout</span>
 <span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">redirect</span><span class="p">,</span> <span class="n">render_to_response</span>
 <span class="kn">from</span> <span class="nn">django.template</span> <span class="k">import</span> <span class="n">RequestContext</span>
 <span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="k">import</span> <span class="n">TemplateView</span><span class="p">,</span> <span class="n">View</span>
@@ -143,6 +146,26 @@
 
 <div class="viewcode-block" id="Login"><a class="viewcode-back" href="../../../apps/index.html#apps.accounts.views.Login">[docs]</a><span class="k">class</span> <span class="nc">Login</span><span class="p">(</span><span class="n">TemplateView</span><span class="p">):</span>
 	<span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;accounts/login.html&#39;</span>
+
+	<span class="nd">@property</span>
+	<span class="k">def</span> <span class="nf">social_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="n">buttons</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+		<span class="k">for</span> <span class="n">backend</span> <span class="ow">in</span> <span class="n">settings</span><span class="o">.</span><span class="n">SOCIAL_BACKENDS</span><span class="p">:</span>
+			<span class="n">module_name</span> <span class="o">=</span> <span class="n">backend</span><span class="p">[</span><span class="mi">0</span><span class="p">:(</span><span class="nb">str</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span><span class="o">.</span><span class="n">rindex</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">))]</span>
+			<span class="n">class_name</span> <span class="o">=</span> <span class="n">backend</span><span class="p">[(</span><span class="nb">len</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):]</span>
+			<span class="n">module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+			<span class="n">clazz</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span>
+
+			<span class="n">buttons</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+				<span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">clazz</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span>
+			<span class="p">})</span>
+
+		<span class="k">return</span> <span class="p">{</span>
+			<span class="s1">&#39;enabled&#39;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">SOCIAL_ENABLED</span><span class="p">,</span>
+			<span class="s1">&#39;backends&#39;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">SOCIAL_BACKENDS</span><span class="p">,</span>
+			<span class="s1">&#39;buttons&#39;</span><span class="p">:</span> <span class="n">buttons</span>
+		<span class="p">}</span>
 
 <div class="viewcode-block" id="Login.get"><a class="viewcode-back" href="../../../apps/index.html#apps.accounts.views.Login.get">[docs]</a>	<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 		<span class="n">redirect_url</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;next&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">)</span>
@@ -156,7 +179,8 @@
 
 		<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span>
 			<span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
-			<span class="s1">&#39;next&#39;</span><span class="p">:</span> <span class="n">redirect_url</span>
+			<span class="s1">&#39;next&#39;</span><span class="p">:</span> <span class="n">redirect_url</span><span class="p">,</span>
+			<span class="s1">&#39;social&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">social_config</span>
 		<span class="p">},</span> <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Login.post"><a class="viewcode-back" href="../../../apps/index.html#apps.accounts.views.Login.post">[docs]</a>	<span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -176,7 +200,8 @@
 
 		<span class="k">return</span> <span class="n">render_to_response</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span>
 			<span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
-			<span class="s1">&#39;next&#39;</span><span class="p">:</span> <span class="n">redirect_url</span>
+			<span class="s1">&#39;next&#39;</span><span class="p">:</span> <span class="n">redirect_url</span><span class="p">,</span>
+			<span class="s1">&#39;social&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">social_config</span>
 		<span class="p">},</span> <span class="n">context_instance</span><span class="o">=</span><span class="n">RequestContext</span><span class="p">(</span><span class="n">request</span><span class="p">))</span></div></div>
 
 

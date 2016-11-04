@@ -134,10 +134,13 @@
             
   <h1>Source code for apps.core.views</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="k">import</span> <span class="n">permissions</span>
 <span class="kn">from</span> <span class="nn">rest_framework.views</span> <span class="k">import</span> <span class="n">APIView</span>
 
 
 <div class="viewcode-block" id="PreferenceView"><a class="viewcode-back" href="../../../apps/index.html#apps.core.views.PreferenceView">[docs]</a><span class="k">class</span> <span class="nc">PreferenceView</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+	<span class="n">permission_classes</span> <span class="o">=</span> <span class="p">[</span><span class="n">permissions</span><span class="o">.</span><span class="n">AllowAny</span><span class="p">]</span>
+
 	<span class="n">valid_attributes</span> <span class="o">=</span> <span class="p">{</span>
 		<span class="s1">&#39;fluid&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
 	<span class="p">}</span>
