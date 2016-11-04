@@ -115,7 +115,7 @@ class DeleteView(LoginRequiredMixin, generic.TemplateView):
 		if not getattr(request.user, 'is_superuser', False) and not request.user == filterset.created_by:
 			return redirect(reverse('filters:list'))
 
-		filterset.criteria.all().delete()
+		filterset.rules.all().delete()
 		filterset.delete()
 
 		return redirect(reverse('filters:list'))
