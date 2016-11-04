@@ -1,4 +1,9 @@
 
+# To run local tests (PyCharm):
+# import os
+# if 'DJANGO_TEST' in os.environ and not os.environ['DJANGO_TEST']:
+# 	TEST = False
+
 # Generate unique secret key.
 SECRET_KEY = '7=999^z!d6ysczgfsdfa3got@u$5b$hhew=24!m27f_c$-+x7mm*'
 
