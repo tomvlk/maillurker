@@ -1,11 +1,11 @@
 Mail Lurker
 ===========
 
-.. image:: https://travis-ci.org/tomvlk/emaillurker.svg?branch=master
-        :target: https://travis-ci.org/tomvlk/emaillurker
+.. image:: https://travis-ci.org/tomvlk/maillurker.svg?branch=master
+        :target: https://travis-ci.org/tomvlk/maillurker
 
-.. image:: https://codecov.io/gh/tomvlk/emaillurker/branch/master/graph/badge.svg
-        :target: https://codecov.io/gh/tomvlk/emaillurker
+.. image:: https://codecov.io/gh/tomvlk/maillurker/branch/master/graph/badge.svg
+        :target: https://codecov.io/gh/tomvlk/maillurker
 
 
 A ordered and structured mail catcher made for large environments with high e-mail traffic from multiple sources.
