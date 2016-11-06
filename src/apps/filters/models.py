@@ -35,7 +35,6 @@ class FilterSet(BaseModel):
 	combine = models.CharField(max_length=3, choices=COMBINE_CHOICES, default='and')
 	"""Combine of the rules"""
 
-
 	@staticmethod
 	def get_icon_choices():
 		return dict(FilterSet.ICON_CHOICES)
@@ -54,6 +53,9 @@ class FilterSet(BaseModel):
 		if getattr(self, '_count', None) is None:
 			self._count = self.get_matches().count()
 		return self._count
+
+	def __str__(self):
+		return self.name
 
 
 class Rule(BaseModel):
@@ -85,6 +87,9 @@ class Rule(BaseModel):
 	)
 
 	filter_set = models.ForeignKey(FilterSet, related_name='rules', on_delete=models.CASCADE)
+
+	created_by = models.ForeignKey(User, related_name='created_rules', null=True, default=None)
+	"""Couple rule to user so we know if the user is allowed to change the Rule."""
 
 	field = models.CharField(max_length=255, choices=FIELD_CHOICES)
 	"""Field to run condition against."""
@@ -119,3 +124,11 @@ class Rule(BaseModel):
 			query.add(node, combine)
 
 		return query
+
+	def __str__(self):
+		return 'Field \'{}\' complies {} with {} {}'.format(
+			self.field,
+			('not' if not self.negate else ''),
+			self.operator,
+			self.value,
+		)
