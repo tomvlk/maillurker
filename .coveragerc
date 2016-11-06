@@ -4,7 +4,7 @@ branch = True
 
 [report]
 exclude_lines =
-  pragma: no cover
+    pragma: no cover
 
     # Don't complain about missing debug-only code:
     def __unicode__
@@ -20,9 +20,10 @@ exclude_lines =
     if __name__ == .__main__.:
 
 omit =
-    src/config/*
-    src/apps/*/migrations/*
-    src/test/*
+    config/*
+    */migrations/*
+    test/*
+    ../env/*
     env/*
 
 show_missing = True
