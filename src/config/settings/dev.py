@@ -10,7 +10,7 @@ INSTALLED_APPS += (
 	'django_extensions',
 )
 
-LOGIN_EXEMPT_URLS += (
+STRONGHOLD_PUBLIC_URLS += (
 	'__debug__',
 )
 

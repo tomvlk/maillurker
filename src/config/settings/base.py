@@ -76,6 +76,7 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'django.contrib.humanize',
+	'stronghold',
 	'crispy_forms',
 	'material',
 	'material.admin',
@@ -157,7 +158,7 @@ MIDDLEWARE_CLASSES = (
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-	'apps.accounts.middleware.LoginRequiredMiddleware',
+	'stronghold.middleware.LoginRequiredMiddleware',
 	'apps.accounts.middleware.SocialAuthExceptionMiddleware',
 )
 
@@ -168,17 +169,21 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 GRAPPELLI_ADMIN_TITLE = 'Mail Lurker, Mail catcher for large environments.'
 
-LOGIN_EXEMPT_URLS = [
-	'login/.*',
-	'complete/.*',
+STRONGHOLD_DEFAULTS = True
+STRONGHOLD_PUBLIC_URLS = [
+	r'^/login/.*$',
+	r'^/complete/.*$',
+	r'^/core/preference$',
 
-	'api/.*',
+	r'^/api/.*$',
 ]
 
 # If read-only is enabled, exempt the root.
 if 'allow_readonly' in local.AUTHENTICATION and local.AUTHENTICATION['allow_readonly']:
-	LOGIN_EXEMPT_URLS += [
-		'.*'
+	STRONGHOLD_PUBLIC_URLS += [
+		r'^/mails/.*$',
+		r'^/filters/.*$',
+		r'^/$'
 	]
 
 AUTHENTICATION_BACKENDS = (
@@ -207,6 +212,12 @@ if SOCIAL_ENABLED:
 		'social.pipeline.social_auth.associate_user',
 		'social.pipeline.social_auth.load_extra_data',
 		'social.pipeline.user.user_details',
+	)
+
+	SOCIAL_AUTH_DISCONNECT_PIPELINE = (
+		'social.pipeline.disconnect.get_entries',
+		'social.pipeline.disconnect.revoke_tokens',
+		'social.pipeline.disconnect.disconnect'
 	)
 
 # Add social pipelines
