@@ -1,0 +1,8 @@
+src/apps/core/static/css/bootstrap*.css linguist-vendored
+src/apps/core/static/css/font-awesome.css linguist-vendored
+src/apps/core/static/css/select*.css linguist-vendored
+src/apps/core/static/js/bootbox.js linguist-vendored
+src/apps/core/static/js/bootstrap.js linguist-vendored
+src/apps/core/static/js/cookie.js linguist-vendored
+src/apps/core/static/js/jquery.js linguist-vendored
+src/apps/core/static/js/select2.js linguist-vendored
