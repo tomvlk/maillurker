@@ -26,10 +26,10 @@ AUTHENTICATION = {
 			'SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_DOMAINS': [
 				'example.com'
 			],
-			'SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE': [
+			'SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE': [
 				'https://www.googleapis.com/auth/userinfo.email',
 				'https://www.googleapis.com/auth/userinfo.profile'
-			],
+			]
 		}
 	}
 }
