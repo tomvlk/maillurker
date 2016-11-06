@@ -12,6 +12,10 @@ DATA_DIR = os.path.join(os.path.dirname(BASE_DIR), 'data')
 TEST_DIR = os.path.join(os.path.dirname(BASE_DIR), 'src', 'test')
 DOCS_ROOT = os.path.join(BASE_DIR, '../docs/build/html')
 
+INTERNAL_IPS = (
+	'127.0.0.1',
+)
+
 try:
 	os.makedirs(TMP_DIR)
 except Exception:

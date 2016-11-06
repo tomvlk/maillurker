@@ -1,18 +1,13 @@
-# To run local tests (PyCharm):
-# import os
-# if 'DJANGO_TEST' in os.environ and not os.environ['DJANGO_TEST']:
-# 	TEST = False
-
-# Generate unique secret key.
 from datetime import timedelta
 
+# Generate unique secret key.
 SECRET_KEY = 'changeme'
 
 # Enable API tokens for all users
 USER_API_KEYS = True
 
 # Turn debug on or off
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 # Authentication options. See example for details
