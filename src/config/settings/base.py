@@ -65,6 +65,15 @@ if FORWARDING_ENABLED and FORWARDING['method'] == 'smtp':
 else:
 	EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
+
+# Cleanup of old messages
+CLEANUP = False
+CLEANUP_AFTER = None
+
+if type(getattr(local, 'CLEANUP_AFTER', None)) is datetime.timedelta:
+	CLEANUP = True
+	CLEANUP_AFTER = local.CLEANUP_AFTER
+
 ####
 # Apps
 ####

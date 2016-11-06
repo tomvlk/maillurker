@@ -1,3 +1,4 @@
+import datetime
 import json
 import logging
 
@@ -56,6 +57,22 @@ class Message(BaseModel):
 				}))
 
 		return total
+
+	@staticmethod
+	def cleanup():
+		if not settings.CLEANUP or not settings.CLEANUP_AFTER or not type(settings.CLEANUP_AFTER) is datetime.timedelta:
+			return 0
+
+		threshold = datetime.datetime.now() - settings.CLEANUP_AFTER
+
+		old_messages = Message.objects.filter(created_at__lt=threshold)
+		count = old_messages.count()
+
+		if not count:
+			return 0
+
+		old_messages.delete()
+		return count
 
 	@property
 	def has_attachments(self):

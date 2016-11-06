@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 TEST = True
 
 # Generate unique secret key.
@@ -46,6 +48,10 @@ FORWARDING = {
 		'ssl_certfile': None,
 	},
 }
+
+# Cleanup and remove messages after interval given, False to disable.
+# CLEANUP_AFTER = False
+CLEANUP_AFTER = timedelta(days=31)
 
 
 # Enable if you are using a reverse proxy with HTTPS served to the client.

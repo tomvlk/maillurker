@@ -4,6 +4,8 @@
 # 	TEST = False
 
 # Generate unique secret key.
+from datetime import timedelta
+
 SECRET_KEY = 'changeme'
 
 # Enable API tokens for all users
@@ -88,6 +90,10 @@ FORWARDING = {
 		'ssl_certfile': None,
 	},
 }
+
+# Cleanup and remove messages after interval given, False to disable.
+# CLEANUP_AFTER = False
+CLEANUP_AFTER = timedelta(days=31)
 
 # Enable if you are using a reverse proxy with HTTPS served to the client.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 class Lurker(smtpd.SMTPServer):
 	INSTANCE = None
 	THREAD = None
+	CLEANER = None
 
 	def process_message(self, peer, mailfrom, rcpttos, data, **kwargs):
 		"""
@@ -87,6 +88,17 @@ class Lurker(smtpd.SMTPServer):
 		])
 
 	@staticmethod
+	def clean():
+		num_deleted = models.Message.cleanup()
+
+		if num_deleted > 0:
+			logger.info('Cleanup deleted \'{}\' old messages.'.format(num_deleted))
+
+		# Schedule next cleanup task.
+		Lurker.CLEANER = threading.Timer(6, Lurker.clean)
+		Lurker.CLEANER.start()
+
+	@staticmethod
 	def parse_addresses(raw):
 		"""
 		Parse Addresses
@@ -108,18 +120,23 @@ class Lurker(smtpd.SMTPServer):
 		return list(email.utils.parseaddr(raw))
 
 	@staticmethod
-	def start(test=False, threaded=False):
+	def start(test=False, threaded=False, cleaner=False):
 		"""
 		Start SMTP catcher.
 
 		:param test:
 		:param threaded:
+		:param cleaner:
 		:return:
 		"""
 		if Lurker.INSTANCE:
 			return
 
 		Lurker.INSTANCE = Lurker((settings.SMTPD_ADDRESS, settings.SMTPD_PORT), None)
+
+		if cleaner:
+			Lurker.CLEANER = threading.Timer(6, Lurker.clean)
+			Lurker.CLEANER.start()
 
 		if threaded:
 			Lurker.THREAD = threading.Thread(target=asyncore.loop, kwargs={'timeout': 1})
@@ -129,6 +146,9 @@ class Lurker(smtpd.SMTPServer):
 
 		logger.info('Started listening on {}:{}'.format(settings.SMTPD_ADDRESS, settings.SMTPD_PORT))
 
+		if cleaner:
+			logger.info('Scheduled cleaner task in background.')
+
 	@staticmethod
 	def stop():
 		"""
@@ -136,5 +156,8 @@ class Lurker(smtpd.SMTPServer):
 		:return:
 		"""
 		Lurker.INSTANCE.close()
+		if Lurker.CLEANER:
+			Lurker.CLEANER.cancel()
+
 		if Lurker.THREAD:
 			Lurker.THREAD.join()
