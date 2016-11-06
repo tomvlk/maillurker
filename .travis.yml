@@ -31,11 +31,11 @@ script:
   - cd ${TRAVIS_BUILD_DIR}/src
   - python manage.py migrate
   - python manage.py createcachetable
-  - python manage.py test
+  - coverage run --branch --source='.' manage.py test
 
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - coveralls
 
 
 matrix:
