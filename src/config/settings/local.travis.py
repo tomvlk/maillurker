@@ -16,6 +16,35 @@ AUTHENTICATION = {
 	}
 }
 
+# Forwarding settings
+FORWARDING = {
+	# Enable forwarding functionality.
+	'enabled': False,
+
+	# Enable automatic forwarding of emails (act as a proxy).
+	'automatically': False,
+
+	# Use method for delivering. Choose from 'smtp' / None
+	'method': 'smtp',
+
+	# SMTP Smarthost configuration
+	'smtp': {
+		'host': '127.0.0.1',
+		'port': 25,
+		'authentication': {
+			'enabled': False,
+			'username': '',
+			'password': '',
+		},
+		'use_tls': False,
+		'use_ssl': False,
+		'timeout': None,
+		'ssl_keyfile': None,
+		'ssl_certfile': None,
+	},
+}
+
+
 # Enable if you are using a reverse proxy with HTTPS served to the client.
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # SECURE_FORCE = True

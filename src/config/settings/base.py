@@ -39,6 +39,28 @@ SECRET_KEY = local.SECRET_KEY
 SMTPD_ADDRESS = getattr(local, 'SMTPD_ADDRESS', '0.0.0.0')
 SMTPD_PORT = getattr(local, 'SMTPD_PORT', 1025)
 
+# Mail Forwarding policy and settings.
+FORWARDING = local.FORWARDING
+FORWARDING_ENABLED = bool(FORWARDING['enabled'])
+FORWARDING_AUTO = bool(FORWARDING['automatically'])
+
+if FORWARDING_ENABLED and FORWARDING['method'] == 'smtp':
+	EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+	EMAIL_HOST = FORWARDING['smtp']['host']
+	EMAIL_PORT = FORWARDING['smtp']['port']
+	EMAIL_TIMEOUT = FORWARDING['smtp']['timeout']
+
+	if FORWARDING['smtp']['authentication']['enabled']:
+		EMAIL_HOST_USER = FORWARDING['smtp']['authentication']['username']
+		EMAIL_HOST_PASSWORD = FORWARDING['smtp']['authentication']['password']
+
+	EMAIL_USE_TLS = FORWARDING['smtp']['use_tls']
+	EMAIL_USE_SSL = FORWARDING['smtp']['use_ssl']
+	EMAIL_SSL_CERTFILE = FORWARDING['smtp']['ssl_certfile']
+	EMAIL_SSL_KEYFILE = FORWARDING['smtp']['ssl_keyfile']
+else:
+	EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+
 ####
 # Apps
 ####

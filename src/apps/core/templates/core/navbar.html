@@ -70,7 +70,7 @@
                 </li>
             </ul>
             <div class="row pull-right action-buttons">
-                <div class="col-xs-4">
+                <div class="{% if forwarding.enabled %}col-xs-4{% else %}col-xs-6{% endif %}">
                     <button type="button" disabled="disabled" class="btn btn-sm btn-block btn-danger"
                             data-action="remove" data-enabled="{% if user.is_authenticated %}1{% else %}0{% endif %}"
                             title="{% if not user.is_authenticated %}You are not allowed to remove entries{% endif %}">
@@ -78,6 +78,7 @@
                         Remove
                     </button>
                 </div>
+                {% if forwarding.enabled %}
                 <div class="col-xs-4">
                     <button type="button" disabled="disabled" class="btn btn-sm btn-block btn-warning"
                             data-action="forward" data-enabled="{% if user.is_authenticated and user.email %}1{% else %}0{% endif %}"
@@ -86,7 +87,8 @@
                         Forward
                     </button>
                 </div>
-                <div class="col-xs-4">
+                {% endif %}
+                <div class="{% if forwarding.enabled %}col-xs-4{% else %}col-xs-6{% endif %}">
                     <button type="button" disabled="disabled" class="btn btn-sm btn-block btn-info"
                             data-action="download" data-enabled="1"
                             title="">

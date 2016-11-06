@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from apps.core.menu import Menu
 
 
@@ -10,5 +12,9 @@ def add_global_context(request):
 		},
 		'preferences': {
 			'fluid': request.session.get('preference.fluid', True)
+		},
+		'forwarding': {
+			'enabled': settings.FORWARDING_ENABLED,
+
 		}
 	}

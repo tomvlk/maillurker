@@ -106,6 +106,7 @@
                             Remove
                         </button>
                     </div>
+                    {% if forwarding.enabled %}
                     <div class="col-xs-4">
                         <button type="button" disabled="disabled" class="btn btn-sm btn-block btn-warning"
                                 data-action="forward" data-enabled="{% if user.is_authenticated and user.email %}1{% else %}0{% endif %}"
@@ -114,6 +115,7 @@
                             Forward
                         </button>
                     </div>
+                    {% endif %}
                     <div class="col-xs-4">
                         <button type="button" disabled="disabled" class="btn btn-sm btn-block btn-info"
                                 data-action="download" data-enabled="1"
