@@ -34,7 +34,11 @@ Features
 * User system: You can optional enable the authentication required command in the settings. This will require an
   authenticated user in order to use the catcher.
 
+* Social Authentication: Allows your users to authenticate with social authentication. This can be really useful when
+  your company uses Google for Domains, you can easily allow the specific domain to be allowed.
 
+* REST Api: Allows you and (optional) your users to create awesome integrations for creating filters, rules and reading
+  several data from the lurker.
 
 Similar projects
 ----------------
@@ -53,4 +57,4 @@ The Mail Lurker requires the following software components:
 -  Python 3.4+
 -  pip
 -  virtualenv
--  MySQL (for now, only MySQL is supported).
+-  MySQL (Or any other database supported by Django).
