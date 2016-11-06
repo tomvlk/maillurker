@@ -32,10 +32,10 @@ USE_L10N = True
 LANGUAGE_CODE = 'en-en'
 
 SECRET_KEY = local.SECRET_KEY
-API_KEY = local.API_KEY
+USER_API_KEYS = bool(local.USER_API_KEYS)
 
-if SECRET_KEY == 'changeme' or API_KEY == 'changeme':
-	print('YOU SHOULD CHANGE YOUR SECRET KEY AND/OR API KEY!!!')
+if SECRET_KEY == 'changeme':
+	print('YOU SHOULD CHANGE YOUR SECRET KEY!!!')
 
 ####
 # Mail Server Settings

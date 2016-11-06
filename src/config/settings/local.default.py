@@ -6,8 +6,8 @@
 # Generate unique secret key.
 SECRET_KEY = 'changeme'
 
-# Generate your own API key. Set False to disable API Access by global token.
-API_KEY = 'changeme'
+# Enable API tokens for all users
+USER_API_KEYS = True
 
 # Turn debug on or off
 DEBUG = True
