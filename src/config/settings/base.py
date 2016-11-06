@@ -63,7 +63,6 @@ INSTALLED_APPS = [
 if 'social' in local.AUTHENTICATION and type(local.AUTHENTICATION['social']) is dict:
 	INSTALLED_APPS.append('social.apps.django_app.default')
 
-
 # Add source apps
 INSTALLED_APPS += [
 	'apps.core.apps.CoreConfig',
@@ -73,7 +72,6 @@ INSTALLED_APPS += [
 	'apps.filters.apps.FiltersConfig',
 	'apps.api.apps.ApiConfig',
 ]
-
 
 ####
 # Base Settings and content.
@@ -96,7 +94,6 @@ WSGI_APPLICATION = 'wsgi.application'
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-
 ####
 # Templates & Middleware
 ####
@@ -110,14 +107,14 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 
 # Add social processors
 SOCIAL_ENABLED = False
-if 'social' in local.AUTHENTICATION and 'enabled' in local.AUTHENTICATION['social'] and local.AUTHENTICATION['social']['enabled']:
+if 'social' in local.AUTHENTICATION and 'enabled' in local.AUTHENTICATION['social'] and local.AUTHENTICATION['social'][
+	'enabled']:
 	SOCIAL_ENABLED = True
 
 	TEMPLATE_CONTEXT_PROCESSORS += (
 		'social.apps.django_app.context_processors.login_redirect',
 		'social.apps.django_app.context_processors.backends',
 	)
-
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
@@ -137,7 +134,6 @@ MIDDLEWARE_CLASSES = (
 	'apps.accounts.middleware.LoginRequiredMiddleware',
 	'apps.accounts.middleware.SocialAuthExceptionMiddleware',
 )
-
 
 ####
 # Authentication and security
@@ -196,7 +192,6 @@ if SOCIAL_ENABLED and 'pipelines' in local.AUTHENTICATION['social']:
 if SOCIAL_ENABLED and 'options' in local.AUTHENTICATION['social']:
 	locals().update(local.AUTHENTICATION['social']['options'])
 
-
 ####
 # Template and cache
 ####
@@ -217,7 +212,6 @@ CACHES = {
 		'LOCATION': 'django_cache',
 	}
 }
-
 
 ####
 # Database settings.
@@ -244,20 +238,20 @@ REST_FRAMEWORK = {
 ####
 if getattr(local, 'TEST', False):
 	TEST = True
-	# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-	# TEST_APPS = (
-	# 	'apps.accounts',
-	# 	'apps.api',
-	# 	'apps.core',
-	# 	'apps.filters',
-	# 	'apps.mails'
-	# )
-	#
-	# NOSE_ARGS = [
-	# 	'--with-coverage',
-	# 	'--cover-package={}'.format(','.join(TEST_APPS)),
-	# 	'--cover-branches',
-	# ]
+	TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+	TEST_APPS = (
+		'apps.accounts',
+		'apps.api',
+		'apps.core',
+		'apps.filters',
+		'apps.mails'
+	)
+
+	NOSE_ARGS = [
+		'--with-coverage',
+		'--cover-package={}'.format(','.join(TEST_APPS)),
+		'--cover-branches',
+	]
 
 ####
 # OVERRIDES

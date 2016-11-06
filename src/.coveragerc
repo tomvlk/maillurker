@@ -1,22 +1,6 @@
 [run]
-source = src
 branch = True
 parallel = True
-
-omit =
-    src/config/*.py
-    src/config/*/*.py
-    src/manage.py
-    src/wsgi.py
-    src/apps/*/migrations/*
-    src/apps/*/context.py
-    src/apps/*/urls.py
-    src/apps/*/admin.py
-    src/test/*
-    src/test/*/*.py
-    env/*
-    docs/*
-
 
 [report]
 exclude_lines =
@@ -36,3 +20,19 @@ exclude_lines =
     if __name__ == .__main__.:
 
 show_missing = True
+
+omit =
+    *config/*.py
+    *config/*/*.py
+    *manage.py
+    *wsgi.py
+    *apps/*/migrations/*
+    *apps/*/context.py
+    *apps/*/urls.py
+    *apps/*/admin.py
+    *test/*
+    *test/*/*.py
+    env/*
+    ../env/*
+    docs/*
+    ../docs/*
