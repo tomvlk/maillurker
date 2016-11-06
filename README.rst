@@ -7,6 +7,9 @@ Mail Lurker
 .. image:: https://coveralls.io/repos/github/tomvlk/maillurker/badge.svg?branch=master
         :target: https://coveralls.io/github/tomvlk/maillurker?branch=master
 
+.. image:: https://api.codacy.com/project/badge/Grade/188891b0805644b9b055ae6c7758beef
+        :target: https://www.codacy.com/app/tomvalk/maillurker?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tomvlk/maillurker&amp;utm_campaign=Badge_Grade
+
 
 A ordered and structured mail catcher made for large environments with high e-mail traffic from multiple sources.
 With the global level filtering and user defined filtering it's easy to maintain structure in debugging with multiple
