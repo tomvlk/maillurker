@@ -60,6 +60,10 @@ body.with-navbar {
     background-color: #484848;
 }
 
+div.github-button-container {
+    padding-top: 12px;
+}
+
 div.action-buttons {
     margin: 10px 5px;
 }
