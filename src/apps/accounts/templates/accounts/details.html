@@ -105,11 +105,14 @@
                         {{ account.provider }}
                     {% endif %}
 
-                    <a href="{% url 'social:disconnect_individual' account.provider account.id %}"
-                       class="btn btn-xs btn-danger pull-right">
-                        <i class="fa fa-link"></i>
-                        Disconnect
-                    </a>
+                    <form action="{% url 'social:disconnect_individual' account.provider account.id %}" method="post"
+                          class="pull-right">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-xs btn-danger">
+                            <i class="fa fa-link"></i>
+                            Disconnect
+                        </button>
+                    </form>
                 </li>
                 {% endfor %}
             </ul>
