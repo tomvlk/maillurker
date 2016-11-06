@@ -1,6 +1,22 @@
 [run]
 source = src
 branch = True
+parallel = True
+
+omit =
+    src/config/*.py
+    src/config/*/*.py
+    src/manage.py
+    src/wsgi.py
+    src/apps/*/migrations/*
+    src/apps/*/context.py
+    src/apps/*/urls.py
+    src/apps/*/admin.py
+    src/test/*
+    src/test/*/*.py
+    env/*
+    docs/*
+
 
 [report]
 exclude_lines =
@@ -18,12 +34,5 @@ exclude_lines =
     # Don't complain if non-runnable code isn't run:
     if 0:
     if __name__ == .__main__.:
-
-omit =
-    config/*
-    */migrations/*
-    test/*
-    ../env/*
-    env/*
 
 show_missing = True
