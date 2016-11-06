@@ -140,59 +140,30 @@ There are plans to expand this module for external API usages.</p>
 </div>
 <div class="section" id="views">
 <h2>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt>
-<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">MailsAction</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsAction"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="method">
-<dt>
-<code class="descname">post</code><span class="sig-paren">(</span><em>request</em>, <em>action</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsAction.post"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt>
-<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">MailsDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsDetail"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="method">
-<dt>
-<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>mail_id</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsDetail.get"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt>
-<code class="descname">permission_classes</code><em class="property"> = [&lt;class 'rest_framework.permissions.IsAuthenticatedOrReadOnly'&gt;]</em></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt>
-<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">PartsDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#PartsDetail"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="method">
-<dt>
-<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>part_id</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#PartsDetail.get"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt>
-<code class="descname">permission_classes</code><em class="property"> = [&lt;class 'rest_framework.permissions.IsAuthenticatedOrReadOnly'&gt;]</em></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt>
-<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">RealTimeInfos</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#RealTimeInfos"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="method">
-<dt>
-<code class="descname">get</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#RealTimeInfos.get"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </div>
 <div class="section" id="serializers">
 <h2>Serializers<a class="headerlink" href="#serializers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.serializers.</code><code class="descname">FilterSetAdvancedSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/serializers.html#FilterSetAdvancedSerializer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="class">
+<dt>
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/apps/api/serializers.html#FilterSetAdvancedSerializer.Meta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">fields</code><em class="property"> = ('id', 'name', 'created_by', 'is_global', 'is_active', 'icon', 'count', 'rules')</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">model</code></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">FilterSet</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
 <dl class="class">
 <dt>
 <em class="property">class </em><code class="descclassname">apps.api.serializers.</code><code class="descname">FilterSetSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/serializers.html#FilterSetSerializer"><span class="viewcode-link">[source]</span></a></dt>
@@ -271,6 +242,27 @@ There are plans to expand this module for external API usages.</p>
 <dt>
 <code class="descname">model</code></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Message</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.serializers.</code><code class="descname">RuleAdvancedSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/serializers.html#RuleAdvancedSerializer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="class">
+<dt>
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/apps/api/serializers.html#RuleAdvancedSerializer.Meta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">fields</code><em class="property"> = ('id', 'field', 'operator', 'negate', 'value', 'filter_set')</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">model</code></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Rule</span></code></p>
 </dd></dl>
 
 </dd></dl>

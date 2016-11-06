@@ -141,7 +141,8 @@
   <div class="section" id="mail-lurker">
 <span id="readme"></span><h1>Mail Lurker<a class="headerlink" href="#mail-lurker" title="Permalink to this headline">¶</a></h1>
 <a class="reference external image-reference" href="https://travis-ci.org/tomvlk/maillurker"><img alt="https://travis-ci.org/tomvlk/maillurker.svg?branch=master" src="https://travis-ci.org/tomvlk/maillurker.svg?branch=master" /></a>
-<a class="reference external image-reference" href="https://codecov.io/gh/tomvlk/maillurker"><img alt="https://codecov.io/gh/tomvlk/maillurker/branch/master/graph/badge.svg" src="https://codecov.io/gh/tomvlk/maillurker/branch/master/graph/badge.svg" /></a>
+<a class="reference external image-reference" href="https://coveralls.io/github/tomvlk/maillurker?branch=master"><img alt="https://coveralls.io/repos/github/tomvlk/maillurker/badge.svg?branch=master" src="https://coveralls.io/repos/github/tomvlk/maillurker/badge.svg?branch=master" /></a>
+<a class="reference external image-reference" href="https://www.codacy.com/app/tomvalk/maillurker?utm_source=github.com&amp;amp;utm_medium=referral&amp;amp;utm_content=tomvlk/maillurker&amp;amp;utm_campaign=Badge_Grade"><img alt="https://api.codacy.com/project/badge/Grade/188891b0805644b9b055ae6c7758beef" src="https://api.codacy.com/project/badge/Grade/188891b0805644b9b055ae6c7758beef" /></a>
 <p>A ordered and structured mail catcher made for large environments with high e-mail traffic from multiple sources.
 With the global level filtering and user defined filtering it&#8217;s easy to maintain structure in debugging with multiple
 developers and servers.</p>
@@ -162,6 +163,10 @@ personal filter sets.</li>
 of the e-mail messages.</li>
 <li>User system: You can optional enable the authentication required command in the settings. This will require an
 authenticated user in order to use the catcher.</li>
+<li>Social Authentication: Allows your users to authenticate with social authentication. This can be really useful when
+your company uses Google for Domains, you can easily allow the specific domain to be allowed.</li>
+<li>REST Api: Allows you and (optional) your users to create awesome integrations for creating filters, rules and reading
+several data from the lurker.</li>
 </ul>
 </div>
 <div class="section" id="similar-projects">
@@ -180,7 +185,7 @@ authenticated user in order to use the catcher.</li>
 <li>Python 3.4+</li>
 <li>pip</li>
 <li>virtualenv</li>
-<li>MySQL (for now, only MySQL is supported).</li>
+<li>MySQL (Or any other database supported by Django).</li>
 </ul>
 </div>
 </div>

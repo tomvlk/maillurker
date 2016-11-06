@@ -259,7 +259,7 @@
 
 <dl class="class">
 <dt>
-<em class="property">class </em><code class="descclassname">apps.filters.models.</code><code class="descname">Rule</code><span class="sig-paren">(</span><em>id</em>, <em>created_at</em>, <em>updated_at</em>, <em>filter_set</em>, <em>field</em>, <em>operator</em>, <em>negate</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/models.html#Rule"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property">class </em><code class="descclassname">apps.filters.models.</code><code class="descname">Rule</code><span class="sig-paren">(</span><em>id</em>, <em>created_at</em>, <em>updated_at</em>, <em>filter_set</em>, <em>created_by</em>, <em>field</em>, <em>operator</em>, <em>negate</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/models.html#Rule"><span class="viewcode-link">[source]</span></a></dt>
 <dd><dl class="exception">
 <dt>
 <em class="property">exception </em><code class="descname">DoesNotExist</code></dt>
@@ -279,6 +279,12 @@
 <dt>
 <code class="descclassname">Rule.</code><code class="descname">OPERATOR_CHOICES</code><em class="property"> = (('iexact', 'Equal Than (==)'), ('icontains', 'Contains'), ('iregex', 'Matches Regular Expression'), ('isnull', 'Is NULL'), ('istrue', 'Is TRUE'), ('isfalse', 'Is FALSE'), ('lt', 'Less Than (&lt;)'), ('gt', 'Greater Than (&gt;)'), ('lte', 'Less or Equal Than (&lt;=)'), ('gte', 'Greater or Equal Than (&gt;=)'))</em></dt>
 <dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">created_by</code></dt>
+<dd><p>Couple rule to user so we know if the user is allowed to change the Rule.</p>
+</dd></dl>
 
 <dl class="staticmethod">
 <dt>

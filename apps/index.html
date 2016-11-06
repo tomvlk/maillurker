@@ -397,6 +397,20 @@ jQuery and bootstrap.</p>
 <code class="descclassname">User.</code><code class="descname">created_filters</code></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt>
+<code class="descclassname">User.</code><code class="descname">created_rules</code></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">User.</code><code class="descname">get_gravatar_url</code><span class="sig-paren">(</span><em>size=120</em>, <em>default='mm'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/accounts/models.html#User.get_gravatar_url"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Get Gravatar URL.
+:param size:
+:param default:
+:return:</p>
+</dd></dl>
+
 <dl class="method">
 <dt>
 <code class="descclassname">User.</code><code class="descname">get_next_by_date_joined</code><span class="sig-paren">(</span><em>*moreargs</em>, <em>**morekwargs</em><span class="sig-paren">)</span></dt>
@@ -437,6 +451,21 @@ jQuery and bootstrap.</p>
 </div>
 <div class="section" id="id2">
 <h3>Views<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.accounts.views.</code><code class="descname">Details</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/accounts/views.html#Details"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="method">
+<dt>
+<code class="descname">get_context_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/accounts/views.html#Details.get_context_data"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">template_name</code><em class="property"> = 'accounts/details.html'</em></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="class">
 <dt>
 <em class="property">class </em><code class="descclassname">apps.accounts.views.</code><code class="descname">Login</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/accounts/views.html#Login"><span class="viewcode-link">[source]</span></a></dt>
@@ -513,23 +542,6 @@ jQuery and bootstrap.</p>
 <h3>Middleware<a class="headerlink" href="#middleware" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt>
-<em class="property">class </em><code class="descclassname">apps.accounts.middleware.</code><code class="descname">LoginRequiredMiddleware</code><a class="reference internal" href="../_modules/apps/accounts/middleware.html#LoginRequiredMiddleware"><span class="viewcode-link">[source]</span></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Middleware that requires a user to be authenticated to view any page other
-than LOGIN_URL. Exemptions to this requirement can optionally be specified
-in settings via a list of regular expressions in LOGIN_EXEMPT_URLS (which
-you can copy from your urls.py).</p>
-<p>Requires authentication middleware and template context processors to be
-loaded. You&#8217;ll get an error if they aren&#8217;t.</p>
-<dl class="method">
-<dt>
-<code class="descname">process_request</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/accounts/middleware.html#LoginRequiredMiddleware.process_request"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt>
 <em class="property">class </em><code class="descclassname">apps.accounts.middleware.</code><code class="descname">SocialAuthExceptionMiddleware</code><a class="reference internal" href="../_modules/apps/accounts/middleware.html#SocialAuthExceptionMiddleware"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
@@ -550,59 +562,30 @@ There are plans to expand this module for external API usages.</p>
 </div>
 <div class="section" id="id4">
 <h3>Views<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
-<dl class="class">
-<dt>
-<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">MailsAction</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsAction"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="method">
-<dt>
-<code class="descname">post</code><span class="sig-paren">(</span><em>request</em>, <em>action</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsAction.post"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt>
-<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">MailsDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsDetail"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="method">
-<dt>
-<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>mail_id</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#MailsDetail.get"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt>
-<code class="descname">permission_classes</code><em class="property"> = [&lt;class 'rest_framework.permissions.IsAuthenticatedOrReadOnly'&gt;]</em></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt>
-<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">PartsDetail</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#PartsDetail"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="method">
-<dt>
-<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>part_id</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#PartsDetail.get"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt>
-<code class="descname">permission_classes</code><em class="property"> = [&lt;class 'rest_framework.permissions.IsAuthenticatedOrReadOnly'&gt;]</em></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt>
-<em class="property">class </em><code class="descclassname">apps.api.views.</code><code class="descname">RealTimeInfos</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#RealTimeInfos"><span class="viewcode-link">[source]</span></a></dt>
-<dd><dl class="method">
-<dt>
-<code class="descname">get</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/views.html#RealTimeInfos.get"><span class="viewcode-link">[source]</span></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </div>
 <div class="section" id="serializers">
 <h3>Serializers<a class="headerlink" href="#serializers" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.serializers.</code><code class="descname">FilterSetAdvancedSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/serializers.html#FilterSetAdvancedSerializer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="class">
+<dt>
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/apps/api/serializers.html#FilterSetAdvancedSerializer.Meta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">fields</code><em class="property"> = ('id', 'name', 'created_by', 'is_global', 'is_active', 'icon', 'count', 'rules')</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">model</code></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">FilterSet</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
 <dl class="class">
 <dt>
 <em class="property">class </em><code class="descclassname">apps.api.serializers.</code><code class="descname">FilterSetSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/serializers.html#FilterSetSerializer"><span class="viewcode-link">[source]</span></a></dt>
@@ -681,6 +664,27 @@ There are plans to expand this module for external API usages.</p>
 <dt>
 <code class="descname">model</code></dt>
 <dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Message</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="descclassname">apps.api.serializers.</code><code class="descname">RuleAdvancedSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/api/serializers.html#RuleAdvancedSerializer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="class">
+<dt>
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../_modules/apps/api/serializers.html#RuleAdvancedSerializer.Meta"><span class="viewcode-link">[source]</span></a></dt>
+<dd><dl class="attribute">
+<dt>
+<code class="descname">fields</code><em class="property"> = ('id', 'field', 'operator', 'negate', 'value', 'filter_set')</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descname">model</code></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Rule</span></code></p>
 </dd></dl>
 
 </dd></dl>
@@ -856,7 +860,7 @@ There are plans to expand this module for external API usages.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">sortable_columns</code><em class="property"> = {'received': 'created_at', 'to': 'recipients_to', 'from': 'sender_address', 'size': 'size', 'subject': 'subject'}</em></dt>
+<code class="descname">sortable_columns</code><em class="property"> = {'size': 'size', 'received': 'created_at', 'to': 'recipients_to', 'subject': 'subject', 'from': 'sender_address'}</em></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1026,7 +1030,7 @@ There are plans to expand this module for external API usages.</p>
 
 <dl class="class">
 <dt>
-<em class="property">class </em><code class="descclassname">apps.filters.models.</code><code class="descname">Rule</code><span class="sig-paren">(</span><em>id</em>, <em>created_at</em>, <em>updated_at</em>, <em>filter_set</em>, <em>field</em>, <em>operator</em>, <em>negate</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/models.html#Rule"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property">class </em><code class="descclassname">apps.filters.models.</code><code class="descname">Rule</code><span class="sig-paren">(</span><em>id</em>, <em>created_at</em>, <em>updated_at</em>, <em>filter_set</em>, <em>created_by</em>, <em>field</em>, <em>operator</em>, <em>negate</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/filters/models.html#Rule"><span class="viewcode-link">[source]</span></a></dt>
 <dd><dl class="exception">
 <dt>
 <em class="property">exception </em><code class="descname">DoesNotExist</code></dt>
@@ -1046,6 +1050,12 @@ There are plans to expand this module for external API usages.</p>
 <dt>
 <code class="descclassname">Rule.</code><code class="descname">OPERATOR_CHOICES</code><em class="property"> = (('iexact', 'Equal Than (==)'), ('icontains', 'Contains'), ('iregex', 'Matches Regular Expression'), ('isnull', 'Is NULL'), ('istrue', 'Is TRUE'), ('isfalse', 'Is FALSE'), ('lt', 'Less Than (&lt;)'), ('gt', 'Greater Than (&gt;)'), ('lte', 'Less or Equal Than (&lt;=)'), ('gte', 'Greater or Equal Than (&gt;=)'))</em></dt>
 <dd></dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="descclassname">Rule.</code><code class="descname">created_by</code></dt>
+<dd><p>Couple rule to user so we know if the user is allowed to change the Rule.</p>
+</dd></dl>
 
 <dl class="staticmethod">
 <dt>

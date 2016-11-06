@@ -170,7 +170,6 @@
 	<span class="n">combine</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">COMBINE_CHOICES</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;and&#39;</span><span class="p">)</span>
 	<span class="sd">&quot;&quot;&quot;Combine of the rules&quot;&quot;&quot;</span>
 
-
 	<span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="FilterSet.get_icon_choices"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.FilterSet.get_icon_choices">[docs]</a>	<span class="k">def</span> <span class="nf">get_icon_choices</span><span class="p">():</span>
 		<span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">FilterSet</span><span class="o">.</span><span class="n">ICON_CHOICES</span><span class="p">)</span></div>
@@ -188,7 +187,10 @@
 	<span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 		<span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_count&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="bp">self</span><span class="o">.</span><span class="n">_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_matches</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count</span></div>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count</span>
+
+	<span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span></div>
 
 
 <div class="viewcode-block" id="Rule"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.Rule">[docs]</a><span class="k">class</span> <span class="nc">Rule</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
@@ -220,6 +222,9 @@
 	<span class="p">)</span>
 
 	<span class="n">filter_set</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">FilterSet</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;rules&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+
+	<span class="n">created_by</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;created_rules&#39;</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+	<span class="sd">&quot;&quot;&quot;Couple rule to user so we know if the user is allowed to change the Rule.&quot;&quot;&quot;</span>
 
 	<span class="n">field</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">255</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">FIELD_CHOICES</span><span class="p">)</span>
 	<span class="sd">&quot;&quot;&quot;Field to run condition against.&quot;&quot;&quot;</span>
@@ -253,7 +258,15 @@
 
 			<span class="n">query</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">combine</span><span class="p">)</span>
 
-		<span class="k">return</span> <span class="n">query</span></div></div>
+		<span class="k">return</span> <span class="n">query</span></div>
+
+	<span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="s1">&#39;Field </span><span class="se">\&#39;</span><span class="si">{}</span><span class="se">\&#39;</span><span class="s1"> complies </span><span class="si">{}</span><span class="s1"> with </span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">field</span><span class="p">,</span>
+			<span class="p">(</span><span class="s1">&#39;not&#39;</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">negate</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">operator</span><span class="p">,</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+		<span class="p">)</span></div>
 </pre></div>
 
            </div>
