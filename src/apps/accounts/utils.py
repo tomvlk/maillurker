@@ -8,92 +8,92 @@ BUTTONS = {
 	'GoogleOAuth2': {
 		'class': 'btn-google',
 		'icon': 'fa fa-google',
-		'text': 'Sign in with Google'
+		'name': 'Google'
 	},
 	'GithubOAuth2': {
 		'class': 'btn-github',
 		'icon': 'fa fa-github',
-		'text': 'Sign in with Github'
+		'name': 'Github'
 	},
 	'BitbucketOAuth': {
 		'class': 'btn-bitbucket',
 		'icon': 'fa fa-bitbucket',
-		'text': 'Sign in with Bitbucket'
+		'name': 'Bitbucket'
 	},
 	'DropboxOAuth': {
 		'class': 'btn-dropbox',
 		'icon': 'fa fa-dropbox',
-		'text': 'Sign in with Dropbox'
+		'name': 'Dropbox'
 	},
 	'FacebookOAuth2': {
 		'class': 'btn-facebook',
 		'icon': 'fa fa-facebook',
-		'text': 'Sign in with Facebook'
+		'name': 'Facebook'
 	},
 	'FlickrOAuth': {
 		'class': 'btn-flickr',
 		'icon': 'fa fa-flickr',
-		'text': 'Sign in with Flickr'
+		'name': 'Flickr'
 	},
 	'FoursquareOAuth2': {
 		'class': 'btn-foursquare',
 		'icon': 'fa fa-foursquare',
-		'text': 'Sign in with Foursquare'
+		'name': 'Foursquare'
 	},
 	'InstagramOAuth2': {
 		'class': 'btn-instagram',
 		'icon': 'fa fa-instagram',
-		'text': 'Sign in with Instagram'
+		'name': 'Instagram'
 	},
 	'LiveOAuth2': {
 		'class': 'btn-microsoft',
 		'icon': 'fa fa-windows',
-		'text': 'Sign in with Microsoft'
+		'name': 'Microsoft'
 	},
 	'LinkedinOAuth2': {
 		'class': 'btn-linkedin',
 		'icon': 'fa fa-linkedin',
-		'text': 'Sign in with LinkedIn'
+		'name': 'LinkedIn'
 	},
 	'OdnoklassnikiOAuth2': {
 		'class': 'btn-odnoklassniki',
 		'icon': 'fa fa-odnoklassniki',
-		'text': 'Sign in with Odnoklassniki'
+		'name': 'Odnoklassniki'
 	},
 	'OpenIdAuth': {
 		'class': 'btn-openid',
 		'icon': 'fa fa-openid',
-		'text': 'Sign in with OpenID'
+		'name': 'OpenID'
 	},
 	'RedditOAuth2': {
 		'class': 'btn-reddit',
 		'icon': 'fa fa-reddit',
-		'text': 'Sign in with Reddit'
+		'name': 'Reddit'
 	},
 	'SoundcloudOAuth2': {
 		'class': 'btn-soundcloud',
 		'icon': 'fa fa-soundcloud',
-		'text': 'Sign in with Soundcloud'
+		'name': 'Soundcloud'
 	},
 	'TumblrOAuth': {
 		'class': 'btn-tumblr',
 		'icon': 'fa fa-tumblr',
-		'text': 'Sign in with Tumblr'
+		'name': 'Tumblr'
 	},
 	'TwitterOAuth': {
 		'class': 'btn-twitter',
 		'icon': 'fa fa-twitter',
-		'text': 'Sign in with Twitter'
+		'name': 'Twitter'
 	},
 	'VKOAuth2': {
 		'class': 'btn-vk',
 		'icon': 'fa fa-vk',
-		'text': 'Sign in with VK'
+		'name': 'VK'
 	},
 	'YahooOAuth': {
 		'class': 'btn-yahoo',
 		'icon': 'fa fa-yahoo',
-		'text': 'Sign in with Yahoo'
+		'name': 'Yahoo'
 	}
 }
 # Add double references
@@ -114,21 +114,27 @@ def get_social_button(backend):
 	:param backend:
 	:return:
 	"""
-	module_name = backend[0:(str(backend).rindex('.'))]
-	class_name = backend[(len(module_name) + 1):]
-	module = importlib.import_module(module_name)
-	clazz = getattr(module, class_name)
-	name = getattr(clazz, 'name', class_name)
+
+	if type(backend) is str:
+		module_name = backend[0:(str(backend).rindex('.'))]
+		class_name = backend[(len(module_name) + 1):]
+		module = importlib.import_module(module_name)
+		clazz = getattr(module, class_name)
+		name = getattr(clazz, 'name', class_name)
+	else:
+		raise Exception('Can\'t yet get from class instance!')
 
 	infos = {
 		'class': False,
 		'icon': False,
 		'code': name,
-		'text': name
+		'text': 'Sign in with {}'.format(name),
+		'name': name
 	}
 
 	if class_name in BUTTONS:
 		infos = BUTTONS[class_name]
+		infos['text'] = 'Sign in with {}'.format(infos['name'])
 		infos['code'] = name
 	else:
 		logger.debug('We don\'t know the right button info and styling for the enabled social backend \'{}\''.format(

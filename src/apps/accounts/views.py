@@ -4,12 +4,15 @@ from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 from django.views.generic import TemplateView, View
 from rest_framework.authtoken.models import Token
+from social.apps.django_app.utils import get_backend, BACKENDS
+from stronghold.views import StrongholdPublicMixin
 
 from apps.accounts.utils import get_social_button
+from apps.core.utils import fullname
 from . import forms
 
 
-class Login(TemplateView):
+class Login(StrongholdPublicMixin, TemplateView):
 	template_name = 'accounts/login.html'
 
 	@property
@@ -74,11 +77,32 @@ class Details(TemplateView):
 
 	def get_context_data(self, **kwargs):
 
-		token, _ = Token.objects.get_or_create(user=self.request.user)
+		token = None
+		if settings.USER_API_KEYS:
+			token, _ = Token.objects.get_or_create(user=self.request.user)
+
 		social_accounts = self.request.user.social_auth.all()
+
+		accounts = list()
+
+		for social_account in social_accounts:
+			backend = get_backend(BACKENDS, social_account.provider)
+			infos = None
+			try:
+				infos = get_social_button(fullname(backend))
+			except Exception as e:
+				pass
+
+			accounts.append({
+				'provider': social_account.provider,
+				'id': social_account.id,
+				'backend': backend,
+				'infos': infos
+			})
 
 		return {
 			'user': self.request.user,
 			'token': token,
-			'social_accounts': social_accounts
+			'social_accounts': accounts,
+			'avatar': self.request.user.get_gravatar_url(size=80, default='mm')
 		}

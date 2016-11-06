@@ -5,7 +5,8 @@
 
 {% block content %}
     <div class="page-header">
-        <h2>{{ user.get_full_name }}</h2>
+        <img src="{{ avatar }}" class="img-responsive pull-left" />
+        <h2>&nbsp;&nbsp;{{ user.get_full_name }}</h2>
     </div>
 
     <div class="row">
@@ -68,7 +69,13 @@
                     </td>
                     <td>
                         <i class="fa fa-key"></i>&nbsp;
-                        {{ token }}
+                        {% if token %}
+                            {{ token }}
+                        {% else %}
+                            <span class="text-muted">
+                                Ask admin to enable API tokens for all users!
+                            </span>
+                        {% endif %}
                     </td>
                 </tr>
                 </tbody>
@@ -78,14 +85,46 @@
         <div class="col-sm-6">
             <h4>Authenticated Services</h4>
 
+            {% if not social_accounts %}
+                <span class="text-muted">
+                    No known associations!
+                </span>
+            {% endif %}
             <ul class="list-group">
                 {% for account in social_accounts %}
                 <li class="list-group-item">
-                    <i class="fa fa-link"></i>&nbsp;&nbsp;
-                    {{ account.provider }}
+                    {% if account.infos and account.infos.icon %}
+                        <i class="{{ account.infos.icon }}"></i>&nbsp;&nbsp;
+                    {% else %}
+                        <i class="fa fa-link"></i>&nbsp;&nbsp;
+                    {% endif %}
+
+                    {% if account.infos and account.infos.text %}
+                        {{ account.infos.name }}
+                    {% else %}
+                        {{ account.provider }}
+                    {% endif %}
+
+                    <a href="{% url 'social:disconnect_individual' account.provider account.id %}"
+                       class="btn btn-xs btn-danger pull-right">
+                        <i class="fa fa-link"></i>
+                        Disconnect
+                    </a>
                 </li>
                 {% endfor %}
             </ul>
         </div>
     </div>
+
+    <div class="button-set">
+        <a href="{% url 'accounts:details' %}" class="btn btn-primary">
+            <i class="fa fa-pencil"></i>
+            Edit profile
+        </a>&nbsp;&nbsp;
+        <a href="{% url 'accounts:details' %}" class="btn btn-primary">
+            <i class="fa fa-key"></i>
+            Change password
+        </a>
+    </div>
+
 {% endblock %}
