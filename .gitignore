@@ -143,6 +143,8 @@ ENV/
 /src/config/settings/overrides.py
 /src/static
 
+*.sock
+
 /*.pid
 /log/*
 !/log/.gitkeep

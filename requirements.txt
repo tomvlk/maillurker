@@ -32,3 +32,4 @@ fake-factory
 
 # Server
 gunicorn
+gevent
