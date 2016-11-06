@@ -21,6 +21,7 @@ Werkzeug==0.11.11
 # Documentation
 sphinx
 sphinx_rtd_theme
+django-docs==0.2.1
 
 # API
 djangorestframework==3.5.2

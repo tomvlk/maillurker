@@ -1,11 +1,8 @@
 """Base settings shared by all environments"""
-
 import os
-
-# Import global settings to make it easier to extend settings.
 import datetime
-from django.conf.global_settings import *
 
+from django.conf.global_settings import *
 from config.settings import local
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -13,6 +10,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 TMP_DIR = os.path.join(BASE_DIR, 'tmp')
 DATA_DIR = os.path.join(os.path.dirname(BASE_DIR), 'data')
 TEST_DIR = os.path.join(os.path.dirname(BASE_DIR), 'src', 'test')
+DOCS_ROOT = os.path.join(BASE_DIR, '../docs/build/html')
 
 try:
 	os.makedirs(TMP_DIR)
@@ -36,6 +34,7 @@ USER_API_KEYS = bool(local.USER_API_KEYS)
 
 if SECRET_KEY == 'changeme':
 	print('YOU SHOULD CHANGE YOUR SECRET KEY!!!')
+
 
 ####
 # Mail Server Settings
@@ -74,6 +73,7 @@ if type(getattr(local, 'CLEANUP_AFTER', None)) is datetime.timedelta:
 	CLEANUP = True
 	CLEANUP_AFTER = local.CLEANUP_AFTER
 
+
 ####
 # Apps
 ####
@@ -93,6 +93,7 @@ INSTALLED_APPS = [
 	'rest_framework.authtoken',
 	'compressor',
 	'corsheaders',
+	'docs',
 ]
 
 # Add app for social login.

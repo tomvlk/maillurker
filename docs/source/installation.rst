@@ -96,7 +96,7 @@ local.py & Database
 The ``local.py`` is not yet created when you clone the repository, please copy the ``local.default.py`` to ``local.py`` and
 edit the contents.
 
-
+More information about the configuration can be found in the `Configure` part.
 
 
 Database Migrations

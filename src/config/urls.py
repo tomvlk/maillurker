@@ -18,6 +18,8 @@ urlpatterns = [
 
 	url(r'^$', redirect_mails, name='home'),
 
+	url(r'^docs/', include('docs.urls')),
+
 	url(r'^core/',		include('apps.core.urls', 		namespace='core')),
 	url(r'^accounts/', 	include('apps.accounts.urls', 	namespace='accounts')),
 	url(r'^mails/', 	include('apps.mails.urls', 		namespace='mails')),
