@@ -85,6 +85,10 @@ div.action-buttons > div {
     -moz-border-radius: 3px;
     border-radius: 3px;
 }
+.social-buttons a.btn, .social-buttons button.btn {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
 
 /** FILTERS **/
 .form-control.field-value {

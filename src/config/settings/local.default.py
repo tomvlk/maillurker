@@ -1,4 +1,3 @@
-
 # To run local tests (PyCharm):
 # import os
 # if 'DJANGO_TEST' in os.environ and not os.environ['DJANGO_TEST']:
@@ -18,18 +17,43 @@ AUTHENTICATION = {
 	'social': {
 		'enabled': True,
 		'backends': (
+			# Enable your backends here. Note! Only GoogleOAuth2 is fully tested!
 			'social.backends.google.GoogleOAuth2',
+			'social.backends.github.GithubOAuth2',
+			'social.backends.bitbucket.BitbucketOAuth2',
+			'social.backends.facebook.FacebookOAuth2',
+			# 'social.backends.dropbox.DropboxOAuth2',
+			# 'social.backends.flickr.FlickrOAuth',
+			# 'social.backends.instagram.InstagramOAuth2',
+			# 'social.backends.live.LiveOAuth2',
+			# 'social.backends.linkedin.LinkedinOAuth2',
+			# 'social.backends.odnoklassniki.OdnoklassnikiOAuth2',
+			# 'social.backends.reddit.RedditOAuth2',
+			# 'social.backends.soundcloud.SoundcloudOAuth2',
+			# 'social.backends.tumblr.TumblrOAuth',
+			# 'social.backends.twitter.TwitterOAuth',
+			# 'social.backends.vk.VKOAuth2',
+			# 'social.backends.yahoo.YahooOAuth',
 		),
 		'options': {
 			'SOCIAL_AUTH_GOOGLE_OAUTH2_KEY': 'key.apps.goog...',
 			'SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET': 'secret',
-			'SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_DOMAINS': [
-				'example.com'
-			],
+			# 'SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_DOMAINS': [ # Optional, only to ristrict organisation emails.
+			# 	'example.com'
+			# ],
 			'SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE': [
 				'https://www.googleapis.com/auth/userinfo.email',
 				'https://www.googleapis.com/auth/userinfo.profile'
-			]
+			],
+
+			'SOCIAL_AUTH_GITHUB_KEY': '',
+			'SOCIAL_AUTH_GITHUB_SECRET': '',
+
+			'SOCIAL_AUTH_BITBUCKET_OAUTH2_KEY': '',
+			'SOCIAL_AUTH_BITBUCKET_OAUTH2_SECRET': '',
+
+			'SOCIAL_AUTH_FACEBOOK_KEY': '',
+			'SOCIAL_AUTH_FACEBOOK_SECRET': '',
 		}
 	}
 }

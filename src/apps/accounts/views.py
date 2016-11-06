@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 from django.views.generic import TemplateView, View
 
+from apps.accounts.utils import get_social_button
 from . import forms
 
 
@@ -17,14 +18,7 @@ class Login(TemplateView):
 		buttons = list()
 
 		for backend in settings.SOCIAL_BACKENDS:
-			module_name = backend[0:(str(backend).rindex('.'))]
-			class_name = backend[(len(module_name) + 1):]
-			module = importlib.import_module(module_name)
-			clazz = getattr(module, class_name)
-
-			buttons.append({
-				'name': getattr(clazz, 'name', class_name)
-			})
+			buttons.append(get_social_button(backend))
 
 		return {
 			'enabled': settings.SOCIAL_ENABLED,
@@ -71,7 +65,6 @@ class Login(TemplateView):
 
 
 class Logout(View):
-
 	def get(self, request, *args, **kwargs):
 		django_logout(request)
 		return redirect('/')
