@@ -228,6 +228,7 @@ if SOCIAL_ENABLED and 'pipelines' in local.AUTHENTICATION['social']:
 if SOCIAL_ENABLED and 'options' in local.AUTHENTICATION['social']:
 	locals().update(local.AUTHENTICATION['social']['options'])
 
+AUTH = local.AUTHENTICATION
 ####
 # Template and cache
 ####
