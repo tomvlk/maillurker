@@ -45,8 +45,8 @@ Install dependencies with pip and the requirements.txt file:
 Now your environment is ready. You can now go to the next step.
 
 
-Configuration
--------------
+Configuration Files
+-------------------
 
 In order to start we need to know some information about the database, the port and address for the SMTP server and the
 general configuration. To keep an structured and deployment-easy configuration structure we created a directory django
@@ -96,7 +96,7 @@ local.py & Database
 The ``local.py`` is not yet created when you clone the repository, please copy the ``local.default.py`` to ``local.py`` and
 edit the contents.
 
-More information about the configuration can be found in the `Configure` part.
+More information about the configuration can be found in the :doc:`Configure Lurker <configure>` part.
 
 
 Database Migrations
