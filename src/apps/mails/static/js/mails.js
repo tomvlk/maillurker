@@ -57,8 +57,9 @@ $(function () {
         };
         var headersText = '';
         for (var headerKey in message.headers) {
-          if (message.headers.hasOwnProperty(headerKey))
+          if (message.headers.hasOwnProperty(headerKey)) {
             headersText += headerKey + ': ' + message.headers[headerKey] + '\n';
+          }
         }
         body.find('.field.recipients_to_custom').text(message.recipients_to.map(addressFormatter));
         body.find('.field.recipients_cc_custom').text(message.recipients_cc.map(addressFormatter));
@@ -70,25 +71,31 @@ $(function () {
         var attachmentsList = body.find('div.attachments');
 
         for (var idx in message.parts) {
-          if (! message.parts.hasOwnProperty(idx)) continue;
+          if (! message.parts.hasOwnProperty(idx)) {
+            continue;
+          }
+
           var part = message.parts[idx];
           var listLink = $($.parseHTML('' + listLinkTemplate));
 
           var isMultipart = part.type.indexOf('multipart') !== -1;
-          if (isMultipart)
+          if (isMultipart) {
             listLink.addClass('disabled');
+          }
 
           if (part.is_attachment) {
             listLink.find('.icon').addClass('fa fa-paperclip');
             listLink.find('.name').text('Attachment #'+idx+', '+part.type+' ('+part.filename+')');
-            if (! isMultipart)
+            if (! isMultipart) {
               listLink.attr('href', '/mails/' + message.id + '/parts/' + part.id + '/download');
+            }
             attachmentsList.append(listLink);
           } else {
             listLink.find('.icon').addClass('fa fa-envelope-o');
             listLink.find('.name').text('Part #'+idx+', '+part.type+'');
-            if (! isMultipart)
+            if (! isMultipart) {
               listLink.attr('href', '/mails/' + message.id + '/parts/' + part.id);
+            }
             partsList.append(listLink);
           }
         }
@@ -101,7 +108,10 @@ $(function () {
         message = data;
         parts = data.parts;
 
-        if (! parts) return done();
+        if (! parts) {
+          return done();
+        }
+
         return $.get('/api/parts/' + parts[0].id + '/');
       }).then(function (data) {
         part = data;
