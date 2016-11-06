@@ -86,6 +86,7 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../intro.html">Mail Lurker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../configure.html">Configure Lurker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../apps/index.html">Modules (API)</a></li>
 </ul>
@@ -152,6 +153,7 @@
 <div class="viewcode-block" id="Lurker"><a class="viewcode-back" href="../../../apps/index.html#apps.core.smtpd.Lurker">[docs]</a><span class="k">class</span> <span class="nc">Lurker</span><span class="p">(</span><span class="n">smtpd</span><span class="o">.</span><span class="n">SMTPServer</span><span class="p">):</span>
 	<span class="n">INSTANCE</span> <span class="o">=</span> <span class="kc">None</span>
 	<span class="n">THREAD</span> <span class="o">=</span> <span class="kc">None</span>
+	<span class="n">CLEANER</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="Lurker.process_message"><a class="viewcode-back" href="../../../apps/index.html#apps.core.smtpd.Lurker.process_message">[docs]</a>	<span class="k">def</span> <span class="nf">process_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peer</span><span class="p">,</span> <span class="n">mailfrom</span><span class="p">,</span> <span class="n">rcpttos</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
@@ -222,6 +224,17 @@
 		<span class="p">])</span></div>
 
 	<span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Lurker.clean"><a class="viewcode-back" href="../../../apps/index.html#apps.core.smtpd.Lurker.clean">[docs]</a>	<span class="k">def</span> <span class="nf">clean</span><span class="p">():</span>
+		<span class="n">num_deleted</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Message</span><span class="o">.</span><span class="n">cleanup</span><span class="p">()</span>
+
+		<span class="k">if</span> <span class="n">num_deleted</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+			<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Cleanup deleted </span><span class="se">\&#39;</span><span class="si">{}</span><span class="se">\&#39;</span><span class="s1"> old messages.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_deleted</span><span class="p">))</span>
+
+		<span class="c1"># Schedule next cleanup task.</span>
+		<span class="n">Lurker</span><span class="o">.</span><span class="n">CLEANER</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">Lurker</span><span class="o">.</span><span class="n">clean</span><span class="p">)</span>
+		<span class="n">Lurker</span><span class="o">.</span><span class="n">CLEANER</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+
+	<span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Lurker.parse_addresses"><a class="viewcode-back" href="../../../apps/index.html#apps.core.smtpd.Lurker.parse_addresses">[docs]</a>	<span class="k">def</span> <span class="nf">parse_addresses</span><span class="p">(</span><span class="n">raw</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Parse Addresses</span>
@@ -243,12 +256,13 @@
 		<span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">email</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">parseaddr</span><span class="p">(</span><span class="n">raw</span><span class="p">))</span></div>
 
 	<span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Lurker.start"><a class="viewcode-back" href="../../../apps/index.html#apps.core.smtpd.Lurker.start">[docs]</a>	<span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">test</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">threaded</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Lurker.start"><a class="viewcode-back" href="../../../apps/index.html#apps.core.smtpd.Lurker.start">[docs]</a>	<span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">test</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">threaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cleaner</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Start SMTP catcher.</span>
 
 <span class="sd">		:param test:</span>
 <span class="sd">		:param threaded:</span>
+<span class="sd">		:param cleaner:</span>
 <span class="sd">		:return:</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="n">Lurker</span><span class="o">.</span><span class="n">INSTANCE</span><span class="p">:</span>
@@ -256,13 +270,20 @@
 
 		<span class="n">Lurker</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="o">=</span> <span class="n">Lurker</span><span class="p">((</span><span class="n">settings</span><span class="o">.</span><span class="n">SMTPD_ADDRESS</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">SMTPD_PORT</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
 
+		<span class="k">if</span> <span class="n">cleaner</span><span class="p">:</span>
+			<span class="n">Lurker</span><span class="o">.</span><span class="n">CLEANER</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">Lurker</span><span class="o">.</span><span class="n">clean</span><span class="p">)</span>
+			<span class="n">Lurker</span><span class="o">.</span><span class="n">CLEANER</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
 		<span class="k">if</span> <span class="n">threaded</span><span class="p">:</span>
 			<span class="n">Lurker</span><span class="o">.</span><span class="n">THREAD</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">asyncore</span><span class="o">.</span><span class="n">loop</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;timeout&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
 			<span class="n">Lurker</span><span class="o">.</span><span class="n">THREAD</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 			<span class="c1"># Sleep to make sure our Lurker instance is ready.</span>
 			<span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
-		<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Started listening on </span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">SMTPD_ADDRESS</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">SMTPD_PORT</span><span class="p">))</span></div>
+		<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Started listening on </span><span class="si">{}</span><span class="s1">:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">SMTPD_ADDRESS</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">SMTPD_PORT</span><span class="p">))</span>
+
+		<span class="k">if</span> <span class="n">cleaner</span><span class="p">:</span>
+			<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Scheduled cleaner task in background.&#39;</span><span class="p">)</span></div>
 
 	<span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Lurker.stop"><a class="viewcode-back" href="../../../apps/index.html#apps.core.smtpd.Lurker.stop">[docs]</a>	<span class="k">def</span> <span class="nf">stop</span><span class="p">():</span>
@@ -271,6 +292,9 @@
 <span class="sd">		:return:</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="n">Lurker</span><span class="o">.</span><span class="n">INSTANCE</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+		<span class="k">if</span> <span class="n">Lurker</span><span class="o">.</span><span class="n">CLEANER</span><span class="p">:</span>
+			<span class="n">Lurker</span><span class="o">.</span><span class="n">CLEANER</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
+
 		<span class="k">if</span> <span class="n">Lurker</span><span class="o">.</span><span class="n">THREAD</span><span class="p">:</span>
 			<span class="n">Lurker</span><span class="o">.</span><span class="n">THREAD</span><span class="o">.</span><span class="n">join</span><span class="p">()</span></div></div>
 </pre></div>

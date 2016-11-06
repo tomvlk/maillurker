@@ -35,7 +35,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Mail Lurker 1.0.0 documentation" href="index.html"/>
         <link rel="next" title="Modules (API)" href="apps/index.html"/>
-        <link rel="prev" title="Installation" href="installation.html"/> 
+        <link rel="prev" title="Configure Lurker" href="configure.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -87,7 +87,17 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Mail Lurker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configure.html">Configure Lurker</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#start-gunicorn">Start Gunicorn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#start-smtp-server">Start SMTP Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-first-user">Create first user</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configure-webserver">Configure Webserver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nginx">Nginx</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="apps/index.html">Modules (API)</a></li>
 </ul>
 
@@ -135,9 +145,70 @@
             
   <div class="section" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Todo</p>
+<p>The following sections will give you instructions on how to start the servers and start using the application.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You need to be in an activated virtualenv to execute most of the commands!</p>
+</div>
+<div class="section" id="start-gunicorn">
+<h2>Start Gunicorn<a class="headerlink" href="#start-gunicorn" title="Permalink to this headline">¶</a></h2>
+<p>You can start the Gunicorn instance for the application with the following command (make sure you are in the ./src folder):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ gunicorn wsgi:application -c gunicorn.py
+</pre></div>
+</div>
+<p>To start with a linux socket file:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ gunicorn wsgi:application -c gunicorn.py --bind <span class="s2">&quot;unix:gunicorn.socket&quot;</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">For the full documentation and how to run in daemon mode,
+see <a class="reference external" href="http://docs.gunicorn.org/en/latest/configure.html#command-line">http://docs.gunicorn.org/en/latest/configure.html#command-line</a></p>
+</div>
+</div>
+<div class="section" id="start-smtp-server">
+<h2>Start SMTP Server<a class="headerlink" href="#start-smtp-server" title="Permalink to this headline">¶</a></h2>
+<p>To be able to receive any mails you need to start the SMTP server that listens to messages and will parse and save
+all messages that will be send to the SMTP server.</p>
+<p>To start the server, execute the following:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python manage.py start_lurking
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The SMTP server doesn&#8217;t go in daemon/background yet. This is on the roadmap.</p>
+</div>
+</div>
+<div class="section" id="create-first-user">
+<h2>Create first user<a class="headerlink" href="#create-first-user" title="Permalink to this headline">¶</a></h2>
+<p>You can create a superuser with the following command:</p>
+</div>
+<div class="section" id="configure-webserver">
+<h2>Configure Webserver<a class="headerlink" href="#configure-webserver" title="Permalink to this headline">¶</a></h2>
+<p>You should configure your webserver to reverse proxy to the Gunicorn server.</p>
+<div class="section" id="nginx">
+<h3>Nginx<a class="headerlink" href="#nginx" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This part is not yet confirmed to be working or completed.</p>
+</div>
+<div class="highlight-nginx"><div class="highlight"><pre><span></span><span class="k">server</span> <span class="p">{</span>
+    <span class="kn">listen</span> <span class="mi">80</span><span class="p">;</span>
+    <span class="kn">server_name</span> <span class="s">server_domain_or_IP</span><span class="p">;</span>
+
+    <span class="kn">location</span> <span class="p">=</span> <span class="s">/favicon.ico</span> <span class="p">{</span> <span class="kn">access_log</span> <span class="no">off</span><span class="p">;</span> <span class="kn">log_not_found</span> <span class="no">off</span><span class="p">;</span> <span class="p">}</span>
+    <span class="kn">location</span> <span class="s">/static/</span> <span class="p">{</span>
+        <span class="kn">root</span> <span class="s">/home/user/lurker/src</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+        <span class="kn">include</span> <span class="s">proxy_params</span><span class="p">;</span>
+        <span class="kn">proxy_pass</span> <span class="s">http://unix:/home/user/lurker/src/gunicorn.sock</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -151,7 +222,7 @@
         <a href="apps/index.html" class="btn btn-neutral float-right" title="Modules (API)" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="configure.html" class="btn btn-neutral" title="Configure Lurker" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

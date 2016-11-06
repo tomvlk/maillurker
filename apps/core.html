@@ -142,12 +142,22 @@ jQuery and bootstrap.</p>
 <em class="property">class </em><code class="descclassname">apps.core.smtpd.</code><code class="descname">Lurker</code><span class="sig-paren">(</span><em>localaddr</em>, <em>remoteaddr</em>, <em>data_size_limit=33554432</em>, <em>map=None</em>, <em>enable_SMTPUTF8=False</em>, <em>decode_data=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/smtpd.html#Lurker"><span class="viewcode-link">[source]</span></a></dt>
 <dd><dl class="attribute">
 <dt>
+<code class="descname">CLEANER</code><em class="property"> = None</em></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt>
 <code class="descname">INSTANCE</code><em class="property"> = None</em></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt>
 <code class="descname">THREAD</code><em class="property"> = None</em></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt>
+<em class="property">static </em><code class="descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/smtpd.html#Lurker.clean"><span class="viewcode-link">[source]</span></a></dt>
 <dd></dd></dl>
 
 <dl class="staticmethod">
@@ -197,7 +207,7 @@ jQuery and bootstrap.</p>
 
 <dl class="staticmethod">
 <dt>
-<em class="property">static </em><code class="descname">start</code><span class="sig-paren">(</span><em>test=False</em>, <em>threaded=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/smtpd.html#Lurker.start"><span class="viewcode-link">[source]</span></a></dt>
+<em class="property">static </em><code class="descname">start</code><span class="sig-paren">(</span><em>test=False</em>, <em>threaded=False</em>, <em>cleaner=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/apps/core/smtpd.html#Lurker.start"><span class="viewcode-link">[source]</span></a></dt>
 <dd><p>Start SMTP catcher.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -206,6 +216,7 @@ jQuery and bootstrap.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>test</strong> &#8211; </li>
 <li><strong>threaded</strong> &#8211; </li>
+<li><strong>cleaner</strong> &#8211; </li>
 </ul>
 </td>
 </tr>
@@ -281,7 +292,7 @@ jQuery and bootstrap.</p>
 
 <dl class="attribute">
 <dt>
-<code class="descname">valid_attributes</code><em class="property"> = {'fluid': {'default': True, 'type': &lt;class 'bool'&gt;}}</em></dt>
+<code class="descname">valid_attributes</code><em class="property"> = {'fluid': {'type': &lt;class 'bool'&gt;, 'default': True}}</em></dt>
 <dd></dd></dl>
 
 </dd></dl>

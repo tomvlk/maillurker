@@ -13,6 +13,7 @@ Contents:
 
    intro
    installation
+   configure
    usage
 
    apps/index

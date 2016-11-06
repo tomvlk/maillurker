@@ -1,0 +1,409 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configure Lurker &mdash; Mail Lurker 1.0.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Mail Lurker 1.0.0 documentation" href="index.html"/>
+        <link rel="next" title="Usage" href="usage.html"/>
+        <link rel="prev" title="Installation" href="installation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Mail Lurker
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Mail Lurker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configure Lurker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#secret-key">Secret Key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-api-access">User API Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debug-mode">Debug Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authentication">Authentication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#read-only-access">Read Only access</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#social-enabled">Social enabled</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#social-backends">Social backends</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#social-options">Social options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mail-forwarding">Mail Forwarding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#automatic-cleanup">Automatic Cleanup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#proxy-https">Proxy &amp; HTTPS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database">Database</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="apps/index.html">Modules (API)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Mail Lurker</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Configure Lurker</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/configure.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configure-lurker">
+<h1>Configure Lurker<a class="headerlink" href="#configure-lurker" title="Permalink to this headline">¶</a></h1>
+<p>The following sections will cover all possible configuration options to be configured in the <code class="docutils literal"><span class="pre">`local.py`</span></code> file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Make sure you have already copied the <code class="docutils literal"><span class="pre">local.default.py</span></code> to <code class="docutils literal"><span class="pre">local.py</span></code>. If not
+please see the <a class="reference internal" href="installation.html"><span class="doc">installation sections</span></a>.</p>
+</div>
+<div class="section" id="secret-key">
+<h2>Secret Key<a class="headerlink" href="#secret-key" title="Permalink to this headline">¶</a></h2>
+<p>This option is very important to change at first installation. The secret key is used in several unique and security
+related aspects and is very important you change and keep secure!</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Generate unique secret key.</span>
+<span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="s1">&#39;changeme&#39;</span>
+</pre></div>
+</div>
+<p>You can generate a new token by running a special command:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python manage.py generate_secret_key
+</pre></div>
+</div>
+<div class="admonition danger">
+<p class="first admonition-title">Danger</p>
+<p class="last"><strong>Make sure you change this before start using the application!</strong>
+Not changing could be devastating when your table with passwords leak and for securing cookies, tokens and sessions.</p>
+</div>
+</div>
+<div class="section" id="user-api-access">
+<h2>User API Access<a class="headerlink" href="#user-api-access" title="Permalink to this headline">¶</a></h2>
+<p>This option enables the display of a personalized token to the users. Disable if you don&#8217;t want to display the tokens
+to the users on their Account page.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Enable API tokens for all users</span>
+<span class="n">USER_API_KEYS</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="debug-mode">
+<h2>Debug Mode<a class="headerlink" href="#debug-mode" title="Permalink to this headline">¶</a></h2>
+<p>Enable debug mode while developing, will enable several Django related features to investigate some issues.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Enabling debug mode will show users some insights you may want to hide or you don&#8217;t want to share. Especially when
+running in reverse proxy (what you shouldn&#8217;t do).</p>
+</div>
+</div>
+<div class="section" id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h2>
+<p>This part of the configuration is pretty important and can get complicated. It has several options for normal user/pass
+authentication but even more settings for the Social Authentication implemented in the application.</p>
+<p>The authentication options are all suited inside a <code class="docutils literal"><span class="pre">dict</span></code>. Bellow is the most basic setup possible.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">AUTHENTICATION</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;allow_readonly&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+        <span class="s1">&#39;social&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;enabled&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;backends&#39;</span><span class="p">:</span> <span class="p">[],</span>
+    <span class="s1">&#39;options&#39;</span><span class="p">:</span> <span class="p">{},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="read-only-access">
+<h3>Read Only access<a class="headerlink" href="#read-only-access" title="Permalink to this headline">¶</a></h3>
+<p>You can enable read only access by changing the value of <code class="docutils literal"><span class="pre">allow_readonly</span></code> to <code class="docutils literal"><span class="pre">True</span></code>. This will allow to only
+read messages and use global filters.</p>
+</div>
+<div class="section" id="social-enabled">
+<h3>Social enabled<a class="headerlink" href="#social-enabled" title="Permalink to this headline">¶</a></h3>
+<p>Before the social buttons and the middleware and apps will be used, you have to turn the Social Auth on by changing the
+value of the subkey <code class="docutils literal"><span class="pre">enabled</span></code> of <code class="docutils literal"><span class="pre">social</span></code> to <code class="docutils literal"><span class="pre">True</span></code>.</p>
+</div>
+<div class="section" id="social-backends">
+<h3>Social backends<a class="headerlink" href="#social-backends" title="Permalink to this headline">¶</a></h3>
+<p>To be able to use the Social Authentication, you have to provide a list with backends to use. Currently there is one
+that is fully tested and that&#8217;s used in the following examples.
+For a full list and documentation on the backends, see <a class="reference external" href="https://python-social-auth.readthedocs.io/">https://python-social-auth.readthedocs.io/</a></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="s1">&#39;backends&#39;</span><span class="p">:</span> <span class="p">(</span>
+    <span class="s1">&#39;social.backends.google.GoogleOAuth2&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="social-options">
+<h3>Social options<a class="headerlink" href="#social-options" title="Permalink to this headline">¶</a></h3>
+<p>You can pass any custom social options to the options dict:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="s1">&#39;options&#39;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s1">&#39;SOCIAL_AUTH_GOOGLE_OAUTH2_KEY&#39;</span><span class="p">:</span> <span class="s1">&#39;key.apps.goog...&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET&#39;</span><span class="p">:</span> <span class="s1">&#39;secret&#39;</span><span class="p">,</span>
+    <span class="c1"># &#39;SOCIAL_AUTH_GOOGLE_OAUTH2_WHITELISTED_DOMAINS&#39;: [ # Optional, only to ristrict organisation emails.</span>
+    <span class="c1">#       &#39;example.com&#39;</span>
+    <span class="c1"># ],</span>
+    <span class="s1">&#39;SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s1">&#39;https://www.googleapis.com/auth/userinfo.email&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;https://www.googleapis.com/auth/userinfo.profile&#39;</span>
+    <span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last">The social authentication has several customizable options, some are not documented here. See the full documentation
+here: <a class="reference external" href="https://python-social-auth.readthedocs.io/">https://python-social-auth.readthedocs.io/</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="mail-forwarding">
+<h2>Mail Forwarding<a class="headerlink" href="#mail-forwarding" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This feature is not yet completed. Only configuration is known. Some or all functions are not yet implemented!</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">FORWARDING</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1"># Enable forwarding functionality.</span>
+    <span class="s1">&#39;enabled&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+
+    <span class="c1"># Enable automatic forwarding of emails (act as a proxy).</span>
+    <span class="s1">&#39;automatically&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+
+    <span class="c1"># Use method for delivering. Choose from &#39;smtp&#39; / None</span>
+    <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;smtp&#39;</span><span class="p">,</span>
+
+    <span class="c1"># SMTP Smarthost configuration</span>
+    <span class="s1">&#39;smtp&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;host&#39;</span><span class="p">:</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+        <span class="s1">&#39;authentication&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;enabled&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+            <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">&#39;use_tls&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+        <span class="s1">&#39;use_ssl&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+        <span class="s1">&#39;timeout&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="s1">&#39;ssl_keyfile&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="s1">&#39;ssl_certfile&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="automatic-cleanup">
+<h2>Automatic Cleanup<a class="headerlink" href="#automatic-cleanup" title="Permalink to this headline">¶</a></h2>
+<p>The lurker listening process can automatically cleanup old messages based on a given timedelta.</p>
+<p>Default configuration:
+.. code-block:: python</p>
+<blockquote>
+<div>CLEANUP_AFTER = timedelta(days=31)</div></blockquote>
+<p>To disable the function:
+.. code-block:: python</p>
+<blockquote>
+<div>CLEANUP_AFTER = False</div></blockquote>
+</div>
+<div class="section" id="proxy-https">
+<h2>Proxy &amp; HTTPS<a class="headerlink" href="#proxy-https" title="Permalink to this headline">¶</a></h2>
+<p>If you have configured your webserver with reverse proxy to the gunicorn process and you want to support HTTPS you may
+need to change the lines or force the header <code class="docutils literal"><span class="pre">HTTP-X-Forwarded-Proto</span></code> to be present by the webserver. Sometimes you
+want to force this behavior with the following lines:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">SECURE_PROXY_SSL_HEADER</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;HTTP_X_FORWARDED_PROTO&#39;</span><span class="p">,</span> <span class="s1">&#39;https&#39;</span><span class="p">)</span>
+<span class="n">SECURE_FORCE</span> <span class="o">=</span> <span class="bp">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="database">
+<h2>Database<a class="headerlink" href="#database" title="Permalink to this headline">¶</a></h2>
+<p>The most important one, and the most expandable one too. Configure your database with the standard Django configuration
+in the <code class="docutils literal"><span class="pre">DATABASES</span></code> field.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;django.db.backends.mysql&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="s1">&#39;lurker&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;USER&#39;</span><span class="p">:</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;PASSWORD&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;HOST&#39;</span><span class="p">:</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;PORT&#39;</span><span class="p">:</span> <span class="s1">&#39;3306&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This configuration is exactly the same as the Django one. Default and tested is MySQL, but you may also use some other
+database engine.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="https://docs.djangoproject.com/en/1.8/ref/settings/#databases">https://docs.djangoproject.com/en/1.8/ref/settings/#databases</a></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Tom Valk.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

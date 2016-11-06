@@ -34,7 +34,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Mail Lurker 1.0.0 documentation" href="index.html"/>
-        <link rel="next" title="Usage" href="usage.html"/>
+        <link rel="next" title="Configure Lurker" href="configure.html"/>
         <link rel="prev" title="Mail Lurker" href="intro.html"/> 
 
   
@@ -88,7 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Mail Lurker</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#install-environment">Install environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-files">Configuration Files</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#live-py">live.py</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dev-py">dev.py</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#base-py">base.py</a></li>
@@ -99,6 +99,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#static-files">Static files</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="configure.html">Configure Lurker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="apps/index.html">Modules (API)</a></li>
 </ul>
@@ -173,8 +174,8 @@ just pull, run migrations, collect static files and compress static files.</p>
 </div>
 <p>Now your environment is ready. You can now go to the next step.</p>
 </div>
-<div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="configuration-files">
+<h2>Configuration Files<a class="headerlink" href="#configuration-files" title="Permalink to this headline">¶</a></h2>
 <p>In order to start we need to know some information about the database, the port and address for the SMTP server and the
 general configuration. To keep an structured and deployment-easy configuration structure we created a directory django
 settings module.</p>
@@ -213,6 +214,7 @@ from the <code class="docutils literal"><span class="pre">local.py</span></code>
 <h3>local.py &amp; Database<a class="headerlink" href="#local-py-database" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">local.py</span></code> is not yet created when you clone the repository, please copy the <code class="docutils literal"><span class="pre">local.default.py</span></code> to <code class="docutils literal"><span class="pre">local.py</span></code> and
 edit the contents.</p>
+<p>More information about the configuration can be found in the <a class="reference internal" href="configure.html"><span class="doc">Configure Lurker</span></a> part.</p>
 </div>
 </div>
 <div class="section" id="database-migrations">
@@ -259,7 +261,7 @@ $ python manage.py createcachetable
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="configure.html" class="btn btn-neutral float-right" title="Configure Lurker" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="intro.html" class="btn btn-neutral" title="Mail Lurker" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
