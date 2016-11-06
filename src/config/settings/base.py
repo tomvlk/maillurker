@@ -238,20 +238,20 @@ REST_FRAMEWORK = {
 ####
 if getattr(local, 'TEST', False):
 	TEST = True
-	# TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-	# TEST_APPS = (
-	# 	'apps.accounts',
-	# 	'apps.api',
-	# 	'apps.core',
-	# 	'apps.filters',
-	# 	'apps.mails'
-	# )
-	#
-	# NOSE_ARGS = [
-	# 	'--with-coverage',
-	# 	'--cover-package={}'.format(','.join(TEST_APPS)),
-	# 	'--cover-branches',
-	# ]
+	TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+	TEST_APPS = (
+		'apps.accounts',
+		'apps.api',
+		'apps.core',
+		'apps.filters',
+		'apps.mails'
+	)
+
+	NOSE_ARGS = [
+		'--with-coverage',
+		'--cover-package={}'.format(','.join(TEST_APPS)),
+		'--cover-branches',
+	]
 
 ####
 # OVERRIDES
