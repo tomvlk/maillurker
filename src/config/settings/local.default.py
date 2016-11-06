@@ -4,7 +4,10 @@
 # 	TEST = False
 
 # Generate unique secret key.
-SECRET_KEY = '7=999^z!d6ysczgfsdfa3got@u$5b$hhew=24!m27f_c$-+x7mm*'
+SECRET_KEY = 'changeme'
+
+# Generate your own API key. Set False to disable API Access by global token.
+API_KEY = 'changeme'
 
 # Turn debug on or off
 DEBUG = True

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load compress %}
+{% load staticfiles %}
+{% load core_tags %}
+
+{% block content %}
+    <div class="page-header">
+        <h2>{{ user.get_full_name }}</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>User Details</h4>
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <td class="text-muted">
+                        Access
+                    </td>
+                    <td>
+                        {% if user.is_superuser %}
+                            <i class="fa fa-bolt"></i> Super User
+                        {% elif user.is_staff %}
+                            <i class="fa fa-users"></i> Staff User
+                        {% else %}
+                            <i class="fa fa-user"></i> User
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-muted">
+                        Email Address
+                    </td>
+                    <td>
+                        <i class="fa fa-envelope"></i>&nbsp;
+                        {% if user.email %}
+                            {{ user.email }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-muted">
+                        Date joined
+                    </td>
+                    <td>
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        {{ user.date_joined }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-muted">
+                        Username
+                    </td>
+                    <td>
+                        <i class="fa fa-id-card"></i>&nbsp;
+                        {{ user.username }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="text-muted">
+                        API Token
+                    </td>
+                    <td>
+                        <i class="fa fa-key"></i>&nbsp;
+                        {{ token }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-sm-6">
+            <h4>Authenticated Services</h4>
+
+            <ul class="list-group">
+                {% for account in social_accounts %}
+                <li class="list-group-item">
+                    <i class="fa fa-link"></i>&nbsp;&nbsp;
+                    {{ account.provider }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

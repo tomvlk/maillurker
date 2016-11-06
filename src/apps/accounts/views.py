@@ -1,10 +1,9 @@
-import importlib
-
 from django.conf import settings
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 from django.views.generic import TemplateView, View
+from rest_framework.authtoken.models import Token
 
 from apps.accounts.utils import get_social_button
 from . import forms
@@ -68,3 +67,18 @@ class Logout(View):
 	def get(self, request, *args, **kwargs):
 		django_logout(request)
 		return redirect('/')
+
+
+class Details(TemplateView):
+	template_name = 'accounts/details.html'
+
+	def get_context_data(self, **kwargs):
+
+		token, _ = Token.objects.get_or_create(user=self.request.user)
+		social_accounts = self.request.user.social_auth.all()
+
+		return {
+			'user': self.request.user,
+			'token': token,
+			'social_accounts': social_accounts
+		}

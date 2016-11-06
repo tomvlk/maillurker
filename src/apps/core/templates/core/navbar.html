@@ -38,6 +38,12 @@
                                     </a>
                                 </li>
                             {% endif %}
+                            <li>
+                                <a href="{% url 'accounts:details' %}">
+                                    <i class="fa fa-user"></i>&nbsp;
+                                    My Account
+                                </a>
+                            </li>
                             <li role="separator" class="divider"></li>
                             <li>
                                 <a href="{% url 'accounts:logout' %}">

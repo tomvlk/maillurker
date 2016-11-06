@@ -3,6 +3,9 @@ TEST = True
 # Generate unique secret key.
 SECRET_KEY = '7=999^z!d6ysczgfsdfa3got@u$5b$hhew=24!m27f_c$-+x7mm*'
 
+# Generate your own API key. Set False to disable API Access by global token.
+API_KEY = 'm3kuS2gLOY1htvwfS0e4T9n40xbgkE7LJOD072vX51BtQ4l7AOMvf4N1ethidd5i'
+
 # Turn debug on or off
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
