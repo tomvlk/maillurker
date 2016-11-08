@@ -1,5 +1,10 @@
 from datetime import timedelta
 
+# Allowed hosts
+ALLOWED_HOSTS = (
+	'maillurker.example.nl',
+)
+
 # Generate unique secret key.
 SECRET_KEY = 'changeme'
 

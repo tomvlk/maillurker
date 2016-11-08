@@ -15,6 +15,7 @@ DOCS_ROOT = os.path.join(BASE_DIR, '../docs/build/html')
 INTERNAL_IPS = (
 	'127.0.0.1',
 )
+ALLOWED_HOSTS = local.ALLOWED_HOSTS
 
 try:
 	os.makedirs(TMP_DIR)
