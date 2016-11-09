@@ -95,7 +95,7 @@ class Lurker(smtpd.SMTPServer):
 			logger.info('Cleanup deleted \'{}\' old messages.'.format(num_deleted))
 
 		# Schedule next cleanup task.
-		Lurker.CLEANER = threading.Timer(6, Lurker.clean)
+		Lurker.CLEANER = threading.Timer(3600, Lurker.clean)
 		Lurker.CLEANER.start()
 
 	@staticmethod
@@ -135,7 +135,7 @@ class Lurker(smtpd.SMTPServer):
 		Lurker.INSTANCE = Lurker((settings.SMTPD_ADDRESS, settings.SMTPD_PORT), None)
 
 		if cleaner:
-			Lurker.CLEANER = threading.Timer(6, Lurker.clean)
+			Lurker.CLEANER = threading.Timer(3600, Lurker.clean)
 			Lurker.CLEANER.start()
 
 		if threaded:
