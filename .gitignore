@@ -152,3 +152,6 @@ ENV/
 
 docs/build
 tools/gh-pages
+
+/init-server.sh
+/init-lurker.sh
