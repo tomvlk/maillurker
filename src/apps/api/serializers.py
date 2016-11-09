@@ -54,7 +54,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
 # API V1 Serializers
 class FilterSetAdvancedSerializer(serializers.ModelSerializer):
-	id = serializers.IntegerField(default=None)
+	id = serializers.IntegerField(default=None, allow_null=True)
 	name = serializers.CharField()
 	created_by = serializers.PrimaryKeyRelatedField(read_only=True)
 	is_global = serializers.BooleanField()
@@ -76,7 +76,7 @@ class FilterSetAdvancedSerializer(serializers.ModelSerializer):
 
 
 class RuleAdvancedSerializer(serializers.ModelSerializer):
-	id = serializers.IntegerField(default=None)
+	id = serializers.IntegerField(default=None, allow_null=True)
 
 	filter_set = serializers.HyperlinkedRelatedField(
 		read_only=False,
