@@ -1,8 +1,10 @@
 import asyncore
+import base64
 import smtpd
 import email
 import logging
 import threading
+from email.header import decode_header
 from time import sleep
 
 from django.conf import settings
@@ -45,7 +47,7 @@ class Lurker(smtpd.SMTPServer):
 				recipients_to=self.parse_addresses(msg.get_all('To', [])),
 				recipients_cc=self.parse_addresses(msg.get_all('Cc', [])),
 				recipients_bcc=self.parse_addresses(msg.get_all('Bcc', [])),
-				subject=msg.get('Subject'),
+				subject=Lurker.clean_international_string(msg.get('Subject')),
 				source=data,
 				size=len(data),
 				type=msg.get_content_type(),
@@ -99,6 +101,18 @@ class Lurker(smtpd.SMTPServer):
 		Lurker.CLEANER.start()
 
 	@staticmethod
+	def clean_international_string(entry):
+		# Remove the prefix and suffix if exists.
+		prefix = '=?UTF-8?B?'
+		suffix = '?='
+
+		if prefix in entry and suffix in entry:
+			middle = entry[len(prefix):len(entry)-len(suffix)]
+			decoded = base64.b64decode(middle)
+			return decoded.decode('utf-8')
+		return entry
+
+	@staticmethod
 	def parse_addresses(raw):
 		"""
 		Parse Addresses
@@ -108,7 +122,12 @@ class Lurker(smtpd.SMTPServer):
 		if type(raw) is not list:
 			raw = [raw]
 
-		return email.utils.getaddresses(raw)
+		addresses = list()
+
+		for entry in raw:
+			addresses.append(Lurker.clean_international_string(entry))
+
+		return email.utils.getaddresses(addresses)
 
 	@staticmethod
 	def parse_address(raw):
@@ -117,7 +136,7 @@ class Lurker(smtpd.SMTPServer):
 		:param raw:
 		:return:
 		"""
-		return list(email.utils.parseaddr(raw))
+		return list(email.utils.parseaddr(Lurker.clean_international_string(raw)))
 
 	@staticmethod
 	def start(test=False, threaded=False, cleaner=False):
