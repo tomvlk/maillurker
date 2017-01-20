@@ -21,6 +21,8 @@ class Lurker(smtpd.SMTPServer):
 	THREAD = None
 	CLEANER = None
 
+	enable_SMTPUTF8 = True
+
 	def process_message(self, peer, mailfrom, rcpttos, data, **kwargs):
 		"""
 		Process and save message
