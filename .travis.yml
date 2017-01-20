@@ -11,9 +11,6 @@ cache: pip
 services:
   - mysql
 
-env:
-  - DJANGO=1.8.16
-
 before_install:
   - export DJANGO_SETTINGS_MODULE=config.settings
 
@@ -40,5 +37,3 @@ after_success:
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - python: '3.6-dev'
