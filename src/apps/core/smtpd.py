@@ -39,6 +39,8 @@ class Lurker(smtpd.SMTPServer):
 			raise Exception('No content given!')
 
 		parser = Parser()
+		if isinstance(data, bytes):
+			data = data.decode()
 		msg = parser.parsestr(data)
 		sender = self.parse_address(msg.get('From'))
 
