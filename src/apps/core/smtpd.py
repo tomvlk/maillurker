@@ -5,6 +5,7 @@ import email
 import logging
 import threading
 from email.header import decode_header
+from email.parser import Parser
 from time import sleep
 
 from django.conf import settings
@@ -34,7 +35,11 @@ class Lurker(smtpd.SMTPServer):
 		:param kwargs:
 		:return:
 		"""
-		msg = email.message_from_string(data)
+		if not data:
+			raise Exception('No content given!')
+
+		parser = Parser()
+		msg = parser.parsestr(data)
 		sender = self.parse_address(msg.get('From'))
 
 		# Start transaction of inserting message and parts.
