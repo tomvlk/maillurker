@@ -190,7 +190,7 @@
 
 <span class="c1"># API V1 Serializers</span>
 <div class="viewcode-block" id="FilterSetAdvancedSerializer"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.FilterSetAdvancedSerializer">[docs]</a><span class="k">class</span> <span class="nc">FilterSetAdvancedSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
-	<span class="nb">id</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+	<span class="nb">id</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 	<span class="n">name</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">CharField</span><span class="p">()</span>
 	<span class="n">created_by</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">PrimaryKeyRelatedField</span><span class="p">(</span><span class="n">read_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 	<span class="n">is_global</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">BooleanField</span><span class="p">()</span>
@@ -212,7 +212,7 @@
 
 
 <div class="viewcode-block" id="RuleAdvancedSerializer"><a class="viewcode-back" href="../../../apps/index.html#apps.api.serializers.RuleAdvancedSerializer">[docs]</a><span class="k">class</span> <span class="nc">RuleAdvancedSerializer</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">ModelSerializer</span><span class="p">):</span>
-	<span class="nb">id</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+	<span class="nb">id</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 	<span class="n">filter_set</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">HyperlinkedRelatedField</span><span class="p">(</span>
 		<span class="n">read_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>

@@ -152,7 +152,7 @@
 <span class="kn">from</span> <span class="nn">apps.mails.models</span> <span class="k">import</span> <span class="n">Message</span><span class="p">,</span> <span class="n">MessagePart</span>
 
 
-<div class="viewcode-block" id="MailList"><a class="viewcode-back" href="../../../apps/mails.html#apps.mails.views.MailList">[docs]</a><span class="k">class</span> <span class="nc">MailList</span><span class="p">(</span><span class="n">TemplateView</span><span class="p">):</span>
+<div class="viewcode-block" id="MailList"><a class="viewcode-back" href="../../../apps/index.html#apps.mails.views.MailList">[docs]</a><span class="k">class</span> <span class="nc">MailList</span><span class="p">(</span><span class="n">TemplateView</span><span class="p">):</span>
 	<span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mails/list.html&#39;</span>
 	<span class="n">sortable_columns</span> <span class="o">=</span> <span class="p">{</span>
 		<span class="s1">&#39;from&#39;</span><span class="p">:</span> <span class="s1">&#39;sender_address&#39;</span><span class="p">,</span>
@@ -162,7 +162,7 @@
 		<span class="s1">&#39;received&#39;</span><span class="p">:</span> <span class="s1">&#39;created_at&#39;</span><span class="p">,</span>
 	<span class="p">}</span>
 
-<div class="viewcode-block" id="MailList.get_context_data"><a class="viewcode-back" href="../../../apps/mails.html#apps.mails.views.MailList.get_context_data">[docs]</a>	<span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="MailList.get_context_data"><a class="viewcode-back" href="../../../apps/index.html#apps.mails.views.MailList.get_context_data">[docs]</a>	<span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 		<span class="c1"># Search</span>
 		<span class="n">search</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
@@ -264,8 +264,8 @@
 		<span class="p">}</span></div></div>
 
 
-<div class="viewcode-block" id="MailDownload"><a class="viewcode-back" href="../../../apps/mails.html#apps.mails.views.MailDownload">[docs]</a><span class="k">class</span> <span class="nc">MailDownload</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
-<div class="viewcode-block" id="MailDownload.get"><a class="viewcode-back" href="../../../apps/mails.html#apps.mails.views.MailDownload.get">[docs]</a>	<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">mail_ids</span><span class="p">):</span>
+<div class="viewcode-block" id="MailDownload"><a class="viewcode-back" href="../../../apps/index.html#apps.mails.views.MailDownload">[docs]</a><span class="k">class</span> <span class="nc">MailDownload</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+<div class="viewcode-block" id="MailDownload.get"><a class="viewcode-back" href="../../../apps/index.html#apps.mails.views.MailDownload.get">[docs]</a>	<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">mail_ids</span><span class="p">):</span>
 		<span class="n">mail_ids</span> <span class="o">=</span> <span class="n">mail_ids</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
 		<span class="n">stream</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
 		<span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
@@ -281,10 +281,10 @@
 		<span class="k">return</span> <span class="n">resp</span></div></div>
 
 
-<div class="viewcode-block" id="MailPart"><a class="viewcode-back" href="../../../apps/mails.html#apps.mails.views.MailPart">[docs]</a><span class="k">class</span> <span class="nc">MailPart</span><span class="p">(</span><span class="n">TemplateView</span><span class="p">):</span>
+<div class="viewcode-block" id="MailPart"><a class="viewcode-back" href="../../../apps/index.html#apps.mails.views.MailPart">[docs]</a><span class="k">class</span> <span class="nc">MailPart</span><span class="p">(</span><span class="n">TemplateView</span><span class="p">):</span>
 	<span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mails/part.html&#39;</span>
 
-<div class="viewcode-block" id="MailPart.get"><a class="viewcode-back" href="../../../apps/mails.html#apps.mails.views.MailPart.get">[docs]</a>	<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">mail_id</span><span class="p">,</span> <span class="n">part_id</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="MailPart.get"><a class="viewcode-back" href="../../../apps/index.html#apps.mails.views.MailPart.get">[docs]</a>	<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">mail_id</span><span class="p">,</span> <span class="n">part_id</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 		<span class="k">try</span><span class="p">:</span>
 			<span class="n">message</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">mail_id</span><span class="p">))</span>
 			<span class="n">part</span> <span class="o">=</span> <span class="n">MessagePart</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">part_id</span><span class="p">),</span> <span class="n">message_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">mail_id</span><span class="p">))</span>
@@ -297,12 +297,12 @@
 		<span class="p">})</span></div></div>
 
 
-<div class="viewcode-block" id="MailPartBody"><a class="viewcode-back" href="../../../apps/mails.html#apps.mails.views.MailPartBody">[docs]</a><span class="k">class</span> <span class="nc">MailPartBody</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+<div class="viewcode-block" id="MailPartBody"><a class="viewcode-back" href="../../../apps/index.html#apps.mails.views.MailPartBody">[docs]</a><span class="k">class</span> <span class="nc">MailPartBody</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
 	<span class="n">cant_display</span> <span class="o">=</span> <span class="p">[</span>
 		<span class="s1">&#39;multipart/alternative&#39;</span><span class="p">,</span> <span class="s1">&#39;multipart/mixed&#39;</span>
 	<span class="p">]</span>
 
-<div class="viewcode-block" id="MailPartBody.get"><a class="viewcode-back" href="../../../apps/mails.html#apps.mails.views.MailPartBody.get">[docs]</a>	<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">mail_id</span><span class="p">,</span> <span class="n">part_id</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="MailPartBody.get"><a class="viewcode-back" href="../../../apps/index.html#apps.mails.views.MailPartBody.get">[docs]</a>	<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">mail_id</span><span class="p">,</span> <span class="n">part_id</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 		<span class="n">response_type</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;response_type&#39;</span><span class="p">)</span>
 		<span class="k">try</span><span class="p">:</span>
 			<span class="n">message</span> <span class="o">=</span> <span class="n">Message</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">mail_id</span><span class="p">))</span>

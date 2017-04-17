@@ -135,10 +135,13 @@
             
   <h1>Source code for apps.core.smtpd</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">asyncore</span>
+<span class="kn">import</span> <span class="nn">base64</span>
 <span class="kn">import</span> <span class="nn">smtpd</span>
 <span class="kn">import</span> <span class="nn">email</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">from</span> <span class="nn">email.header</span> <span class="k">import</span> <span class="n">decode_header</span>
+<span class="kn">from</span> <span class="nn">email.parser</span> <span class="k">import</span> <span class="n">Parser</span>
 <span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">sleep</span>
 
 <span class="kn">from</span> <span class="nn">django.conf</span> <span class="k">import</span> <span class="n">settings</span>
@@ -147,13 +150,15 @@
 
 <span class="kn">from</span> <span class="nn">apps.mails</span> <span class="k">import</span> <span class="n">models</span>
 
-<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="Lurker"><a class="viewcode-back" href="../../../apps/index.html#apps.core.smtpd.Lurker">[docs]</a><span class="k">class</span> <span class="nc">Lurker</span><span class="p">(</span><span class="n">smtpd</span><span class="o">.</span><span class="n">SMTPServer</span><span class="p">):</span>
 	<span class="n">INSTANCE</span> <span class="o">=</span> <span class="kc">None</span>
 	<span class="n">THREAD</span> <span class="o">=</span> <span class="kc">None</span>
 	<span class="n">CLEANER</span> <span class="o">=</span> <span class="kc">None</span>
+
+	<span class="n">enable_SMTPUTF8</span> <span class="o">=</span> <span class="kc">True</span>
 
 <div class="viewcode-block" id="Lurker.process_message"><a class="viewcode-back" href="../../../apps/index.html#apps.core.smtpd.Lurker.process_message">[docs]</a>	<span class="k">def</span> <span class="nf">process_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peer</span><span class="p">,</span> <span class="n">mailfrom</span><span class="p">,</span> <span class="n">rcpttos</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 		<span class="sd">&quot;&quot;&quot;</span>
@@ -166,7 +171,13 @@
 <span class="sd">		:param kwargs:</span>
 <span class="sd">		:return:</span>
 <span class="sd">		&quot;&quot;&quot;</span>
-		<span class="n">msg</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">message_from_string</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+			<span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;No content given!&#39;</span><span class="p">)</span>
+
+		<span class="n">parser</span> <span class="o">=</span> <span class="n">Parser</span><span class="p">()</span>
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+			<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+		<span class="n">msg</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parsestr</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 		<span class="n">sender</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_address</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;From&#39;</span><span class="p">))</span>
 
 		<span class="c1"># Start transaction of inserting message and parts.</span>
@@ -181,7 +192,7 @@
 				<span class="n">recipients_to</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_addresses</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="s1">&#39;To&#39;</span><span class="p">,</span> <span class="p">[])),</span>
 				<span class="n">recipients_cc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_addresses</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="s1">&#39;Cc&#39;</span><span class="p">,</span> <span class="p">[])),</span>
 				<span class="n">recipients_bcc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse_addresses</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="s1">&#39;Bcc&#39;</span><span class="p">,</span> <span class="p">[])),</span>
-				<span class="n">subject</span><span class="o">=</span><span class="n">msg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Subject&#39;</span><span class="p">),</span>
+				<span class="n">subject</span><span class="o">=</span><span class="n">Lurker</span><span class="o">.</span><span class="n">clean_international_string</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Subject&#39;</span><span class="p">)),</span>
 				<span class="n">source</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
 				<span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
 				<span class="nb">type</span><span class="o">=</span><span class="n">msg</span><span class="o">.</span><span class="n">get_content_type</span><span class="p">(),</span>
@@ -231,8 +242,20 @@
 			<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Cleanup deleted </span><span class="se">\&#39;</span><span class="si">{}</span><span class="se">\&#39;</span><span class="s1"> old messages.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_deleted</span><span class="p">))</span>
 
 		<span class="c1"># Schedule next cleanup task.</span>
-		<span class="n">Lurker</span><span class="o">.</span><span class="n">CLEANER</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">Lurker</span><span class="o">.</span><span class="n">clean</span><span class="p">)</span>
+		<span class="n">Lurker</span><span class="o">.</span><span class="n">CLEANER</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="mi">3600</span><span class="p">,</span> <span class="n">Lurker</span><span class="o">.</span><span class="n">clean</span><span class="p">)</span>
 		<span class="n">Lurker</span><span class="o">.</span><span class="n">CLEANER</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+
+	<span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Lurker.clean_international_string"><a class="viewcode-back" href="../../../apps/index.html#apps.core.smtpd.Lurker.clean_international_string">[docs]</a>	<span class="k">def</span> <span class="nf">clean_international_string</span><span class="p">(</span><span class="n">entry</span><span class="p">):</span>
+		<span class="c1"># Remove the prefix and suffix if exists.</span>
+		<span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;=?UTF-8?B?&#39;</span>
+		<span class="n">suffix</span> <span class="o">=</span> <span class="s1">&#39;?=&#39;</span>
+
+		<span class="k">if</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="n">entry</span> <span class="ow">and</span> <span class="n">suffix</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">:</span>
+			<span class="n">middle</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span><span class="nb">len</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">suffix</span><span class="p">)]</span>
+			<span class="n">decoded</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span>
+			<span class="k">return</span> <span class="n">decoded</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">entry</span></div>
 
 	<span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Lurker.parse_addresses"><a class="viewcode-back" href="../../../apps/index.html#apps.core.smtpd.Lurker.parse_addresses">[docs]</a>	<span class="k">def</span> <span class="nf">parse_addresses</span><span class="p">(</span><span class="n">raw</span><span class="p">):</span>
@@ -244,7 +267,12 @@
 		<span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span><span class="p">:</span>
 			<span class="n">raw</span> <span class="o">=</span> <span class="p">[</span><span class="n">raw</span><span class="p">]</span>
 
-		<span class="k">return</span> <span class="n">email</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">getaddresses</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span></div>
+		<span class="n">addresses</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+		<span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">raw</span><span class="p">:</span>
+			<span class="n">addresses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Lurker</span><span class="o">.</span><span class="n">clean_international_string</span><span class="p">(</span><span class="n">entry</span><span class="p">))</span>
+
+		<span class="k">return</span> <span class="n">email</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">getaddresses</span><span class="p">(</span><span class="n">addresses</span><span class="p">)</span></div>
 
 	<span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Lurker.parse_address"><a class="viewcode-back" href="../../../apps/index.html#apps.core.smtpd.Lurker.parse_address">[docs]</a>	<span class="k">def</span> <span class="nf">parse_address</span><span class="p">(</span><span class="n">raw</span><span class="p">):</span>
@@ -253,7 +281,7 @@
 <span class="sd">		:param raw:</span>
 <span class="sd">		:return:</span>
 <span class="sd">		&quot;&quot;&quot;</span>
-		<span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">email</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">parseaddr</span><span class="p">(</span><span class="n">raw</span><span class="p">))</span></div>
+		<span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">email</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">parseaddr</span><span class="p">(</span><span class="n">Lurker</span><span class="o">.</span><span class="n">clean_international_string</span><span class="p">(</span><span class="n">raw</span><span class="p">)))</span></div>
 
 	<span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Lurker.start"><a class="viewcode-back" href="../../../apps/index.html#apps.core.smtpd.Lurker.start">[docs]</a>	<span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">test</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">threaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cleaner</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -271,7 +299,7 @@
 		<span class="n">Lurker</span><span class="o">.</span><span class="n">INSTANCE</span> <span class="o">=</span> <span class="n">Lurker</span><span class="p">((</span><span class="n">settings</span><span class="o">.</span><span class="n">SMTPD_ADDRESS</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">SMTPD_PORT</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
 
 		<span class="k">if</span> <span class="n">cleaner</span><span class="p">:</span>
-			<span class="n">Lurker</span><span class="o">.</span><span class="n">CLEANER</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">Lurker</span><span class="o">.</span><span class="n">clean</span><span class="p">)</span>
+			<span class="n">Lurker</span><span class="o">.</span><span class="n">CLEANER</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Timer</span><span class="p">(</span><span class="mi">3600</span><span class="p">,</span> <span class="n">Lurker</span><span class="o">.</span><span class="n">clean</span><span class="p">)</span>
 			<span class="n">Lurker</span><span class="o">.</span><span class="n">CLEANER</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
 		<span class="k">if</span> <span class="n">threaded</span><span class="p">:</span>
