@@ -139,6 +139,9 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ####
 # Templates & Middleware
 ####
+if 'TEMPLATE_CONTEXT_PROCESSORS' not in globals():
+	TEMPLATE_CONTEXT_PROCESSORS = []
+
 TEMPLATE_CONTEXT_PROCESSORS += (
 	'django.core.context_processors.request',
 	'django.contrib.messages.context_processors.messages',
