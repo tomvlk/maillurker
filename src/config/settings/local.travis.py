@@ -16,7 +16,6 @@ USER_API_KEYS = True
 
 # Turn debug on or off
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 # Authentication options. See example for details
 # See http://psa.matiasaguirre.net/docs/index.html for details on social authentication configuration.

@@ -1,7 +1,6 @@
 from django.apps import AppConfig
 
 from apps.core.menu import Menu, Item
-from apps.mails import models
 
 
 class MailsConfig(AppConfig):

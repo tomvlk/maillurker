@@ -5,18 +5,17 @@ from .base import *
 # Add debug apps.
 ####
 
-INSTALLED_APPS += (
+INSTALLED_APPS += [
 	'debug_toolbar',
-	'django_extensions',
-)
+]
 
-STRONGHOLD_PUBLIC_URLS += (
+STRONGHOLD_PUBLIC_URLS += [
 	'__debug__',
-)
+]
 
-MIDDLEWARE_CLASSES += (
+MIDDLEWARE += [
 	'debug_toolbar.middleware.DebugToolbarMiddleware',
-)
+]
 
 ####
 # Broker

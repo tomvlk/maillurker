@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls import include, url
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
@@ -14,7 +15,7 @@ def redirect_mails(request):
 
 urlpatterns = [
 	url(r'^admin/', include(admin.site.urls)),
-	url('', include('social.apps.django_app.urls', namespace='social')),
+	url('', include('social_django.urls', namespace='social')),
 
 	url(r'^$', redirect_mails, name='home'),
 
@@ -31,7 +32,7 @@ urlpatterns = [
 if settings.DEBUG:
 	import debug_toolbar
 
+	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 	urlpatterns += [
-		url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-		url(r'^__debug__/', include(debug_toolbar.urls)),
+		url(r'^__debug__/', include(debug_toolbar.urls))
 	]

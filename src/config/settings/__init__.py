@@ -15,4 +15,3 @@ else:
 
 # Debug override
 DEBUG = bool(int(os.getenv('DJANGO_IS_DEBUG', True)))
-TEMPLATE_DEBUG = DEBUG

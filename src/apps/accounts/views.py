@@ -1,10 +1,9 @@
 from django.conf import settings
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
-from django.shortcuts import redirect, render_to_response
-from django.template import RequestContext
+from django.shortcuts import redirect, render
 from django.views.generic import TemplateView, View
 from rest_framework.authtoken.models import Token
-from social.apps.django_app.utils import get_backend, BACKENDS
+from social_django.utils import get_backend, BACKENDS
 from stronghold.views import StrongholdPublicMixin
 
 from apps.accounts.utils import get_social_button
@@ -38,11 +37,11 @@ class Login(StrongholdPublicMixin, TemplateView):
 
 		form = forms.LoginForm()
 
-		return render_to_response(self.template_name, {
+		return render(request, self.template_name, {
 			'form': form,
 			'next': redirect_url,
 			'social': self.social_config
-		}, context_instance=RequestContext(request))
+		})
 
 	def post(self, request, *args, **kwargs):
 		form = forms.LoginForm(data=request.POST)
@@ -59,11 +58,11 @@ class Login(StrongholdPublicMixin, TemplateView):
 					return redirect(redirect_url)
 			form.errors['__all__'] = form.error_class(["Email and password combination is wrong"])
 
-		return render_to_response(self.template_name, {
+		return render(request, self.template_name, {
 			'form': form,
 			'next': redirect_url,
 			'social': self.social_config
-		}, context_instance=RequestContext(request))
+		})
 
 
 class Logout(View):
