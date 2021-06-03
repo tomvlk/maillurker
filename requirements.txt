@@ -26,7 +26,7 @@ sphinx_rtd_theme
 django-docs==0.2.1
 
 # API
-djangorestframework==3.7.7
+djangorestframework==3.11.2
 pygments==2.7.4
 
 # Testing and tools
