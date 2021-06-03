@@ -57,7 +57,7 @@ Requirements
 The Mail Lurker requires the following software components:
 
 -  Linux or MacOS
--  Python 3.4+
+-  Python 3.6+
 -  pip
 -  virtualenv
 -  MySQL (Or any other database supported by Django).
